@@ -18,7 +18,8 @@ class KunenaError {
 	function initialize() {
 		if (!self::$enabled) {
 			$debug = JDEBUG || KunenaFactory::getConfig ()->debug;
-			register_shutdown_function('kunenaShutdownHandler', $debug || JFactory::getApplication()->isAdmin());
+			$admin = JFactory::getApplication()->isAdmin() || KunenaFactory::getUser()->isAdmin();
+			register_shutdown_function('kunenaShutdownHandler', $debug || $admin);
 			if (!$debug) return;
 
 			@ini_set('display_errors', 1);

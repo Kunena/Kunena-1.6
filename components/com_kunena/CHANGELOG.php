@@ -35,6 +35,7 @@ Kunena 1.6.5-DEV
 
 4-July-2011 Matias
 # [#7] CB integration: Login and logout doesn't work
+^ [#4] Improve Error handling for administrator
 
 1-July-2011 Matias
 # [#3] Fix Joomla version detection for 1.7+
