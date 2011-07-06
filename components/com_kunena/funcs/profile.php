@@ -682,7 +682,7 @@ class CKunenaProfile {
 			} else {
 				$ban->blocked = $block;
 				$ban->setExpiration ( $expiration, $comment );
-				$ban->setReason ( $reason_private, $reason_public );
+				$ban->setReason ( $reason_public, $reason_private );
 				$success = $ban->save ();
 			}
 		}
