@@ -27,6 +27,10 @@ class CKunenaProfile {
 		$this->my = JFactory::getUser ();
 		$this->do = $do;
 
+		if ($this->do == 'login' || $this->do == 'logout') {
+			return;
+		}
+
 		if (!$userid) {
 			$this->user = $this->my;
 		}
