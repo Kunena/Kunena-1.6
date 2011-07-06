@@ -37,6 +37,7 @@ Kunena 1.6.5-DEV
 # [#3] Fix Joomla version detection for 1.7+
 # [#1] Joomla 1.6: JomSocial ActivityStream broken
 ^ [#4] Improve Error handling in Kunena administration
+# [#5] Wrong user count in statistics
 
 23-June-2011 Matias
 # [#26236] Fix Kunena Internal Error on ill-formed attachments
