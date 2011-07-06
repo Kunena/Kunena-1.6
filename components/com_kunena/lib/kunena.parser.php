@@ -672,7 +672,7 @@ class KunenaBBCodeInterpreter extends BBCodeInterpreter {
 						} else {
 							$html = JText::_("Article cannot be shown");
 						}
-					} elseif ($jversion->RELEASE == '1.6') {
+					} else {
 						$query = 'SELECT a.*, u.name AS author, u.usertype, cc.title AS category, cc.published AS cat_pub, cc.access AS cat_access
 							FROM #__content AS a
 							LEFT JOIN #__categories AS cc ON cc.id = a.catid
@@ -717,14 +717,14 @@ class KunenaBBCodeInterpreter extends BBCodeInterpreter {
 							case 'full':
 								if ( !empty($article->fulltext) ) {
 									$article->text = $article->introtext. ' '. $article->fulltext;
-									$link = '<a href="'.$url.'" class="readon">'.JText::_('COM_KUNENA_ARTICLE_READMORE').'</a>';
+									$link = '<a href="'.$url.'" class="readon">'.JText::_('COM_KUNENA_READMORE').'</a>';
 							break;
 								}
 							// continue to intro
 							case 'intro':
 								if ( !empty($article->introtext) ) {
 									$article->text = $article->introtext;
-									$link = '<a href="'.$url.'" class="readon">'.JText::_('COM_KUNENA_ARTICLE_READMORE').'</a>';
+									$link = '<a href="'.$url.'" class="readon">'.JText::_('COM_KUNENA_READMORE').'</a>';
 							break;
 								}
 							// continue to link

@@ -27,6 +27,10 @@ class CKunenaProfile {
 		$this->my = JFactory::getUser ();
 		$this->do = $do;
 
+		if ($this->do == 'login' || $this->do == 'logout') {
+			return;
+		}
+
 		if (!$userid) {
 			$this->user = $this->my;
 		}
@@ -190,7 +194,7 @@ class CKunenaProfile {
 				$this->userparameters[$i]->label = '<label for="params'.$userparam[5].'" title="'.$userparam[2].'">'.$userparam[0].'</label>';
 				$i++;
 			}
-		} elseif ($jversion->RELEASE == '1.6' && JComponentHelper::getParams('com_users')->get('frontend_userparams')) {
+		} elseif ($jversion->RELEASE >= '1.6' && JComponentHelper::getParams('com_users')->get('frontend_userparams')) {
 			$usersConfig = JComponentHelper::getParams( 'com_users' );
 			if ($usersConfig->get('frontend_userparams', 0)) {
 				$lang = JFactory::getLanguage();
@@ -466,7 +470,7 @@ class CKunenaProfile {
 				unset($post[$field]);
 		}
 
-		if ( $jversion->RELEASE == '1.6' ) {
+		if ( $jversion->RELEASE >= '1.6' ) {
 			jimport('joomla.user.helper');
 			$result = JUserHelper::getUserGroups($user->id);
 
@@ -682,7 +686,7 @@ class CKunenaProfile {
 			} else {
 				$ban->blocked = $block;
 				$ban->setExpiration ( $expiration, $comment );
-				$ban->setReason ( $reason_private, $reason_public );
+				$ban->setReason ( $reason_public, $reason_private );
 				$success = $ban->save ();
 			}
 		}

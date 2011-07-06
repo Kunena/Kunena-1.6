@@ -18,7 +18,7 @@ function kunena_upgrade_160_old_mt12($parent) {
 
 	jimport ( 'joomla.version' );
 	$jversion = new JVersion ();
-	if ($jversion->RELEASE == 1.5 && is_dir ( JPATH_ROOT . '/plugins/system/mootools12' )) {
+	if ($jversion->RELEASE == '1.5' && is_dir ( JPATH_ROOT . '/plugins/system/mootools12' )) {
 		$query = "SELECT id FROM #__plugins WHERE element='mootools12'";
 		$parent->db->setQuery ( $query );
 		$id = $parent->db->loadResult ();

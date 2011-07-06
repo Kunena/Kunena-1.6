@@ -28,6 +28,7 @@ $task = JRequest::getCmd ( 'task' );
 
 require_once (JPATH_ADMINISTRATOR . '/components/com_kunena/api.php');
 kimport('error');
+KunenaError::initialize();
 
 $kunena_app = & JFactory::getApplication ();
 
@@ -1144,7 +1145,7 @@ function editForum($id, $option) {
 	$lists = array ();
 	$accessLists = array ();
 	//create custom group levels to include into the public group selectList
-	if ($jversion->RELEASE == 1.5) {
+	if ($jversion->RELEASE == '1.5') {
 		$pub_groups = array ();
 		$adm_groups = array ();
 		$pub_groups [] = JHTML::_ ( 'select.option', 1, JText::_('COM_KUNENA_NOBODY') );
@@ -3322,7 +3323,7 @@ function getJoomlaTemplate($jversion) {
 		$templatedetails->author = $templateauthor->data();
 		$templateversion = $xml_tmpl->document->version[0];
 		$templatedetails->version = $templateversion->data();
-	} elseif ($jversion->RELEASE == '1.6') {
+	} else {
 		$templatedetails = new stdClass();
 		// Get Joomla! frontend assigned template for Joomla! 1.6
 		$query = " SELECT template,title "
@@ -3368,7 +3369,7 @@ function getJoomlaMenuDetails($jversion) {
 		foreach($kmenustype as $item) {
 			$joomlamenudetails .= '[tr][td]'.$item->id.' [/td][td] '.$item->name.' [/td][td] '.$item->alias.' [/td][td] '.$item->menutype.' [/td][td] '.$item->link.' [/td][td] '.$item->parent.'[/td][/tr] ';
 		}
-	} elseif ($jversion->RELEASE == '1.6') {
+	} else {
 		// Get Kunena extension id
 		$query = "SELECT extension_id "
 				." FROM #__extensions "
