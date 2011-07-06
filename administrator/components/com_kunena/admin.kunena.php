@@ -28,6 +28,7 @@ $task = JRequest::getCmd ( 'task' );
 
 require_once (JPATH_ADMINISTRATOR . '/components/com_kunena/api.php');
 kimport('error');
+KunenaError::initialize();
 
 $kunena_app = & JFactory::getApplication ();
 
