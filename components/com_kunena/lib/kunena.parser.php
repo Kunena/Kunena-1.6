@@ -672,7 +672,7 @@ class KunenaBBCodeInterpreter extends BBCodeInterpreter {
 						} else {
 							$html = JText::_("Article cannot be shown");
 						}
-					} elseif ($jversion->RELEASE == '1.6') {
+					} else {
 						$query = 'SELECT a.*, u.name AS author, u.usertype, cc.title AS category, cc.published AS cat_pub, cc.access AS cat_access
 							FROM #__content AS a
 							LEFT JOIN #__categories AS cc ON cc.id = a.catid

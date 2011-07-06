@@ -20,7 +20,7 @@ class KunenaAccessJoomla16 extends KunenaAccess {
 
 	function __construct() {
 		$jversion = new JVersion ();
-		if ($jversion->RELEASE != '1.6')
+		if ($jversion->RELEASE < '1.6')
 			return null;
 		$this->priority = 25;
 	}

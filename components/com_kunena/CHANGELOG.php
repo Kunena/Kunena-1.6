@@ -33,6 +33,9 @@ Legend:
 
 Kunena 1.6.5-DEV
 
+1-July-2011 Matias
+# [#3] Fix Joomla version detection for 1.7+
+
 23-June-2011 Matias
 # [#26236] Fix Kunena Internal Error on ill-formed attachments
 # [#26237] Fix Kunena login/logout form URL for sh404SEF
