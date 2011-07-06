@@ -717,14 +717,14 @@ class KunenaBBCodeInterpreter extends BBCodeInterpreter {
 							case 'full':
 								if ( !empty($article->fulltext) ) {
 									$article->text = $article->introtext. ' '. $article->fulltext;
-									$link = '<a href="'.$url.'" class="readon">'.JText::_('COM_KUNENA_ARTICLE_READMORE').'</a>';
+									$link = '<a href="'.$url.'" class="readon">'.JText::_('COM_KUNENA_READMORE').'</a>';
 							break;
 								}
 							// continue to intro
 							case 'intro':
 								if ( !empty($article->introtext) ) {
 									$article->text = $article->introtext;
-									$link = '<a href="'.$url.'" class="readon">'.JText::_('COM_KUNENA_ARTICLE_READMORE').'</a>';
+									$link = '<a href="'.$url.'" class="readon">'.JText::_('COM_KUNENA_READMORE').'</a>';
 							break;
 								}
 							// continue to link

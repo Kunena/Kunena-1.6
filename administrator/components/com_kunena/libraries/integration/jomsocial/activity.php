@@ -22,6 +22,34 @@ class KunenaActivityJomSocial extends KunenaActivity {
 			return;
 		$this->priority = 40;
 		$this->_config = KunenaFactory::getConfig ();
+		$this->jversion = new JVersion ();
+	}
+
+	protected function getAccess($group) {
+		// Activity access level: 0 = public, 20 = registered, 30 = friend, 40 = private
+		if ($this->jversion->RELEASE == '1.5') {
+			if ($message->parent->pub_access == 0) {
+				// Public
+				$act->access = 0;
+			} elseif ($message->parent->pub_access == -1 || $message->parent->pub_access == 18) {
+				// Registered
+				$act->access = 20;
+			} else {
+				// Other groups (=private)
+				$act->access = 40;
+			}
+		} else {
+			if ($message->parent->pub_access == 1) {
+				// Public
+				$act->access = 0;
+			} elseif ( $message->parent->pub_access == 2) {
+				// Registered
+				$act->access = 20;
+			} else {
+				// Other groups (=private)
+				$act->access = 40;
+			}
+		}
 	}
 
 	public function onAfterPost($message) {
@@ -29,7 +57,7 @@ class KunenaActivityJomSocial extends KunenaActivity {
 		CUserPoints::assignPoint ( 'com_kunena.thread.new' );
 
 		// Check for permisions of the current category - activity only if public or registered
-		if (! empty ( $message->parent ) && ($message->parent->pub_access == 0 || $message->parent->pub_access == - 1)) {
+		if (! empty ( $message->parent )) {
 			//activity stream  - new post
 			require_once KPATH_SITE.'/lib/kunena.link.class.php';
 			require_once KPATH_SITE.'/lib/kunena.smile.class.php';
@@ -38,7 +66,7 @@ class KunenaActivityJomSocial extends KunenaActivity {
 			$kunena_emoticons = smile::getEmoticons ( 0 ); // use colored emoticons for the activity stream
 
 			$content = $message->get ( 'message' );
-			
+
 			// Strip content not allowed for guests
 			$content = preg_replace ( '/\[hide\](.*?)\[\/hide\]/s', '', $content );
 			$content = preg_replace ( '/\[confidential\](.*?)\[\/confidential\]/s', '', $content );
@@ -46,7 +74,7 @@ class KunenaActivityJomSocial extends KunenaActivity {
 			$content = preg_replace ( '/\[\/spoiler\]/s', '[/spoilerlight]', $content );
 			$content = preg_replace ( '/\[attachment(.*?)\](.*?)\[\/attachment\]/s', '', $content );
 			$content = preg_replace ( '/\[code\](.*?)\[\/code]/s', '', $content );
-			
+
 			// limit activity stream output if limit is set
 			if ($this->_config->activity_limit > 0){
 				$content = JString::substr($content, 0, $this->_config->activity_limit);
@@ -58,7 +86,7 @@ class KunenaActivityJomSocial extends KunenaActivity {
 			// Add readmore link
 			$content .= '<br /><a href="'.
 					CKunenaLink::GetMessageURL($message->get ( 'id' )).
-					'" class="small profile-newsfeed-item-action">'.JText::sprintf('Read more...').'</a>';
+					'" class="small profile-newsfeed-item-action">'.JText::_('COM_KUNENA_READMORE').'</a>';
 
 			$act = new stdClass ();
 			$act->cmd = 'wall.write';
@@ -66,15 +94,9 @@ class KunenaActivityJomSocial extends KunenaActivity {
 			$act->target = 0; // no target
 			$act->title = JText::_ ( '{actor} ' . JText::_ ( 'COM_KUNENA_JS_ACTIVITYSTREAM_CREATE_MSG1' ) . ' <a href="' . $JSPostLink . '">' . $message->get ( 'subject' ) . '</a> ' . JText::_ ( 'COM_KUNENA_JS_ACTIVITYSTREAM_CREATE_MSG2' ) );
 			$act->content = $content;
-			$act->app = 'wall';
-			$act->cid = 0;
-
-			// jomsocial 0 = public, 20 = registered members
-			if ($message->parent->pub_access == 0) {
-				$act->access = 0;
-			} else {
-				$act->access = 20;
-			}
+			$act->app = 'kunena.post';
+			$act->cid = $message->get ( 'thread' );
+			$act->access = $this->getAccess($message->parent->pub_access);
 
 			CFactory::load ( 'libraries', 'activities' );
 			CActivityStream::add ( $act );
@@ -86,7 +108,7 @@ class KunenaActivityJomSocial extends KunenaActivity {
 		CUserPoints::assignPoint ( 'com_kunena.thread.reply' );
 
 		// Check for permisions of the current category - activity only if public or registered
-		if (! empty ( $message->parent ) && ($message->parent->pub_access == 0 || $message->parent->pub_access == - 1)) {
+		if (! empty ( $message->parent )) {
 			//activity stream - reply post
 			require_once KPATH_SITE.'/lib/kunena.link.class.php';
 			require_once KPATH_SITE.'/lib/kunena.smile.class.php';
@@ -95,7 +117,7 @@ class KunenaActivityJomSocial extends KunenaActivity {
 			$kunena_emoticons = smile::getEmoticons ( 0 );
 
 			$content = $message->get ( 'message' );
-			
+
 			// Strip content not allowed for guests
 			$content = preg_replace ( '/\[hide\](.*?)\[\/hide\]/s', '', $content );
 			$content = preg_replace ( '/\[confidential\](.*?)\[\/confidential\]/s', '', $content );
@@ -103,7 +125,7 @@ class KunenaActivityJomSocial extends KunenaActivity {
 			$content = preg_replace ( '/\[\/spoiler\]/s', '[/spoilerlight]', $content );
 			$content = preg_replace ( '/\[attachment(.*?)\](.*?)\[\/attachment\]/s', '', $content );
 			$content = preg_replace ( '/\[code\](.*?)\[\/code]/s', '', $content );
-			
+
 			// limit activity stream output if limit is set
 			if ($this->_config->activity_limit > 0){
 				$content = JString::substr($content, 0, $this->_config->activity_limit);
@@ -115,7 +137,7 @@ class KunenaActivityJomSocial extends KunenaActivity {
 			// Add readmore link
 			$content .= '<br /><a href="'.
 					CKunenaLink::GetMessageURL($message->get ( 'id' )).
-					'" class="small profile-newsfeed-item-action">'.JText::sprintf('Read more...').'</a>';
+					'" class="small profile-newsfeed-item-action">'.JText::_('COM_KUNENA_READMORE').'</a>';
 
 			$act = new stdClass ();
 			$act->cmd = 'wall.write';
@@ -123,15 +145,9 @@ class KunenaActivityJomSocial extends KunenaActivity {
 			$act->target = 0; // no target
 			$act->title = JText::_ ( '{single}{actor}{/single}{multiple}{actors}{/multiple} ' . JText::_ ( 'COM_KUNENA_JS_ACTIVITYSTREAM_REPLY_MSG1' ) . ' <a href="' . $JSPostLink . '">' . $message->get ( 'subject' ) . '</a> ' . JText::_ ( 'COM_KUNENA_JS_ACTIVITYSTREAM_REPLY_MSG2' ) );
 			$act->content = $content;
-			$act->app = 'wall';
-			$act->cid = 0;
-
-			// jomsocial 0 = public, 20 = registered members
-			if ($message->parent->pub_access == 0) {
-				$act->access = 0;
-			} else {
-				$act->access = 20;
-			}
+			$act->app = 'kunena.post';
+			$act->cid = $message->get ( 'thread' );
+			$act->access = $this->getAccess($message->parent->pub_access);
 
 			CFactory::load ( 'libraries', 'activities' );
 			CActivityStream::add ( $act );
@@ -142,8 +158,7 @@ class KunenaActivityJomSocial extends KunenaActivity {
 		CFactory::load ( 'libraries', 'userpoints' );
 		CUserPoints::assignPoint ( 'com_kunena.thread.thankyou', $thankyoutargetid );
 
-		// Check for permisions of the current category - activity only if public or registered
-		if ($message->parent->pub_access == 0 || $message->parent->pub_access == - 1) {
+		if (! empty ( $message->parent )) {
 			//activity stream - reply post
 			require_once KPATH_SITE.'/lib/kunena.link.class.php';
 			require_once KPATH_SITE.'/lib/kunena.smile.class.php';
@@ -155,15 +170,9 @@ class KunenaActivityJomSocial extends KunenaActivity {
 			$act->target = $thankyoutargetid;
 			$act->title = JText::_ ( '{single}{actor}{/single}{multiple}{actors}{/multiple} ' . JText::_( 'COM_KUNENA_JS_ACTIVITYSTREAM_THANKYOU' ).' <a href="' . $JSPostLink . '">' . $message->get ( 'subject' ) . '</a> ' . JText::_ ( 'COM_KUNENA_JS_ACTIVITYSTREAM_REPLY_MSG2' ) );
 			$act->content = NULL;
-			$act->app = 'wall';
-			$act->cid = 0;
-
-			// jomsocial 0 = public, 20 = registered members
-			if ($message->parent->pub_access == 0) {
-				$act->access = 0;
-			} else {
-				$act->access = 20;
-			}
+			$act->app = 'kunena.thankyou';
+			$act->cid = $thankyoutargetid;
+			$act->access = $this->getAccess($message->parent->pub_access);
 
 			CFactory::load ( 'libraries', 'activities' );
 			CActivityStream::add ( $act );
