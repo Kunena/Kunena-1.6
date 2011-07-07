@@ -1,22 +1,9 @@
-/**
-* @version $Id$
-* Kunena Component
-* @package Kunena
-* @Copyright (C) 2008-2011 Kunena All rights reserved.
-* @license http://www.gnu.org/copyleft/gpl.html GNU/GPL
-* @link http://www.kunena.org
-**/
-
-Kunena README
-
-PLEASE READ THIS ENTIRE FILE BEFORE INSTALLING Kunena @kunenaversion@!
-
 Introduction
 ============
 
-The Kunena Team is excited to announce the release of Kunena 1.6.4. This is a 
+The Kunena Team is excited to announce the release of Kunena @kunenaversion@. This is a 
 maintenance release for Kunena 1.6 and all users are recommended to upgrade to 
-Kunena 1.6.4, which provides native support for Joomla 1.6. This release also 
+Kunena @kunenaversion@, which provides native support for Joomla 1.6. This release also 
 brings a number of new features like threaded view in topics, subscription 
 options, and more options for deleting/trashing posts.
 Since the stable release of Kunena 1.6, the Kunena Team has been focused on 

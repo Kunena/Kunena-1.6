@@ -123,7 +123,7 @@
 			<fileset dir="${project_dir}/media" />
 		</copy>	
 		<copy todir="${tmp_dir}">
-			<fileset file="${project_dir}/README.txt" />
+			<fileset file="${project_dir}/README.md" />
 		</copy>	
 	</target>
 
@@ -138,7 +138,7 @@
 		<move file="${tmp_dir}/${kunena.backend}/${cfg.name}.j16.xml" todir="${build_dir}" overwrite="true" filtering="true" />
 		<move file="${tmp_dir}/${kunena.frontend}/COPYRIGHT.php" todir="${build_dir}" overwrite="true" filtering="true" />
 		<move file="${tmp_dir}/${kunena.frontend}/CHANGELOG.php" todir="${build_dir}" overwrite="true" filtering="false" />
-		<move file="${tmp_dir}/README.txt" todir="${build_dir}" overwrite="true" filtering="true" />
+		<move file="${tmp_dir}/README.md" tofile="${build_dir}/README.txt" overwrite="true" filtering="true" />
 		<copy file="${project_dir}/${kunena.frontend}/lib/kunena.defines.php" todir="${tmp_dir}/${kunena.frontend}/lib" overwrite="true" filtering="true" />
 		<copy file="${project_dir}/${kunena.backend}/libraries/api.php" todir="${tmp_dir}/${kunena.backend}/libraries" overwrite="true" filtering="true" />
 		<copy file="${project_dir}/${kunena.frontend}/template/default/template.xml" todir="${tmp_dir}/${kunena.frontend}/template/default" overwrite="true" filtering="true" />		
