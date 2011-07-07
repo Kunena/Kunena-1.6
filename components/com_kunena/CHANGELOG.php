@@ -33,6 +33,9 @@ Legend:
 
 Kunena 1.6.5-DEV
 
+7-July-2011 fxstein
+^ [#10] Updated README.md for github (and builder)
+
 4-July-2011 Matias
 # [#7] CB integration: Login and logout doesn't work
 ^ [#4] Improve Error handling for administrator
