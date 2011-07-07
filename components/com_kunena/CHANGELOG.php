@@ -35,6 +35,7 @@ Kunena 1.6.5-DEV
 
 7-July-2011 fxstein
 ^ [#10] Updated README.md for github (and builder)
+^ [#9] Increase avatar database column to 255 - to support longer paths from conversions
 
 4-July-2011 Matias
 # [#7] CB integration: Login and logout doesn't work

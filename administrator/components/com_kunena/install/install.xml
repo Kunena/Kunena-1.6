@@ -374,7 +374,7 @@
     <field name="banned" type="datetime" null="1"/>
     <field name="ordering" type="int(11)" null="1" default="0"/>
     <field name="posts" type="int(11)" null="1" default="0"/>
-    <field name="avatar" type="varchar(50)" null="1"/>
+    <field name="avatar" type="varchar(255)" null="1"/>
     <field name="karma" type="int(11)" null="1" default="0"/>
     <field name="karma_time" type="int(11)" null="1" default="0"/>
     <field name="group_id" type="int(4)" null="1" default="1"/>
