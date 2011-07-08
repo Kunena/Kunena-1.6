@@ -33,6 +33,9 @@ Legend:
 
 Kunena 1.6.5-DEV
 
+8-July-2011 Xillibit
+# [#14] Category manager set item unpublished when filtered
+
 7-July-2011 fxstein
 ^ [#10] Updated README.md for github (and builder)
 ^ [#9] Increase avatar database column to 255 - to support longer paths from conversions
