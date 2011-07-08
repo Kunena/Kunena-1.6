@@ -32,6 +32,8 @@ Legend:
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 Kunena 1.6.5-DEV
+09-July-2011 lorddarkangel
+^ [#16] fixing en-GB for transifex
 
 7-July-2011 fxstein
 ^ [#10] Updated README.md for github (and builder)
