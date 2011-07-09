@@ -1028,7 +1028,7 @@ function showAdministration($option) {
 		}
 		if ($vv->parent) {
 			$v->parent = -1;
-			$v->published = 0;
+			if ( empty($search)) $v->published = 0;
 
 			if ( empty($search))
 			$v->name = JText::_('COM_KUNENA_CATEGORY_ORPHAN').' : '.$v->name;
