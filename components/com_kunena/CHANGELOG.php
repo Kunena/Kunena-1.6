@@ -32,6 +32,8 @@ Legend:
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 Kunena 1.6.5-DEV
+09-July-2011 lorddarkangel
+^ [#16] fixing en-GB for transifex
 
 8-July-2011 Xillibit
 # [#14] Category manager set item unpublished when filtered
