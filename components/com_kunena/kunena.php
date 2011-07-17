@@ -793,7 +793,9 @@ if ($kunena_config->board_offline && ! CKunenaTools::isAdmin ()) {
 				echo CKunenaLink::GetPDFLink($catid, $limit, $limitstart, $id, CKunenaTools::showIcon ( 'kpdf', JText::_('PDF') ), 'nofollow', '', JText::_('PDF'));
 			}
 			if ($kunena_config->enablerss && isset($rss_params)) {
-				$document->addCustomTag ( '<link rel="alternate" type="application/rss+xml" title="' . JText::_('COM_KUNENA_LISTCAT_RSS') . '" href="' . CKunenaLink::GetRSSURL($rss_params) . '" />' );
+				if ( $kunena_config->rss_specification == 'atom1.0' ) $rss_specification = 'application/atom+xml';
+				else $rss_specification = 'application/rss+xml';
+				$document->addCustomTag ( '<link rel="alternate" type="'.$rss_specification.'" title="' . JText::_('COM_KUNENA_LISTCAT_RSS') . '" href="' . CKunenaLink::GetRSSURL($rss_params) . '" />' );
 				echo CKunenaLink::GetRSSLink ( CKunenaTools::showIcon ( 'krss', JText::_('COM_KUNENA_LISTCAT_RSS') ), 'follow', $rss_params );
 			}
 			echo '</div>';
