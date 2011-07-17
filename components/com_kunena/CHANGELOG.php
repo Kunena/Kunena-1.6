@@ -35,6 +35,7 @@ Kunena 1.6.5-DEV
 
 17-July-2011 Xillibit
 # [#22] Feed rss is set always on rss type and never on atom type
+# [#32] Backport fix for kunena 2.0 for access under j1.6/j1.7
 
 09-July-2011 lorddarkangel
 ^ [#16] fixing en-GB for transifex
