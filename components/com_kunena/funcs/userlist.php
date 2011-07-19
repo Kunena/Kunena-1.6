@@ -76,9 +76,8 @@ class CKunenaUserlist {
 		// this is need to show something when the user choose all, but we need to limit even the 'all' with a number
  		if ( $this->limit == 0 ) $querylimit = '150';
 
-		jimport ( 'joomla.version' );
-		$jversion = new JVersion ();
-		$useridAdmin = $jversion->RELEASE == '1.5' ? '62' : '42';
+		require_once(KUNENA_PATH_LIB.'/kunena.version.php');
+		$useridAdmin = CKunenaVersion::isJVersionCompatible('1.5') ? '62' : '42';
 
 		// Select query
 		$moderator = intval($this->me->isModerator());
@@ -156,9 +155,8 @@ class CKunenaUserlist {
 	}
 
 	function getLastvisitdate($date) {
-		jimport ( 'joomla.version' );
-		$jversion = new JVersion ();
-		if ($jversion->RELEASE == '1.5') {
+		require_once(KUNENA_PATH_LIB.'/kunena.version.php');
+		if (CKunenaVersion::isJVersionCompatible('1.5')) {
 			$lastvisit = JHTML::_('date', $date, '%Y-%m-%d %H:%M:%S');
 		} else {
 			$lastvisit = JHTML::_('date', $date, 'Y-m-d\TH:i:sP ');

@@ -126,5 +126,26 @@ class KunenaVersion
 		return JText::_('COM_KUNENA_VERSION_INSTALLED').': '.$this->version().' | '.$this->copyright();
 	}
 
+	/**
+	* Check if the Joomla! version is like by the parameter passed in the function
+	*
+	* @return boolean
+	*/
+	function isJVersionCompatible($joomlaversion)
+	{
+		jimport( 'joomla.filesystem.file' );
+		// J1.7+
+		if ( JFile::exists(JPATH_BASE.'/includes/version.php' ) ) {
+			require_once(JPATH_BASE.'/includes/version.php');
+		// J1.5, J1.6
+		} else {
+			jimport ( 'joomla.version' );
+		}
+		$jversion = new JVersion();
+		$release = $jversion->RELEASE;
+		if ( $joomlaversion == $release) return true;
+		else return false;
+	}
+
 }
 class KunenaVersionException extends Exception {}

@@ -15,8 +15,8 @@ defined( '_JEXEC' ) or die('');
 
 class KunenaAccessJoomla15 extends KunenaAccess {
 	function __construct() {
-		$jversion = new JVersion ();
-		if ($jversion->RELEASE != '1.5')
+		require_once(KUNENA_PATH_LIB.'/kunena.version.php');
+		if (!CKunenaVersion::isJVersionCompatible('1.5'))
 			return null;
 		$this->priority = 25;
 	}

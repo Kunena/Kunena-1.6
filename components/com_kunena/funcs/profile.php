@@ -175,13 +175,12 @@ class CKunenaProfile {
 	}
 
 	function displayEditUser() {
-		jimport ( 'joomla.version' );
-		$jversion = new JVersion ();
+		require_once(KUNENA_PATH_LIB.'/kunena.version.php');
 
 		$this->user = JFactory::getUser();
 
 		// check to see if Frontend User Params have been enabled
-		if ($jversion->RELEASE == '1.5' && JComponentHelper::getParams('com_users')->get('frontend_userparams')) {
+		if (CKunenaVersion::isJVersionCompatible('1.5') && JComponentHelper::getParams('com_users')->get('frontend_userparams')) {
 			$lang = JFactory::getLanguage();
 			$lang->load('com_user', JPATH_SITE);
 			$params = $this->user->getParameters(true);

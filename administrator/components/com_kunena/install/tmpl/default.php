@@ -10,8 +10,8 @@
 defined('_JEXEC') or die;
 $this->document->addStyleSheet ( JURI::base().'components/com_kunena/install/media/install.css' );
 if ($this->go == 'next') {
-	$jversion = new JVersion ();
-	if ($jversion->RELEASE == '1.5') {
+	require_once(JPATH_ROOT.'/administrator/components/com_kunena/install/version.php');
+	if (KunenaVersion::isJVersionCompatible('1.5')) {
 		JHtml::_('behavior.mootools');
 	} else {
 		JHtml::_('behavior.framework', true);
