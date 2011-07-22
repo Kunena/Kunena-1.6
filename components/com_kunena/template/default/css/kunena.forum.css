@@ -1650,6 +1650,10 @@ PX		EM			PCT			PT
 	font-size: 1.3em;
 	padding: 10px 10px 10px 25px;
 }
+#Kunena .kmsgimage {
+	display:inline;
+	padding: 0 5px;
+}
 
 /* AVATAR POSITION
 ----------------------------------------------------------------------- */
