@@ -32,6 +32,12 @@ Legend:
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 Kunena 1.6.5-DEV
+
+Kunena 1.6.5-DEV
+
+19-July-2011 draganz
+# [#26] fix inline linked images in post area
+
 09-July-2011 lorddarkangel
 ^ [#16] fixing en-GB for transifex
 
