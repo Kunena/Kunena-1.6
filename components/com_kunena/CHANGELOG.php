@@ -33,6 +33,9 @@ Legend:
 
 Kunena 1.6.5-DEV
 
+22-July-2011 Xillibit
+# [#32] Make better third party component detection in report configuration setting
+
 19-July-2011 Xillibit
 # [#32] Backport fix for kunena 2.0 for access under j1.6/j1.7 (use function do detect joomla version)
 

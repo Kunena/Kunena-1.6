@@ -3248,27 +3248,29 @@ function generateSystemReport () {
 	else $modtext = '[quote][b]Modules:[/b] None [/quote]';
 
 	$thirdparty = array();
-	if ($JVersion->RELEASE == '1.5') {
-		$thirdparty['aup'] = checkThirdPartyVersion('alphauserpoints', 'alphauserpoints', 'AlphaUserPoints', 'components/com_alphauserpoints', null, 1, 0, 0);
+	if ( JFile::exists(JPATH_SITE . '/components/com_alphauserpoints/helper.php') ) {
+		require_once(JPATH_SITE . '/components/com_alphauserpoints/helper.php');
+		$aup = new AlphaUserPointsHelper ();
+		$thirdparty['aup'] = '[u]AlphaUserPoints[/u] '.$aup->getAupVersion();
 	} else {
-		if ( JFile::exists(JPATH_SITE . '/components/com_alphauserpoints/helper.php') ) {
-			require_once(JPATH_SITE . '/components/com_alphauserpoints/helper.php');
-			$aup = new AlphaUserPointsHelper ();
-			$thirdparty['aup'] = '[u]AlphaUserPoints[/u] '.$aup->getAupVersion();
+		$thirdparty['aup'] = checkThirdPartyVersion('alphauserpoints', array('manifest','alphauserpoints'), 'AlphaUserPoints', 'components/com_alphauserpoints', null, 1, 0, 0);
+	}
+
+	$thirdparty['cb'] = checkThirdPartyVersion('comprofiler', array('comprofilej','comprofileg') , 'CommunityBuilder', 'components/com_comprofiler', null, 1, 0, 0);
+
+	$thirdparty['jomsocial'] = checkThirdPartyVersion('community', array('community'), 'Jomsocial', 'components/com_community', null, 1, 0, 0);
+	if (JFile::exists(JPATH_SITE.'/components/com_uddeim/uddeim.api.php')) {
+		require_once(JPATH_SITE.'/components/com_uddeim/uddeim.api.php');
+		$uddeim = new uddeIMAPI();
+		$api_version = $uddeim->version();
+		if ($api_version >= '3') {
+			$uddeim_version = $uddeim->mainVersion();
+			$thirdparty['uddeim'] = '[u]UddeIm[/u] '.$uddeim_version['version'];
 		} else {
-			$thirdparty['aup'] = checkThirdPartyVersion('alphauserpoints', 'manifest', 'AlphaUserPoints', 'components/com_alphauserpoints', null, 1, 0, 0);
+			$thirdparty['uddeim'] = checkThirdPartyVersion('uddeim', array('uddeim.j15','uddeim'), 'UddeIm', 'components/com_uddeim', null, 1, 0, 0);
 		}
-	}
-	if ($JVersion->RELEASE == '1.5') {
-		$thirdparty['cb'] = checkThirdPartyVersion('comprofiler', 'comprofilej' , 'CommunityBuilder', 'components/com_comprofiler', null, 1, 0, 0);
 	} else {
-		$thirdparty['cb'] = checkThirdPartyVersion('comprofiler', 'comprofileg' , 'CommunityBuilder', 'components/com_comprofiler', null, 1, 0, 0);
-	}
-	$thirdparty['jomsocial'] = checkThirdPartyVersion('community', 'community', 'Jomsocial', 'components/com_community', null, 1, 0, 0);
-	if ($JVersion->RELEASE == '1.5') {
-		$thirdparty['uddeim'] = checkThirdPartyVersion('uddeim', 'uddeim.j15', 'UddeIm', 'components/com_uddeim', null, 1, 0, 0);
-	} else {
-		$thirdparty['uddeim'] = checkThirdPartyVersion('uddeim', 'uddeim', 'UddeIm', 'components/com_uddeim', null, 1, 0, 0);
+		$thirdparty['uddeim'] = checkThirdPartyVersion('uddeim', array('uddeim.j15','uddeim'), 'UddeIm', 'components/com_uddeim', null, 1, 0, 0);
 	}
 	foreach ($thirdparty as $id=>$item) {
 		if (empty($item)) unset ($thirdparty[$id]);
@@ -3448,12 +3450,18 @@ function checkThirdPartyVersion($namephp, $namexml, $namedetailled, $path, $plgg
 	require_once(KUNENA_PATH_LIB.'/kunena.version.php');
 	if ($components) {
 		if ( JFile::exists(JPATH_SITE.'/'.$path.'/'.$namephp.'.php') ) {
-			if ( JFile::exists(JPATH_ADMINISTRATOR.'/'.$path.'/'.$namexml.'.xml') ) {
-				$xml_com = JFactory::getXMLparser('Simple');
-				$xml_com->loadFile(JPATH_ADMINISTRATOR.'/'.$path.'/'.$namexml.'.xml');
-				$com_version = $xml_com->document->version[0];
-				$com_version = '[u]'.$namedetailled.'[/u] '.$com_version->data();
-			} else {
+			$check = false;
+			foreach($namexml as $filexml) {
+				if ( JFile::exists(JPATH_ADMINISTRATOR.'/'.$path.'/'.$filexml.'.xml') ) {
+					$xml_com = JFactory::getXMLparser('Simple');
+					$xml_com->loadFile(JPATH_ADMINISTRATOR.'/'.$path.'/'.$filexml.'.xml');
+					$com_version = $xml_com->document->version[0];
+					$com_version = '[u]'.$namedetailled.'[/u] '.$com_version->data();
+					$check = true;
+				}
+			}
+
+			if(!$check){
 				$com_version = '[u]'.$namedetailled.':[/u] The file doesn\'t exist '.$namexml.'.xml !';
 			}
 		} else {
