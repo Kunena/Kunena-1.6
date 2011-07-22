@@ -33,7 +33,8 @@ Legend:
 
 Kunena 1.6.5-DEV
 
-Kunena 1.6.5-DEV
+22-July-2011 svanschu
+^ [#27] change \n to <br />
 
 19-July-2011 draganz
 # [#26] fix inline linked images in post area
