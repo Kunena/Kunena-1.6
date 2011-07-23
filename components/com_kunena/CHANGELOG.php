@@ -33,8 +33,11 @@ Legend:
 
 Kunena 1.6.5-DEV
 
-22-July-2011 810
-^ [#27] Change Dutch language
+22-july-2011 810
+^[#27] Change Dutch language
+
+19-July-2011 draganz
+# [#26] fix inline linked images in post area
 
 09-July-2011 lorddarkangel
 ^ [#16] fixing en-GB for transifex
@@ -148,7 +151,7 @@ Kunena 1.6.5-DEV
 15-May-2011 Xillibit
 ^ [#25895] Let user choose to load completelly the lightbox (class and script) or just set the class on images
 # [#25896] Links in RSS Feed go to first page of thread when thread is more than 1 page
-# [#25897] Notice: Undefined variable: jconfig_smtpuser in administrator/components/com_kunena/admin.kunena.php
+# [#25897] Notice: Undefined variable: jconfig_smtpuser in administrator/components/c​om_kunena/admin.kunena.php
 ^ [#25898] Instead of showing "the profile page ins't available for guests" in system message, show it just below the loginbox
 # [#25899] Endtime of poll doesn't work
 
