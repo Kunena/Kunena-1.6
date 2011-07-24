@@ -33,8 +33,11 @@ Legend:
 
 Kunena 1.6.5-DEV
 
+24-july-2011 810
+^ [#30] Css J17 backend template manager
+
 22-july-2011 810
-^[#27] Change Dutch language
+^ [#27] Change Dutch language
 
 19-July-2011 draganz
 # [#26] fix inline linked images in post area
