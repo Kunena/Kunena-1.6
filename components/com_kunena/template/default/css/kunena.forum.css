@@ -3368,4 +3368,7 @@ ul.autocompleter-choices li.kautocompleter-selected span.kautocompleter-queried 
 .span-16 {
 	width: 100% !important;	
 }
-/* --------------------------------------------------------------- */	
+/* --------------------------------------------------------------- */
+/* Fix Joomla 1.6 & 1.7 image border */
+a img {border:none;}
+/* --------------------------------------------------------------- */
