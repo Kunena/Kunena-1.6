@@ -33,6 +33,9 @@ Legend:
 
 Kunena 1.6.5-DEV
 
+24-July-2011 Xillibit
+# [#18] RSS Feeds are broken
+
 22-July-2011 Xillibit
 # [#32] Make better third party component detection in report configuration setting
 
