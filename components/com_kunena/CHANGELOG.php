@@ -37,6 +37,7 @@ Kunena 1.6.5-DEV
 ^ [#30] Css J17 backend template manager
 ^ [#27] Update English language
 ^ [#31] Css J16/J17 img border
+^ [#32] Css J17 line height
 
 22-july-2011 810
 ^ [#27] Change Dutch language
