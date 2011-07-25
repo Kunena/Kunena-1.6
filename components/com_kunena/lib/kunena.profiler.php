@@ -12,8 +12,7 @@
 // Dont allow direct linking
 defined ( '_JEXEC' ) or die ();
 
-require_once(KUNENA_PATH_LIB.'/kunena.version.php');
-if (CKunenaVersion::isJVersionCompatible('1.5')) {
+if (KUNENA_JOOMLA_COMPAT == '1.5') {
 	require_once (KUNENA_PATH_LIB . '/kunena.profiler.1.5.php');
 } else {
 	require_once (KUNENA_PATH_LIB . '/kunena.profiler.1.6.php');

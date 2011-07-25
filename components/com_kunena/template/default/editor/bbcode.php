@@ -137,7 +137,7 @@ $kunena_config = KunenaFactory::getConfig ();
 			<?php
 			if ($kunena_config->highlightcode) {
 				$kunena_config = KunenaFactory::getConfig();
-				if (substr(JVERSION, 0, 3) == 1.5) {
+				if (KUNENA_JOOMLA_COMPAT == '1.5') {
 					$path = JPATH_ROOT.'/libraries/geshi/geshi';
 				} else {
 					$path = JPATH_ROOT.'/plugins/content/geshi/geshi/geshi';

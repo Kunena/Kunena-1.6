@@ -12,8 +12,6 @@
 // Dont allow direct linking
 defined( '_JEXEC' ) or die();
 
-jimport ( 'joomla.version' );
-
 // This isn't called because of redirect
 $this->parent->copyManifest();
 
@@ -23,6 +21,11 @@ function com_install() {
 		return false;
 	}
 
+	// Joomla 1.7 compatibility (class already exists)
+	if (!class_exists('JVersion')) {
+		// Joomla 1.5 and 1.6 compatibility (jimport needed)
+		jimport ( 'joomla.version' );
+	}
 	$jversion = new JVersion ();
 	if ($jversion->RELEASE != '1.5') {
 		echo "ERROR: WRONG MANIFEST FILE LOADED, PLEASE TRY AGAIN WITH THE LATEST VERSION OF JOOMLA!";

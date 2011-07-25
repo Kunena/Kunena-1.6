@@ -25,8 +25,7 @@ defined( '_JEXEC' ) or die();
 class html_Kunena {
 	// Begin: HEADER FUNC
 	function showFbHeader() {
-		require_once(KUNENA_PATH_LIB.'/kunena.version.php');
-		if (CKunenaVersion::isJVersionCompatible('1.5')) {
+		if (KUNENA_JOOMLA_COMPAT == '1.5') {
 			JHtml::_('behavior.mootools');
 		} else {
 			JHtml::_('behavior.framework', true);

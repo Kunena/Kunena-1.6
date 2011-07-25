@@ -27,6 +27,7 @@ jimport( 'joomla.html.parameter' );
 
 // Kunena wide defines
 require_once (JPATH_COMPONENT . '/lib/kunena.defines.php');
+require_once(KUNENA_PATH_LIB . '/kunena.version.php');
 
 class KunenaApp {
 
@@ -289,10 +290,9 @@ if ($kunena_config->board_offline && ! CKunenaTools::isAdmin ()) {
 	}
 
 	if ($func == 'fb_pdf' || $func == 'pdf') {
-		require_once(KUNENA_PATH_LIB.'/kunena.version.php');
 		$httpReferer = JRequest::getVar ( 'HTTP_REFERER', JURI::base ( true ), 'server' );
 
-		if (CKunenaVersion::isJVersionCompatible('1.5')) {
+		if (KUNENA_JOOMLA_COMPAT == '1.5') {
 			include (JPATH_COMPONENT.'/lib/kunena.pdf.php');
 			$kunena_app->close ();
 		}
@@ -784,9 +784,8 @@ if ($kunena_config->board_offline && ! CKunenaTools::isAdmin ()) {
 			$rss_params = '';
 		}
 		if (isset($rss_params) || $kunena_config->enablepdf) {
-			require_once(KUNENA_PATH_LIB.'/kunena.version.php');
 			echo '<div class="krss-block">';
-			if ($kunena_config->enablepdf && $func == 'view' && CKunenaVersion::isJVersionCompatible('1.5')) {
+			if ($kunena_config->enablepdf && $func == 'view' && KUNENA_JOOMLA_COMPAT == '1.5') {
 				// FIXME: add better translation:
 				echo CKunenaLink::GetPDFLink($catid, $limit, $limitstart, $id, CKunenaTools::showIcon ( 'kpdf', JText::_('PDF') ), 'nofollow', '', JText::_('PDF'));
 			}
