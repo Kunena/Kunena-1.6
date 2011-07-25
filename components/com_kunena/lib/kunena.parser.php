@@ -641,8 +641,7 @@ class KunenaBBCodeInterpreter extends BBCodeInterpreter {
 					if ( !empty($tag->options ['default']) ) $param = $tag->options ['default'];
 					$articleid = (int)$between;
 
-					jimport ( 'joomla.version' );
-					$jversion		= new JVersion ();
+					require_once(KUNENA_PATH_LIB.'/kunena.version.php');
 					$kunena_app		= JFactory::getApplication();
 					$dispatcher		= JDispatcher::getInstance();
 					$kunena_db		= JFactory::getDBO();
@@ -650,7 +649,7 @@ class KunenaBBCodeInterpreter extends BBCodeInterpreter {
 
 					$html = $link = '';
 
-					if ($jversion->RELEASE == '1.5') {
+					if (CKunenaVersion::isJVersionCompatible('1.5')) {
 						$query = 'SELECT a.*, u.name AS author, u.usertype, cc.title AS category, s.title AS section,
 							s.published AS sec_pub, cc.published AS cat_pub, s.access AS sec_access, cc.access AS cat_access
 							FROM #__content AS a
@@ -705,7 +704,7 @@ class KunenaBBCodeInterpreter extends BBCodeInterpreter {
 					if ( !$html ) {
 						require_once (JPATH_ROOT.'/components/com_content/helpers/route.php');
 
-						if ($jversion->RELEASE == '1.5') {
+						if (CKunenaVersion::isJVersionCompatible('1.5')) {
 							$url = JRoute::_(ContentHelperRoute::getArticleRoute($article->id, $article->catid, $article->sectionid));
 						} else {
 							$url = JRoute::_(ContentHelperRoute::getArticleRoute($article->id, $article->catid));

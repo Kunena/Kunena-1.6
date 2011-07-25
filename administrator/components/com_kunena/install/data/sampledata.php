@@ -113,9 +113,8 @@ function installSampleData()
 
 	$queries[] = array ('kunena_smileys', $query);
 
-	jimport ( 'joomla.version' );
-	$jversion = new JVersion ();
-	if ($jversion->RELEASE == '1.5') {
+	require_once(JPATH_ROOT.'/administrator/components/com_kunena/install/version.php');
+	if (KunenaVersion::isJVersionCompatible('1.5')) {
 		$query="INSERT INTO `#__kunena_categories`
 		(`id`, `parent`, `name`, `pub_access`, `ordering`, `published`, `description`, `headerdesc`, `numTopics`, `numPosts`, `allow_polls`) VALUES
 		(1, 0, ".$db->quote(KText::_('COM_KUNENA_SAMPLEDATA_SECTION_TITLE')).", 0, 1, 1, ".$db->quote(KText::_('COM_KUNENA_SAMPLEDATA_SECTION_DESC')).", ".$db->quote(KText::_('COM_KUNENA_SAMPLEDATA_SECTION_HEADER')).", 0, 0, 0),

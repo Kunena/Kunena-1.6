@@ -82,6 +82,7 @@ class CKunenaRSSView {
 
 		// Set datas document header
 		$this->document = $this->document->getInstance('feed');
+		$this->document->setLink('/');
 		$this->document->setTitle($this->app->getCfg('sitename') .' - Forum');
 		$this->document->setDescription('Kunena Site Syndication');
 		$this->document->setGenerator('Kunena 1.6');
@@ -149,9 +150,6 @@ class CKunenaRSSView {
 			$tmp['name']		= $data->name;
 			$tmp['cat_name']	= $data->catname;
 
-			// Guid is used by aggregators to uniquely identify each item
-			$tmp['guid']		= $this->uri->toString(array('scheme', 'host', 'port')) . $url;
-
 			// Link and source is always the same
 			$tmp['link']		= $this->uri->toString(array('scheme', 'host', 'port')) . $url;
 			$tmp['source']		= $this->uri->toString(array('scheme', 'host', 'port')) . $url;
@@ -216,7 +214,6 @@ class CKunenaRSSView {
 			$item->source		= $tmp['source'];
 			$item->author		= $tmp['author'];
 			$item->category		= $tmp['cat_name'];
-			$item->guid			= $tmp['guid'];
 
 			// Finally add item to feed
 			$this->document->addItem($item);

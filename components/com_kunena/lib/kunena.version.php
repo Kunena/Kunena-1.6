@@ -66,5 +66,26 @@ class CKunenaVersion {
 		$version = CKunenaVersion::version();
 		return JText::_('COM_KUNENA_INSTALLED_VERSION').': '.$version.' | '.JText::_('COM_KUNENA_COPYRIGHT').': &copy; 2008-2011 <a href = "http://www.kunena.org" target = "_blank">Kunena</a>  | '.JText::_('COM_KUNENA_LICENSE').': <a href = "http://www.gnu.org/copyleft/gpl.html" target = "_blank">GNU GPL</a>';
 	}
+
+	/**
+	* Check if the Joomla! version is like by the parameter passed in the function
+	*
+	* @return boolean
+	*/
+	function isJVersionCompatible($joomlaversion)
+	{
+		jimport( 'joomla.filesystem.file' );
+		// J1.7+
+		if ( JFile::exists(JPATH_BASE.'/includes/version.php' ) ) {
+			require_once(JPATH_BASE.'/includes/version.php');
+		// J1.5, J1.6
+		} else {
+			jimport ( 'joomla.version' );
+		}
+		$jversion = new JVersion();
+		$release = $jversion->RELEASE;
+		if ( $joomlaversion == $release) return true;
+		else return false;
+	}
 }
 ?>

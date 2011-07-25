@@ -66,8 +66,8 @@ abstract class KunenaIntegration extends JObject {
 	}
 
 	static protected function detectJoomla() {
-		$jversion = new JVersion ();
-		if ($jversion->RELEASE == '1.5') {
+		require_once(KUNENA_PATH_LIB.'/kunena.version.php');
+		if (CKunenaVersion::isJVersionCompatible('1.5')) {
 			return 'joomla15';
 		} else {
 			return 'joomla16';
