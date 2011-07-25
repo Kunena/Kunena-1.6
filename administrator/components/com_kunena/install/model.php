@@ -17,7 +17,6 @@ DEFINE('KUNENA_MIN_PHP', '5.2.3');
 DEFINE('KUNENA_MIN_MYSQL', '4.1.19');
 DEFINE ( 'KUNENA_MIN_JOOMLA', '1.5.20' );
 
-jimport ( 'joomla.version' );
 jimport ( 'joomla.application.component.model' );
 jimport ( 'joomla.filesystem.folder' );
 jimport ( 'joomla.filesystem.file' );
@@ -276,8 +275,7 @@ class KunenaModelInstall extends JModel {
 	}
 
 	function publishPlugin($folder, $name, $enable = 1) {
-		require_once(JPATH_ROOT.'/administrator/components/com_kunena/install/version.php');
-		if (KunenaVersion::isJVersionCompatible('1.5')) {
+		if (KUNENA_JOOMLA_COMPAT == '1.5') {
 			$query = "UPDATE #__plugins SET published='{$enable}' WHERE folder='{$folder}' AND element='{$name}'";
 		} else {
 			$query = "UPDATE #__extensions SET enabled='{$enable}' WHERE type='plugin' AND folder='{$folder}' AND element='{$name}'";
@@ -311,8 +309,7 @@ class KunenaModelInstall extends JModel {
 	}
 
 	function uninstallPlugin($folder, $name) {
-		require_once(JPATH_ROOT.'/administrator/components/com_kunena/install/version.php');
-		if (KunenaVersion::isJVersionCompatible('1.5')) {
+		if (KUNENA_JOOMLA_COMPAT == '1.5') {
 			$query = "SELECT id FROM #__plugins WHERE folder='{$folder}' AND element='{$name}'";
 		} else {
 			$query = "SELECT extension_id FROM #__extensions WHERE type='plugin' AND folder='{$folder}' AND element='{$name}'";
@@ -329,9 +326,8 @@ class KunenaModelInstall extends JModel {
 		$src = KPATH_ADMIN . '/install/system';
 		$dest = JPATH_ROOT.'/tmp/kinstall_plugin';
 		JFolder::copy($src, $dest);
-		require_once(JPATH_ROOT.'/administrator/components/com_kunena/install/version.php');
 		// We need to have only one manifest which is named as kunena.xml
-		if (KunenaVersion::isJVersionCompatible('1.5')) {
+		if (KUNENA_JOOMLA_COMPAT == '1.5') {
 			JFile::delete($dest.'/kunena.j16.xml');
 		} else {
 			JFile::delete($dest.'/kunena.xml');
@@ -1384,8 +1380,7 @@ class KunenaModelInstall extends JModel {
 			array('name'=>JText::_ ( 'COM_KUNENA_MENU_SEARCH' ), 'alias'=>JString::strtolower(JText::_ ( 'COM_KUNENA_MENU_SEARCH_ALIAS' )), 'link'=>'index.php?option=com_kunena&view=search', 'access'=>0),
 		);
 
-		require_once(JPATH_ROOT.'/administrator/components/com_kunena/install/version.php');
-		if (KunenaVersion::isJVersionCompatible('1.5')) {
+		if (KUNENA_JOOMLA_COMPAT == '1.5') {
 			$this->createMenuJ15($menu, $submenu);
 		} else {
 			$this->createMenuJ16($menu, $submenu);
@@ -1692,8 +1687,7 @@ class KunenaModelInstall extends JModel {
 	}
 
 	function deleteMenu() {
-		require_once(JPATH_ROOT.'/administrator/components/com_kunena/install/version.php');
-		if (KunenaVersion::isJVersionCompatible('1.5')) {
+		if (KUNENA_JOOMLA_COMPAT == '1.5') {
 			$this->DeleteMenuJ15();
 		} else {
 			$this->DeleteMenuJ16();
@@ -1740,9 +1734,8 @@ class KunenaModelInstall extends JModel {
 	}
 
 	protected function _getJoomlaArchiveError($archive) {
-		require_once(JPATH_ROOT.'/administrator/components/com_kunena/install/version.php');
 		$error = '';
-		if (KunenaVersion::isJVersionCompatible('1.5')) {
+		if (KUNENA_JOOMLA_COMPAT == '1.5') {
 			// Unfortunately Joomla 1.5 needs this rather ugly hack to get the error message
 			$ext = JFile::getExt(strtolower($archive));
 			$adapter = null;

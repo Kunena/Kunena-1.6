@@ -69,8 +69,7 @@ class KunenaTemplate extends JObject
 	}
 
 	public function loadMootools() {
-		require_once(KUNENA_PATH_LIB.'/kunena.version.php');
-		if (CKunenaVersion::isJVersionCompatible('1.5')) {
+		if (KUNENA_JOOMLA_COMPAT == '1.5') {
 			jimport ( 'joomla.plugin.helper' );
 			$mtupgrade = JPluginHelper::isEnabled ( 'system', 'mtupgrade' );
 			if (! $mtupgrade) {

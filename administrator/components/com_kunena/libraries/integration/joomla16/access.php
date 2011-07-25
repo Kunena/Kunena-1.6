@@ -19,8 +19,8 @@ class KunenaAccessJoomla16 extends KunenaAccess {
 	protected $viewLevels = false;
 
 	function __construct() {
-		$jversion = new JVersion ();
-		if (version_compare($jversion->RELEASE, '1.6', '<'))
+		// Detect all but Joomla 1.5
+		if (KUNENA_JOOMLA_COMPAT == '1.5')
 			return null;
 		$this->priority = 25;
 	}

@@ -10,8 +10,6 @@
  **/
 defined ( '_JEXEC' ) or die ();
 
-jimport ('joomla.version');
-
 class plgSystemKunena extends JPlugin {
 
 	function __construct(& $subject, $config) {
@@ -30,8 +28,7 @@ class plgSystemKunena extends JPlugin {
 		require_once ($kunena_api);
 
 		// Fix Joomla 1.5 bug
-		require_once(JPATH_ROOT.'/administrator/components/com_kunena/install/version.php');
-		if (JFactory::getApplication()->isAdmin() && KunenaVersion::isJVersionCompatible('1.5')) {
+		if (JFactory::getApplication()->isAdmin() && KUNENA_JOOMLA_COMPAT == '1.5') {
 			JFactory::getLanguage()->load('com_kunena.menu', JPATH_ADMINISTRATOR);
 		}
 

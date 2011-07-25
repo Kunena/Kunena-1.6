@@ -26,6 +26,14 @@ define ( 'KPATH_SITE', JPATH_ROOT .'/'. KPATH_COMPONENT_RELATIVE );
 define ( 'KPATH_ADMIN', JPATH_ADMINISTRATOR .'/'. KPATH_COMPONENT_RELATIVE );
 define ( 'KPATH_MEDIA', JPATH_ROOT .'/media/'. KUNENA_NAME );
 
+// Joomla 1.7 compatibility (class already exists)
+if (!class_exists('JVersion')) {
+	// Joomla 1.5 and 1.6 compatibility (jimport needed)
+	jimport ( 'joomla.version' );
+}
+$jversion = new JVersion();
+define ( 'KUNENA_JOOMLA_COMPAT', $jversion->RELEASE);
+
 /**
  * Intelligent library importer.
  *

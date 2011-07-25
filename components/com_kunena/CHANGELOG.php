@@ -33,6 +33,9 @@ Legend:
 
 Kunena 1.6.5-DEV
 
+25-July-2011 Matias
+# [#21] Fix version detection for Joomla 1.7 (remaining cases)
+
 24-July-2011 Xillibit
 # [#18] RSS Feeds are broken
 

@@ -22,13 +22,11 @@ class KunenaActivityJomSocial extends KunenaActivity {
 			return;
 		$this->priority = 40;
 		$this->_config = KunenaFactory::getConfig ();
-		require_once(KUNENA_PATH_LIB.'/kunena.version.php');
-		$this->jversion = CKunenaVersion::isJVersionCompatible('1.5');
 	}
 
 	protected function getAccess($group) {
 		// Activity access level: 0 = public, 20 = registered, 30 = friend, 40 = private
-		if ($this->jversion) {
+		if (KUNENA_JOOMLA_COMPAT == '1.5') {
 			if ($message->parent->pub_access == 0) {
 				// Public
 				$act->access = 0;
