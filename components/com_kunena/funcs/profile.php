@@ -175,13 +175,10 @@ class CKunenaProfile {
 	}
 
 	function displayEditUser() {
-		jimport ( 'joomla.version' );
-		$jversion = new JVersion ();
-
 		$this->user = JFactory::getUser();
 
 		// check to see if Frontend User Params have been enabled
-		if ($jversion->RELEASE == '1.5' && JComponentHelper::getParams('com_users')->get('frontend_userparams')) {
+		if (KUNENA_JOOMLA_COMPAT == '1.5' && JComponentHelper::getParams('com_users')->get('frontend_userparams')) {
 			$lang = JFactory::getLanguage();
 			$lang->load('com_user', JPATH_SITE);
 			$params = $this->user->getParameters(true);
@@ -194,7 +191,7 @@ class CKunenaProfile {
 				$this->userparameters[$i]->label = '<label for="params'.$userparam[5].'" title="'.$userparam[2].'">'.$userparam[0].'</label>';
 				$i++;
 			}
-		} elseif ($jversion->RELEASE >= '1.6' && JComponentHelper::getParams('com_users')->get('frontend_userparams')) {
+		} elseif (KUNENA_JOOMLA_COMPAT >= '1.6' && JComponentHelper::getParams('com_users')->get('frontend_userparams')) {
 			$usersConfig = JComponentHelper::getParams( 'com_users' );
 			if ($usersConfig->get('frontend_userparams', 0)) {
 				$lang = JFactory::getLanguage();
@@ -448,9 +445,6 @@ class CKunenaProfile {
 	// Mostly copied from Joomla 1.5
 	protected function saveUser()
 	{
-		jimport ( 'joomla.version' );
-		$jversion = new JVersion ();
-
 		$user = $this->user; //new JUser ( $this->user->get('id') );
 
 		// we don't want users to edit certain fields so we will ignore them
@@ -470,7 +464,7 @@ class CKunenaProfile {
 				unset($post[$field]);
 		}
 
-		if ( $jversion->RELEASE >= '1.6' ) {
+		if ( KUNENA_JOOMLA_COMPAT >= '1.6' ) {
 			jimport('joomla.user.helper');
 			$result = JUserHelper::getUserGroups($user->id);
 

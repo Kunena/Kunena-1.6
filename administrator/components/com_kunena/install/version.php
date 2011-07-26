@@ -125,6 +125,5 @@ class KunenaVersion
 	{
 		return JText::_('COM_KUNENA_VERSION_INSTALLED').': '.$this->version().' | '.$this->copyright();
 	}
-
 }
 class KunenaVersionException extends Exception {}

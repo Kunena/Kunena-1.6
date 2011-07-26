@@ -30,6 +30,14 @@ define ( 'KURL_COMPONENT', 'index.php?option=' . KUNENA_COMPONENT_NAME );
 define ( 'KURL_SITE', JURI::Root () . KPATH_COMPONENT_RELATIVE . '/' );
 define ( 'KURL_MEDIA', JURI::Root () . 'media/' . KUNENA_NAME . '/' );
 
+// Joomla 1.7 compatibility (class already exists)
+if (!class_exists('JVersion')) {
+	// Joomla 1.5 and 1.6 compatibility (jimport needed)
+	jimport ( 'joomla.version' );
+}
+$jversion = new JVersion();
+define ( 'KUNENA_JOOMLA_COMPAT', $jversion->RELEASE);
+
 /**
  * Intelligent library importer.
  *

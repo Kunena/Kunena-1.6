@@ -27,6 +27,7 @@ $view = JRequest::getCmd ( 'view' );
 $task = JRequest::getCmd ( 'task' );
 
 require_once (JPATH_ADMINISTRATOR . '/components/com_kunena/api.php');
+require_once (KUNENA_PATH_LIB . '/kunena.version.php');
 kimport('error');
 KunenaError::initialize();
 
@@ -57,7 +58,6 @@ jimport( 'joomla.utilities.arrayhelper' );
 
 // Now that we have the global defines we can use shortcut defines
 require_once (KUNENA_PATH_LIB . '/kunena.config.class.php');
-require_once (KUNENA_PATH_LIB . '/kunena.version.php');
 
 $kunena_config = KunenaFactory::getConfig ();
 $kunena_db = JFactory::getDBO ();
@@ -990,9 +990,7 @@ function showAdministration($option) {
 		$where .= ' WHERE LOWER( a.name ) LIKE '.$kunena_db->Quote( '%'.$kunena_db->getEscaped( $search, true ).'%', false ). ' OR LOWER( a.id ) LIKE '.$kunena_db->Quote( '%'.$kunena_db->getEscaped( $search, true ).'%', false );
 	}
 
-	jimport ( 'joomla.version' );
-	$jversion = new JVersion ();
-	if ($jversion->RELEASE == '1.5') {
+	if (KUNENA_JOOMLA_COMPAT == '1.5') {
 		// Joomla 1.5
 		 $query= "SELECT a.*, a.parent>0 AS category, u.name AS editor, g.name AS groupname, g.id AS group_id, h.name AS admingroup
 			FROM #__kunena_categories AS a
@@ -1035,7 +1033,8 @@ function showAdministration($option) {
 		}
 		if ($v->accesstype != 'none') {
 			$v->groupname = JText::_('COM_KUNENA_INTEGRATION_'.strtoupper($v->accesstype));
-		} elseif ($jversion->RELEASE == '1.5') {
+		} elseif (KUNENA_JOOMLA_COMPAT == '1.5') {
+			// Joomla 1.5
 			if ($v->pub_access == 0) {
 				$v->groupname = JText::_('COM_KUNENA_EVERYBODY');
 			} else if ($v->pub_access == - 1) {
@@ -1046,6 +1045,7 @@ function showAdministration($option) {
 				$v->groupname = JText::_( $v->groupname );
 			}
 		} else {
+			// Joomla 1.6+
 			$v->groupname = $v->groupname ? JText::_( $v->groupname ) : JText::_('COM_KUNENA_NOBODY');
 		}
 		if ($v->accesstype != 'none') {
@@ -1105,9 +1105,6 @@ function editForum($id, $option) {
 		$kunena_app->redirect ( JURI::base () . "index.php?option=$option&task=showAdministration" );
 	}
 
-	jimport ( 'joomla.version' );
-	$jversion = new JVersion ();
-
 	$kunena_db = JFactory::getDBO ();
 	$kunena_acl = JFactory::getACL ();
 	$kunena_config = KunenaFactory::getConfig ();
@@ -1124,7 +1121,7 @@ function editForum($id, $option) {
 		$category->ordering = 9999;
 		$category->pub_recurse = 1;
 		$category->admin_recurse = 1;
-		if ($jversion->RELEASE == '1.5') {
+		if (KUNENA_JOOMLA_COMPAT == '1.5') {
 			$category->pub_access = 0;
 		} else {
 			$category->pub_access = 1;
@@ -1145,7 +1142,7 @@ function editForum($id, $option) {
 	$lists = array ();
 	$accessLists = array ();
 	//create custom group levels to include into the public group selectList
-	if ($jversion->RELEASE == '1.5') {
+	if (KUNENA_JOOMLA_COMPAT == '1.5') {
 		$pub_groups = array ();
 		$adm_groups = array ();
 		$pub_groups [] = JHTML::_ ( 'select.option', 1, JText::_('COM_KUNENA_NOBODY') );
@@ -3208,10 +3205,10 @@ function generateSystemReport () {
 	$collation = getTablesCollation();
 
 	// Get Joomla! template details
-	$templatedetails = getJoomlaTemplate($JVersion);
+	$templatedetails = getJoomlaTemplate();
 
 	// Get Joomla! menu details
-	$joomlamenudetails = getJoomlaMenuDetails($JVersion);
+	$joomlamenudetails = getJoomlaMenuDetails();
 
 	// Check if Mootools plugins and others kunena plugins are enabled, and get the version of this modules
 	jimport( 'joomla.plugin.helper' );
@@ -3251,27 +3248,29 @@ function generateSystemReport () {
 	else $modtext = '[quote][b]Modules:[/b] None [/quote]';
 
 	$thirdparty = array();
-	if ($JVersion->RELEASE == '1.5') {
-		$thirdparty['aup'] = checkThirdPartyVersion('alphauserpoints', 'alphauserpoints', 'AlphaUserPoints', 'components/com_alphauserpoints', null, 1, 0, 0);
+	if ( JFile::exists(JPATH_SITE . '/components/com_alphauserpoints/helper.php') ) {
+		require_once(JPATH_SITE . '/components/com_alphauserpoints/helper.php');
+		$aup = new AlphaUserPointsHelper ();
+		$thirdparty['aup'] = '[u]AlphaUserPoints[/u] '.$aup->getAupVersion();
 	} else {
-		if ( JFile::exists(JPATH_SITE . '/components/com_alphauserpoints/helper.php') ) {
-			require_once(JPATH_SITE . '/components/com_alphauserpoints/helper.php');
-			$aup = new AlphaUserPointsHelper ();
-			$thirdparty['aup'] = '[u]AlphaUserPoints[/u] '.$aup->getAupVersion();
+		$thirdparty['aup'] = checkThirdPartyVersion('alphauserpoints', array('manifest','alphauserpoints'), 'AlphaUserPoints', 'components/com_alphauserpoints', null, 1, 0, 0);
+	}
+
+	$thirdparty['cb'] = checkThirdPartyVersion('comprofiler', array('comprofilej','comprofileg') , 'CommunityBuilder', 'components/com_comprofiler', null, 1, 0, 0);
+
+	$thirdparty['jomsocial'] = checkThirdPartyVersion('community', array('community'), 'Jomsocial', 'components/com_community', null, 1, 0, 0);
+	if (JFile::exists(JPATH_SITE.'/components/com_uddeim/uddeim.api.php')) {
+		require_once(JPATH_SITE.'/components/com_uddeim/uddeim.api.php');
+		$uddeim = new uddeIMAPI();
+		$api_version = $uddeim->version();
+		if ($api_version >= '3') {
+			$uddeim_version = $uddeim->mainVersion();
+			$thirdparty['uddeim'] = '[u]UddeIm[/u] '.$uddeim_version['version'];
 		} else {
-			$thirdparty['aup'] = checkThirdPartyVersion('alphauserpoints', 'manifest', 'AlphaUserPoints', 'components/com_alphauserpoints', null, 1, 0, 0);
+			$thirdparty['uddeim'] = checkThirdPartyVersion('uddeim', array('uddeim.j15','uddeim'), 'UddeIm', 'components/com_uddeim', null, 1, 0, 0);
 		}
-	}
-	if ($JVersion->RELEASE == '1.5') {
-		$thirdparty['cb'] = checkThirdPartyVersion('comprofiler', 'comprofilej' , 'CommunityBuilder', 'components/com_comprofiler', null, 1, 0, 0);
 	} else {
-		$thirdparty['cb'] = checkThirdPartyVersion('comprofiler', 'comprofileg' , 'CommunityBuilder', 'components/com_comprofiler', null, 1, 0, 0);
-	}
-	$thirdparty['jomsocial'] = checkThirdPartyVersion('community', 'community', 'Jomsocial', 'components/com_community', null, 1, 0, 0);
-	if ($JVersion->RELEASE == '1.5') {
-		$thirdparty['uddeim'] = checkThirdPartyVersion('uddeim', 'uddeim.j15', 'UddeIm', 'components/com_uddeim', null, 1, 0, 0);
-	} else {
-		$thirdparty['uddeim'] = checkThirdPartyVersion('uddeim', 'uddeim', 'UddeIm', 'components/com_uddeim', null, 1, 0, 0);
+		$thirdparty['uddeim'] = checkThirdPartyVersion('uddeim', array('uddeim.j15','uddeim'), 'UddeIm', 'components/com_uddeim', null, 1, 0, 0);
 	}
 	foreach ($thirdparty as $id=>$item) {
 		if (empty($item)) unset ($thirdparty[$id]);
@@ -3301,9 +3300,9 @@ function generateSystemReport () {
 	return $report;
 }
 
-function getJoomlaTemplate($jversion) {
-  $kunena_db = JFactory::getDBO ();
-	if ($jversion->RELEASE == '1.5') {
+function getJoomlaTemplate() {
+	$kunena_db = JFactory::getDBO ();
+	if (KUNENA_JOOMLA_COMPAT == '1.5') {
 		$templatedetails = new stdClass();
 		// Get Joomla! frontend assigned template for Joomla! 1.5
 
@@ -3347,9 +3346,9 @@ function getJoomlaTemplate($jversion) {
 	return $templatedetails;
 }
 
-function getJoomlaMenuDetails($jversion) {
+function getJoomlaMenuDetails() {
 	$kunena_db = JFactory::getDBO ();
-	if ($jversion->RELEASE == '1.5') {
+	if (KUNENA_JOOMLA_COMPAT == '1.5') {
 		// Get Kunena aliases
 		$query = "SELECT m.id, m.menutype, m.name, m.alias, m.link, m.parent
 			FROM #__menu AS m
@@ -3448,12 +3447,18 @@ function checkThirdPartyVersion($namephp, $namexml, $namedetailled, $path, $plgg
 	jimport('joomla.filesystem.file');
 	if ($components) {
 		if ( JFile::exists(JPATH_SITE.'/'.$path.'/'.$namephp.'.php') ) {
-			if ( JFile::exists(JPATH_ADMINISTRATOR.'/'.$path.'/'.$namexml.'.xml') ) {
-				$xml_com = JFactory::getXMLparser('Simple');
-				$xml_com->loadFile(JPATH_ADMINISTRATOR.'/'.$path.'/'.$namexml.'.xml');
-				$com_version = $xml_com->document->version[0];
-				$com_version = '[u]'.$namedetailled.'[/u] '.$com_version->data();
-			} else {
+			$check = false;
+			foreach($namexml as $filexml) {
+				if ( JFile::exists(JPATH_ADMINISTRATOR.'/'.$path.'/'.$filexml.'.xml') ) {
+					$xml_com = JFactory::getXMLparser('Simple');
+					$xml_com->loadFile(JPATH_ADMINISTRATOR.'/'.$path.'/'.$filexml.'.xml');
+					$com_version = $xml_com->document->version[0];
+					$com_version = '[u]'.$namedetailled.'[/u] '.$com_version->data();
+					$check = true;
+				}
+			}
+
+			if(!$check){
 				$com_version = '[u]'.$namedetailled.':[/u] The file doesn\'t exist '.$namexml.'.xml !';
 			}
 		} else {
@@ -3475,8 +3480,8 @@ function checkThirdPartyVersion($namephp, $namexml, $namedetailled, $path, $plgg
 		}
 		return $mod_version;
 	} elseif ($plugin) {
-		$jversion = new JVersion ();
-		if ($jversion->RELEASE == '1.5') {
+
+		if (KUNENA_JOOMLA_COMPAT == '1.5') {
 			$pathphp = JPATH_SITE.'/'.$path.'/'.$namephp;
 			$pathxml = JPATH_SITE.'/'.$path.'/'.$namexml;
 		} else {

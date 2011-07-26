@@ -10,9 +10,7 @@
 
 defined( '_JEXEC' ) or die();
 
-jimport ( 'joomla.version' );
-$jversion = new JVersion ();
-if ($jversion->RELEASE == '1.5') {
+if (KUNENA_JOOMLA_COMPAT == '1.5') {
 	require_once (KUNENA_PATH_LIB . '/kunena.file.class.1.5.php');
 } else {
 	require_once (KUNENA_PATH_LIB . '/kunena.file.class.1.6.php');
