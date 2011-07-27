@@ -38,6 +38,7 @@ Kunena 1.6.5-DEV
 - [#27] Removing Macedonian language as it doesn't fit into package and hasn't been updated
 - [#27] Removing Czech language as it doesn't fit into package and hasn't been updated
 # [#27] Fix invalid syntax in a few language files
+^ [#2] Add missing configuration options to install.xml file
 ^ [#2] Prepare Kunena 1.6.5 Release (Babel)
 
 27-july-2011 810
