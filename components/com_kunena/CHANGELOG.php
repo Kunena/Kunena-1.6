@@ -35,6 +35,7 @@ Kunena 1.6.5-DEV
 
 26-July-2011 svanschu
 ^ [#27] pulling from transifex
+^ [#27] revert the \n to <br /> commit
 
 22-July-2011 svanschu
 ^ [#27] change \n to <br />
