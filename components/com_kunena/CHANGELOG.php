@@ -33,6 +33,9 @@ Legend:
 
 Kunena 1.6.5-DEV
 
+26-July-2011 svanschu
+^ [#27] pulling from transifex
+
 22-July-2011 svanschu
 ^ [#27] change \n to <br />
 
