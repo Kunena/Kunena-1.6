@@ -33,6 +33,13 @@ Legend:
 
 Kunena 1.6.5-DEV
 
+27-July-2011 Matias
+# [#27] Fixing broken language files (best effort)
+
+26-July-2011 svanschu
+^ [#27] pulling from transifex
+^ [#27] revert the \n to <br /> commit
+
 25-July-2011 Matias
 # [#21] Fix version detection for Joomla 1.7 (remaining cases)
 
@@ -43,6 +50,9 @@ Kunena 1.6.5-DEV
 
 24-July-2011 Xillibit
 # [#18] RSS Feeds are broken
+
+22-July-2011 svanschu
+^ [#27] change \n to <br />
 
 22-july-2011 810
 ^ [#27] Change Dutch language
