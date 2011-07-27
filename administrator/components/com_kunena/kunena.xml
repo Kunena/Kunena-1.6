@@ -1,10 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!-- $Id$ -->
 <!DOCTYPE install>
 <install type="component" version="1.5.0" method="upgrade">
 	<name>Kunena</name>
-	<version>1.6.5-DEV</version>
-	<versionname>Rename Me for Release!</versionname>
+	<version>1.6.5</version>
+	<versionname>Babel</versionname>
 	<creationDate>@kunenaversiondate@</creationDate>
 	<build>@kunenaversionbuild@</build>
 	<author>Kunena Team</author>
