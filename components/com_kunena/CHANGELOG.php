@@ -35,7 +35,8 @@ Kunena 1.6.5-DEV
 
 27-July-2011 Matias
 # [#27] Fixing broken language files (best effort)
-- [#27] Removing Macedonian as it doesn't fit into package and hasn't been updated
+- [#27] Removing Macedonian language as it doesn't fit into package and hasn't been updated
+- [#27] Removing Czech language as it doesn't fit into package and hasn't been updated
 
 26-July-2011 svanschu
 ^ [#27] pulling from transifex
