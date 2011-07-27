@@ -33,11 +33,35 @@ Legend:
 
 Kunena 1.6.5-DEV
 
+27-july-2011 810
+^ [#27] Change Dutch language
+
+27-July-2011 Matias
+# [#27] Fixing broken language files (best effort)
+- [#27] Removing Macedonian language as it doesn't fit into package and hasn't been updated
+- [#27] Removing Czech language as it doesn't fit into package and hasn't been updated
+# [#27] Fix invalid syntax in a few language files
+
+26-July-2011 svanschu
+^ [#27] pulling from transifex
+^ [#27] revert the \n to <br /> commit
+
 25-July-2011 Matias
 # [#21] Fix version detection for Joomla 1.7 (remaining cases)
 
+24-july-2011 810
+^ [#30] Css J17 backend template manager
+^ [#27] Update English language
+^ [#31] Css J16/J17 img border
+
 24-July-2011 Xillibit
 # [#18] RSS Feeds are broken
+
+22-July-2011 svanschu
+^ [#27] change \n to <br />
+
+22-july-2011 810
+^ [#27] Change Dutch language
 
 22-July-2011 Xillibit
 # [#32] Make better third party component detection in report configuration setting
