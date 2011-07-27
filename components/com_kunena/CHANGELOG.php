@@ -36,8 +36,16 @@ Kunena 1.6.5-DEV
 25-July-2011 Matias
 # [#21] Fix version detection for Joomla 1.7 (remaining cases)
 
+24-july-2011 810
+^ [#30] Css J17 backend template manager
+^ [#27] Update English language
+^ [#31] Css J16/J17 img border
+
 24-July-2011 Xillibit
 # [#18] RSS Feeds are broken
+
+22-july-2011 810
+^ [#27] Change Dutch language
 
 22-July-2011 Xillibit
 # [#32] Make better third party component detection in report configuration setting
