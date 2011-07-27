@@ -33,6 +33,9 @@ Legend:
 
 Kunena 1.6.5-DEV
 
+27-july-2011 810
+^ [#27] Change Dutch language
+
 27-July-2011 Matias
 # [#27] Fixing broken language files (best effort)
 - [#27] Removing Macedonian language as it doesn't fit into package and hasn't been updated
