@@ -24,7 +24,7 @@ class KunenaActivityJomSocial extends KunenaActivity {
 		$this->_config = KunenaFactory::getConfig ();
 	}
 
-	protected function getAccess($group) {
+	protected function getAccess($message) {
 		// Activity access level: 0 = public, 20 = registered, 30 = friend, 40 = private
 		if (KUNENA_JOOMLA_COMPAT == '1.5') {
 			if ($message->parent->pub_access == 0) {
@@ -95,7 +95,7 @@ class KunenaActivityJomSocial extends KunenaActivity {
 			$act->content = $content;
 			$act->app = 'kunena.post';
 			$act->cid = $message->get ( 'thread' );
-			$act->access = $this->getAccess($message->parent->pub_access);
+			$act->access = $this->getAccess($message);
 
 			CFactory::load ( 'libraries', 'activities' );
 			CActivityStream::add ( $act );
@@ -146,7 +146,7 @@ class KunenaActivityJomSocial extends KunenaActivity {
 			$act->content = $content;
 			$act->app = 'kunena.post';
 			$act->cid = $message->get ( 'thread' );
-			$act->access = $this->getAccess($message->parent->pub_access);
+			$act->access = $this->getAccess($message);
 
 			CFactory::load ( 'libraries', 'activities' );
 			CActivityStream::add ( $act );
@@ -171,7 +171,7 @@ class KunenaActivityJomSocial extends KunenaActivity {
 			$act->content = NULL;
 			$act->app = 'kunena.thankyou';
 			$act->cid = $thankyoutargetid;
-			$act->access = $this->getAccess($message->parent->pub_access);
+			$act->access = $this->getAccess($message);
 
 			CFactory::load ( 'libraries', 'activities' );
 			CActivityStream::add ( $act );

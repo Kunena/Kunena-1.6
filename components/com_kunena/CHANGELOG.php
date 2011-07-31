@@ -31,7 +31,12 @@ Legend:
 
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-Kunena 1.6.5-DEV
+Kunena 1.6.6-DEV
+
+31-July-2011 Xillibit
+# [#36] Jomsocial 2.2.3 error J17 K1.6.5
+
+Kunena 1.6.5
 
 27-July-2011 Matias
 # [#27] Fixing broken language files (best effort)
