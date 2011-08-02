@@ -29,26 +29,27 @@ class KunenaActivityJomSocial extends KunenaActivity {
 		if (KUNENA_JOOMLA_COMPAT == '1.5') {
 			if ($message->parent->pub_access == 0) {
 				// Public
-				$act->access = 0;
+				$access = 0;
 			} elseif ($message->parent->pub_access == -1 || $message->parent->pub_access == 18) {
 				// Registered
-				$act->access = 20;
+				$access = 20;
 			} else {
 				// Other groups (=private)
-				$act->access = 40;
+				$access = 40;
 			}
 		} else {
 			if ($message->parent->pub_access == 1) {
 				// Public
-				$act->access = 0;
+				$access = 0;
 			} elseif ( $message->parent->pub_access == 2) {
 				// Registered
-				$act->access = 20;
+				$access = 20;
 			} else {
 				// Other groups (=private)
-				$act->access = 40;
+				$access = 40;
 			}
 		}
+		return $access;
 	}
 
 	public function onAfterPost($message) {
