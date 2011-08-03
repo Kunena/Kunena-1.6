@@ -33,6 +33,9 @@ Legend:
 
 Kunena 1.6.6-DEV
 
+3-August-2011 Xillibit
+# [#41] When thank you, the activity stream add more text than needed
+
 2-August-2011 Xillibit
 # [#36] Function getAccess in Jomsocial activity returns nothing
 
