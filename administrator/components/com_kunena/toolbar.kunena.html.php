@@ -40,6 +40,8 @@ class CKunenaToolbar
         JToolBarHelper::spacer();
         JToolBarHelper::deleteList();
         JToolBarHelper::spacer();
+        JToolBarHelper::back();
+        JToolBarHelper::spacer();
 
     }
 
@@ -133,7 +135,7 @@ class CKunenaToolbar
         JToolBarHelper::spacer();
         JToolBarHelper::custom('doprune', 'delete.png', 'delete_f2.png', 'COM_KUNENA_PRUNE', false);
         JToolBarHelper::spacer();
-        JToolBarHelper::cancel();
+        JToolBarHelper::back();
         JToolBarHelper::spacer();
 
     }
@@ -144,7 +146,7 @@ class CKunenaToolbar
         JToolBarHelper::spacer();
         JToolBarHelper::custom('douserssync', 'apply.png', 'apply_f2.png', 'COM_KUNENA_SYNC', false);
         JToolBarHelper::spacer();
-        JToolBarHelper::cancel();
+        JToolBarHelper::back();
         JToolBarHelper::spacer();
 
     }

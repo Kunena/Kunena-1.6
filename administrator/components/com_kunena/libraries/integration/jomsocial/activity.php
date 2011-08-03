@@ -168,7 +168,7 @@ class KunenaActivityJomSocial extends KunenaActivity {
 			$act->cmd = 'wall.write';
 			$act->actor = JFactory::getUser()->id;
 			$act->target = $thankyoutargetid;
-			$act->title = JText::_ ( '{single}{actor}{/single}{multiple}{actors}{/multiple} ' . JText::_( 'COM_KUNENA_JS_ACTIVITYSTREAM_THANKYOU' ).' <a href="' . $JSPostLink . '">' . $message->get ( 'subject' ) . '</a> ' . JText::_ ( 'COM_KUNENA_JS_ACTIVITYSTREAM_REPLY_MSG2' ) );
+			$act->title = JText::_ ( '{single}{actor}{/single}{multiple}{actors}{/multiple} ' . JText::_( 'COM_KUNENA_JS_ACTIVITYSTREAM_THANKYOU' ).' <a href="' . $JSPostLink . '">' . $message->get ( 'subject' ) . '</a> ' );
 			$act->content = NULL;
 			$act->app = 'kunena.thankyou';
 			$act->cid = $thankyoutargetid;
