@@ -172,7 +172,7 @@ class TableKunenaThankYou extends JTable {
 	 * @return Objectlist List of users
 	 * @since 1.6
 	 */
-	function getUsers($pid, $named = '', $limit = 10) {
+	function getUsers($pid, $named = '') {
 		// TODO: accept list of users
 		$name = 'username';
 		if ($named === 'name')
@@ -182,7 +182,7 @@ class TableKunenaThankYou extends JTable {
 	 			LEFT JOIN {$this->_tbl} AS s
 	 			ON u.id = s.userid
 	 			WHERE s.postid={$this->_db->quote($pid)}";
-		$this->_db->setQuery ( $query, 0, $limit );
+		$this->_db->setQuery ( $query, 0 );
 		$res = $this->_db->loadObjectList ();
 
 		// Check for an error message.
