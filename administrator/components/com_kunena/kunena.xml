@@ -2,8 +2,8 @@
 <!DOCTYPE install>
 <install type="component" version="1.5.0" method="upgrade">
 	<name>Kunena</name>
-	<version>1.6.5</version>
-	<versionname>Babel</versionname>
+	<version>1.6.6-DEV</version>
+	<versionname>Development</versionname>
 	<creationDate>@kunenaversiondate@</creationDate>
 	<build>@kunenaversionbuild@</build>
 	<author>Kunena Team</author>

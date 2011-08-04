@@ -1,6 +1,6 @@
 <?php
 /**
-* @version $Id$
+* @version $Id: CHANGELOG.php 5006 2011-06-23 07:00:59Z mahagr $
 * Kunena Component
 * @package Kunena
 *
@@ -32,6 +32,11 @@ Legend:
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 Kunena 1.6.6-DEV
+
+4-August-2011 Matias
+# [#45] Prepare 1.6.6 Release: increase version
+# [#43] [quote] and other tags appears
+# [#46] Joomla 1.6+: Disable JXtended and NoixACL
 
 3-August-2011 Xillibit
 # [#41] When thank you, the activity stream add more text than needed
