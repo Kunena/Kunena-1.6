@@ -15,6 +15,8 @@ defined( '_JEXEC' ) or die('');
 
 class KunenaAccessJXtended extends KunenaAccess {
 	function __construct() {
+		if (KUNENA_JOOMLA_COMPAT != '1.5')
+			return null;
 		$loader = JPATH_ADMINISTRATOR . '/components/com_artofuser/libraries/loader.php';
 		if (is_file($loader)) {
 			require_once $loader;

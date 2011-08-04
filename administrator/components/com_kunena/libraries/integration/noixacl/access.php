@@ -15,6 +15,8 @@ defined( '_JEXEC' ) or die('');
 
 class KunenaAccessNoixACL extends KunenaAccess {
 	function __construct() {
+		if (KUNENA_JOOMLA_COMPAT != '1.5')
+			return null;
 		if (!is_file(JPATH_ADMINISTRATOR.'/components/com_noixacl/noixacl.php'))
 			return null;
 		$this->priority = 40;
