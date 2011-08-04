@@ -183,11 +183,12 @@
 					ADD INDEX `time` ( `time` );
 			</query>
 		</version>
-		<version version="@kunenaversion@" versiondate="@kunenaversiondate@" build="@kunenaversionbuild@" versionname="@kunenaversionname@">
+		<version version="1.6.5" versiondate="2011-07-27" build="5005" versionname="Babel">
 			<query mode="silenterror">ALTER TABLE `#__kunena_users` ADD INDEX `moderator` ( `moderator` );</query>
 			<query mode="silenterror">ALTER TABLE `#__kunena_categories` MODIFY `ordering` smallint(6) NOT NULL default '0' AFTER `admin_recurse`;</query>
 			<query mode="silenterror">ALTER TABLE `#__kunena_users` MODIFY `avatar` varchar(255) NULL;</query>
-			
+		</version>
+		<version version="@kunenaversion@" versiondate="@kunenaversiondate@" build="@kunenaversionbuild@" versionname="@kunenaversionname@">
 		</version>
 	</upgrade>
 </comupgrade>

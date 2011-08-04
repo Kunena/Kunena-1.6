@@ -1,6 +1,6 @@
 <?php
 /**
-* @version $Id$
+* @version $Id: CHANGELOG.php 5006 2011-06-23 07:00:59Z mahagr $
 * Kunena Component
 * @package Kunena
 *
@@ -32,6 +32,9 @@ Legend:
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 Kunena 1.6.6-DEV
+
+4-August-2011 Matias
+# [#45] Prepare 1.6.6 Release: increase version
 
 2-August-2011 Xillibit
 # [#36] Function getAccess in Jomsocial activity returns nothing
