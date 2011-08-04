@@ -38,6 +38,11 @@ Kunena 1.6.6-DEV
 # [#43] [quote] and other tags appears
 # [#46] Joomla 1.6+: Disable JXtended and NoixACL
 
+3-August-2011 Xillibit
+# [#41] When thank you, the activity stream add more text than needed
+# [#37] thank you max number does not work
+# [#39] Some cancel buttons in backend doesn't back at the right place
+
 2-August-2011 Xillibit
 # [#36] Function getAccess in Jomsocial activity returns nothing
 
