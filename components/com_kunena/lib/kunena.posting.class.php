@@ -967,45 +967,34 @@ class CKunenaPosting {
 			$mailsubject = JMailHelper::cleanSubject ( "[" . $this->_config->board_title . "] " . $topicsubject . " (" . $this->parent->catname . ")" );
 
 			$sentusers = array();
+			$bcc = array();
 			foreach ( $emailToList as $emailTo ) {
 				if (! $emailTo->email || ! JMailHelper::isEmailAddress ( $emailTo->email )) {
 					continue;
 				}
-
-				if ($emailTo->subscription) {
-					$msg1 = $this->get ( 'parent' ) ? JText::_ ( 'COM_KUNENA_POST_EMAIL_NOTIFICATION1' ) : JText::_ ( 'COM_KUNENA_POST_EMAIL_NOTIFICATION1_CAT' );
-					$msg2 = $this->get ( 'parent' ) ? JText::_ ( 'COM_KUNENA_POST_EMAIL_NOTIFICATION2' ) : JText::_ ( 'COM_KUNENA_POST_EMAIL_NOTIFICATION2_CAT' );
-				} else {
-					$msg1 = JText::_ ( 'COM_KUNENA_POST_EMAIL_MOD1' );
-					$msg2 = JText::_ ( 'COM_KUNENA_POST_EMAIL_MOD2' );
-				}
-
-				$msg = "$emailTo->name,\n\n";
-				$msg .= $msg1 . " " . $this->_config->board_title . "\n\n";
-				// DO NOT REMOVE EXTRA SPACE, JMailHelper::cleanBody() removes "Subject:" from the message body
-				$msg .= JText::_ ( 'COM_KUNENA_MESSAGE_SUBJECT' ) . " : " . $subject . "\n";
-				$msg .= JText::_ ( 'COM_KUNENA_GEN_CATEGORY' ) . " : " . $this->parent->catname . "\n";
-				$msg .= JText::_ ( 'COM_KUNENA_VIEW_POSTED' ) . " : " . $authorname . "\n\n";
-				$msg .= "URL : $LastPostUrl\n\n";
-				if ($this->_config->mailfull == 1) {
-					$msg .= JText::_ ( 'COM_KUNENA_GEN_MESSAGE' ) . " :\n-----\n";
-					$msg .= $message;
-					$msg .= "\n-----\n\n";
-				}
-				$msg .= $msg2 . "\n";
-				if ($emailTo->subscription && $once) {
-					if ($this->get ( 'parent' )) {
-						$msg .= JText::_ ( 'COM_KUNENA_POST_EMAIL_NOTIFICATION_MORE_READ' ) . "\n";
-					} else {
-						$msg .= JText::_ ( 'COM_KUNENA_POST_EMAIL_NOTIFICATION_MORE_SUBSCRIBE' ) . "\n";
-					}
-				}
-				$msg .= "\n";
-				$msg .= JText::_ ( 'COM_KUNENA_POST_EMAIL_NOTIFICATION3' ) . "\n";
-				$msg = JMailHelper::cleanBody ( $msg );
-				JUtility::sendMail ( $this->_config->email, $mailsender, $emailTo->email, $mailsubject, $msg );
+				$bcc[$emailTo->subscription][] = $emailTo->email;
 				$sentusers[] = $emailTo->id;
 			}
+			// Send the same email up to 20 users by using BCC
+			$subs = !empty($bcc[1]) ? array_chunk($bcc[1], 20) : array();
+			$mods = !empty($bcc[0]) ? array_chunk($bcc[0], 20) : array();
+
+			$mail = JFactory::getMailer();
+			$mail->setSender(array($this->_config->email, $mailsender));
+			$mail->setSubject($mailsubject);
+			$mail->setBody($this->createEmailBody(1, $subject, $authorname, $LastPostUrl, $message, $once));
+			foreach ($subs as $emails) {
+				$mail->ClearBCCs();
+				$mail->addBCC($emails);
+				$mail->Send();
+			}
+			$mail->setBody($this->createEmailBody(0, $subject, $authorname, $LastPostUrl, $message, $once));
+			foreach ($mods as $emails) {
+				$mail->ClearBCCs();
+				$mail->addBCC($emails);
+				$mail->Send();
+			}
+			// Update subscriptions
 			if ($once && $sentusers) {
 				$sentusers = implode (',', $sentusers);
 				$db = JFactory::getDBO();
@@ -1016,5 +1005,38 @@ class CKunenaPosting {
 				KunenaError::checkDatabaseError();
 			}
 		}
+	}
+
+	public function createEmailBody($subscription, $subject, $authorname, $LastPostUrl, $message, $once) {
+		if ($subscription) {
+			$msg1 = $this->get ( 'parent' ) ? JText::_ ( 'COM_KUNENA_POST_EMAIL_NOTIFICATION1' ) : JText::_ ( 'COM_KUNENA_POST_EMAIL_NOTIFICATION1_CAT' );
+			$msg2 = $this->get ( 'parent' ) ? JText::_ ( 'COM_KUNENA_POST_EMAIL_NOTIFICATION2' ) : JText::_ ( 'COM_KUNENA_POST_EMAIL_NOTIFICATION2_CAT' );
+		} else {
+			$msg1 = JText::_ ( 'COM_KUNENA_POST_EMAIL_MOD1' );
+			$msg2 = JText::_ ( 'COM_KUNENA_POST_EMAIL_MOD2' );
+		}
+
+		$msg = $msg1 . " " . $this->_config->board_title . "\n\n";
+		// DO NOT REMOVE EXTRA SPACE, JMailHelper::cleanBody() removes "Subject:" from the message body
+		$msg .= JText::_ ( 'COM_KUNENA_MESSAGE_SUBJECT' ) . " : " . $subject . "\n";
+		$msg .= JText::_ ( 'COM_KUNENA_GEN_CATEGORY' ) . " : " . $this->parent->catname . "\n";
+		$msg .= JText::_ ( 'COM_KUNENA_VIEW_POSTED' ) . " : " . $authorname . "\n\n";
+		$msg .= "URL : $LastPostUrl\n\n";
+		if ($this->_config->mailfull == 1) {
+			$msg .= JText::_ ( 'COM_KUNENA_GEN_MESSAGE' ) . " :\n-----\n";
+			$msg .= $message;
+			$msg .= "\n-----\n\n";
+		}
+		$msg .= $msg2 . "\n";
+		if ($subscription && $once) {
+			if ($this->get ( 'parent' )) {
+				$msg .= JText::_ ( 'COM_KUNENA_POST_EMAIL_NOTIFICATION_MORE_READ' ) . "\n";
+			} else {
+				$msg .= JText::_ ( 'COM_KUNENA_POST_EMAIL_NOTIFICATION_MORE_SUBSCRIBE' ) . "\n";
+			}
+		}
+		$msg .= "\n";
+		$msg .= JText::_ ( 'COM_KUNENA_POST_EMAIL_NOTIFICATION3' ) . "\n";
+		return JMailHelper::cleanBody ( $msg );
 	}
 }

@@ -39,6 +39,7 @@ Kunena 1.6.6-DEV
 # [#19] Problem with two-tiered duplicate menus
 # [#25] bbcodes in JomSocial activity stream
 * [#55] Only global moderators should be able to ban users
+# [#44] Subscription tries to send too many emails (hosts have limits: 10/sec)
 
 4-August-2011 Matias
 # [#45] Prepare 1.6.6 Release: increase version
