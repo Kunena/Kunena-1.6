@@ -28,6 +28,7 @@ class CKunenaProfile {
 		$this->do = $do;
 
 		if ($this->do == 'login' || $this->do == 'logout') {
+			if ($this->do == 'logout') $this->logout();
 			return;
 		}
 
