@@ -137,12 +137,12 @@ if (empty($_POST) && $format == 'html') {
 	}
 	$newItemid = KunenaRoute::getItemid();
 	if ($active && $newItemid && !KunenaRoute::getCurrentMenu () && $active->id != $newItemid) {
-		$newroute = KunenaRoute::_(null, false);
-		if ('/'.$active->route == $newroute) {
+		$newroute = KunenaRoute::_($newItemid, false);
+		if (strpos('/'.$active->route, $newroute) === 0) {
 			$menu->setActive ( $newItemid );
 			$active = $menu->getActive ();
 		} else {
-			$this->redirect ($newroute);
+			$this->redirect (KunenaRoute::_(null, false));
 		}
 	}
 }

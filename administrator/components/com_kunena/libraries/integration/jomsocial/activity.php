@@ -60,10 +60,7 @@ class KunenaActivityJomSocial extends KunenaActivity {
 		if (! empty ( $message->parent )) {
 			//activity stream  - new post
 			require_once KPATH_SITE.'/lib/kunena.link.class.php';
-			require_once KPATH_SITE.'/lib/kunena.smile.class.php';
 			$JSPostLink = CKunenaLink::GetThreadPageURL ( 'view', $message->get ( 'catid' ), $message->get ( 'thread' ), 1 );
-
-			$kunena_emoticons = smile::getEmoticons ( 0 ); // use colored emoticons for the activity stream
 
 			$content = $message->get ( 'message' );
 
@@ -76,12 +73,7 @@ class KunenaActivityJomSocial extends KunenaActivity {
 			$content = preg_replace ( '/\[code\](.*?)\[\/code]/s', '', $content );
 
 			// limit activity stream output if limit is set
-			if ($this->_config->activity_limit > 0){
-				$content = JString::substr($content, 0, $this->_config->activity_limit);
-			}
-
-			$content = smile::smileReplace ( $content, 0, $this->_config->disemoticons, $kunena_emoticons );
-			$content = nl2br ( $content );
+			$content = KunenaParser::parseBBCode($content, null, intval($this->_config->activity_limit));
 
 			// Add readmore link
 			$content .= '<br /><a href="'.
@@ -111,10 +103,7 @@ class KunenaActivityJomSocial extends KunenaActivity {
 		if (! empty ( $message->parent )) {
 			//activity stream - reply post
 			require_once KPATH_SITE.'/lib/kunena.link.class.php';
-			require_once KPATH_SITE.'/lib/kunena.smile.class.php';
 			$JSPostLink = CKunenaLink::GetThreadPageURL ( 'view', $message->get ( 'catid' ), $message->get ( 'thread' ), 1 );
-
-			$kunena_emoticons = smile::getEmoticons ( 0 );
 
 			$content = $message->get ( 'message' );
 
@@ -127,12 +116,7 @@ class KunenaActivityJomSocial extends KunenaActivity {
 			$content = preg_replace ( '/\[code\](.*?)\[\/code]/s', '', $content );
 
 			// limit activity stream output if limit is set
-			if ($this->_config->activity_limit > 0){
-				$content = JString::substr($content, 0, $this->_config->activity_limit);
-			}
-
-			$content = smile::smileReplace ( $content, 0, $this->_config->disemoticons, $kunena_emoticons );
-			$content = nl2br ( $content );
+			$content = KunenaParser::parseBBCode($content, null, intval($this->_config->activity_limit));
 
 			// Add readmore link
 			$content .= '<br /><a href="'.
@@ -161,7 +145,6 @@ class KunenaActivityJomSocial extends KunenaActivity {
 		if (! empty ( $message->parent )) {
 			//activity stream - reply post
 			require_once KPATH_SITE.'/lib/kunena.link.class.php';
-			require_once KPATH_SITE.'/lib/kunena.smile.class.php';
 			$JSPostLink = CKunenaLink::GetThreadPageURL ( 'view', $message->get ( 'catid' ), $message->get ( 'thread' ), 1 );
 
 			$act = new stdClass ();

@@ -32,7 +32,7 @@ abstract class KunenaParser {
 		return $txt;
 	}
 
-	function parseBBCode($txt, $parent=null) {
+	function parseBBCode($txt, $parent=null, $len=0) {
 		if (!$txt) return;
 		if (!self::$emoticons) self::$emoticons = smile::getEmoticons ( 0 );
 
@@ -42,6 +42,7 @@ abstract class KunenaParser {
 		$txt = str_replace ( "__KTAB__", "&#009;", $txt ); // For [code]
 		$txt = str_replace ( "__KRN__", "\n", $txt ); // For [code]
 		$txt = self::prepareContent ( $txt );
+		$txt = self::truncate($txt, $len);
 		return $txt;
 	}
 
@@ -54,6 +55,69 @@ abstract class KunenaParser {
 		$txt = self::escape ( $txt );
 		$txt = self::prepareContent ( $txt );
 		return $txt;
+	}
+
+	/**
+	 * Truncates text blocks over the specified character limit and closes
+	 * all open HTML tags. The behavior will not truncate an individual
+	 * word, it will find the first space that is within the limit and
+	 * truncate at that point. This method is UTF-8 safe.
+	 *
+	 * From Joomla 1.6+: JHtmlString
+	 *
+	 * @param   string   $text		The text to truncate.
+	 * @param   integer  $length		The maximum length of the text.
+	 * @return  string   The truncated text.
+	 */
+	public static function truncate($text, $length = 0)
+	{
+		// Truncate the item text if it is too long.
+		if ($length > 0 && JString::strlen($text) > $length)
+		{
+			// Find the first space within the allowed length.
+			$tmp = JString::substr($text, 0, $length);
+			$offset = JString::strrpos($tmp, ' ');
+			if(JString::strrpos($tmp, '<') > JString::strrpos($tmp, '>'))
+			{
+				$offset = JString::strrpos($tmp, '<');
+			}
+			$tmp = JString::substr($tmp, 0, $offset);
+
+			// If we don't have 3 characters of room, go to the second space within the limit.
+			if (JString::strlen($tmp) >= $length - 3) {
+				$tmp = JString::substr($tmp, 0, JString::strrpos($tmp, ' '));
+			}
+
+			// Put all opened tags into an array
+			preg_match_all ( "#<([a-z][a-z0-9]?)( .*)?(?!/)>#iU", $tmp, $result );
+			$openedtags = $result[1];
+			$openedtags = array_diff($openedtags, array("img", "hr", "br"));
+			$openedtags = array_values($openedtags);
+
+			// Put all closed tags into an array
+			preg_match_all ( "#</([a-z]+)>#iU", $tmp, $result );
+			$closedtags = $result[1];
+			$len_opened = count ( $openedtags );
+			// All tags are closed
+			if( count ( $closedtags ) == $len_opened )
+			{
+				return $tmp.'...';
+			}
+			$openedtags = array_reverse ( $openedtags );
+			// Close tags
+			for( $i = 0; $i < $len_opened; $i++ )
+			{
+				if ( !in_array ( $openedtags[$i], $closedtags ) )
+				{
+					$tmp .= "</" . $openedtags[$i] . ">";
+				} else {
+					unset ( $closedtags[array_search ( $openedtags[$i], $closedtags)] );
+				}
+			}
+			$text = $tmp.'...';
+		}
+
+		return $text;
 	}
 
 	function &prepareContent(&$content)
