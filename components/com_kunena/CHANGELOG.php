@@ -33,6 +33,9 @@ Legend:
 
 Kunena 1.6.6-DEV
 
+10-August-2011 Matias
+# [#48] Notice: Use of undefined constant KUNENA_JOOMLA_COMPAT
+
 4-August-2011 Matias
 # [#45] Prepare 1.6.6 Release: increase version
 # [#43] [quote] and other tags appears

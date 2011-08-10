@@ -14,8 +14,8 @@ class plgSystemKunena extends JPlugin {
 
 	function __construct(& $subject, $config) {
 		// Check if Kunena API exists
-		$kunena_api = JPATH_ADMINISTRATOR . '/components/com_kunena/api.php';
-		if (! is_file ( $kunena_api ))
+		$api = JPATH_ADMINISTRATOR . '/components/com_kunena/api.php';
+		if (! is_file ( $api ))
 			return false;
 
 		jimport ( 'joomla.application.component.helper' );
@@ -25,11 +25,14 @@ class plgSystemKunena extends JPlugin {
 		}
 
 		// Load Kunena API
-		require_once ($kunena_api);
+		require_once ($api);
 
-		// Fix Joomla 1.5 bug
-		if (JFactory::getApplication()->isAdmin() && KUNENA_JOOMLA_COMPAT == '1.5') {
-			JFactory::getLanguage()->load('com_kunena.menu', JPATH_ADMINISTRATOR);
+		if (version_compare(JVERSION, '1.6','<')) {
+			// Joomla 1.5: Fix bug
+			$lang = JFactory::getLanguage();
+			if (JFactory::getApplication()->isAdmin()) {
+				$lang->load('com_kunena.menu', JPATH_ADMINISTRATOR);
+			}
 		}
 
 		parent::__construct ( $subject, $config );
