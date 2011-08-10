@@ -38,6 +38,7 @@ Kunena 1.6.6-DEV
 # [#50] Joomla 1.7: Fix missing menu when not using default Kunena Menu
 # [#19] Problem with two-tiered duplicate menus
 # [#25] bbcodes in JomSocial activity stream
+* [#55] Only global moderators should be able to ban users
 
 4-August-2011 Matias
 # [#45] Prepare 1.6.6 Release: increase version
@@ -50,7 +51,7 @@ Kunena 1.6.6-DEV
 # [#39] Some cancel buttons in backend doesn't back at the right place
 
 2-August-2011 Xillibit
-# [#36] Function getAccess in Jomsocial activity returns nothing
+* [#36] Function getAccess in Jomsocial activity returns nothing
 
 31-July-2011 Xillibit
 # [#36] Jomsocial 2.2.3 error J17 K1.6.5
