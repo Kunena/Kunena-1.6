@@ -37,10 +37,8 @@ class CKunenaProfile {
 		$this->allow = true;
 
 		if ($this->do == 'login' ) {
-		  echo $this->do;
 			$this->login();
 			$this->allow = false;
-			die();
 			return;
 		} elseif ( $this->do == 'logout' ) {
 			$this->logout();
