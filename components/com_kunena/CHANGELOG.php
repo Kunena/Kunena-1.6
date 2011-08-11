@@ -33,6 +33,9 @@ Legend:
 
 Kunena 1.6.6-DEV
 
+11-August-2011 Matias
+^ [#44] Subscription tries to send too many emails: add configuration options
+
 10-August-2011 Matias
 # [#48] Notice: Use of undefined constant KUNENA_JOOMLA_COMPAT
 # [#50] Joomla 1.7: Fix missing menu when not using default Kunena Menu

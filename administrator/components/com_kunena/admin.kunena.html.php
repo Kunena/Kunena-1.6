@@ -1169,7 +1169,17 @@ function editForum(&$row, $categoryList, $moderatorList, $lists, $accessLists, $
 						</td>
 								<td align="left" valign="top"><?php echo JText::_('COM_KUNENA_A_THANKYOU_DESC') ?></td>
 					</tr>
-							<tr align="center" valign="middle">
+					<tr align="center" valign="middle">
+						<td align="left" valign="top"><?php echo JText::_('COM_KUNENA_A_DISPLAY_THANKYOU_NUMBERS') ?></td>
+								<td align="left" valign="top"><input type="text"
+							name="cfg_thankyou_max" class="ksm-field"
+							value="<?php echo kescape($kunena_config->thankyou_max);
+						?>" />
+						</td>
+								<td align="left" valign="top"><?php echo JText::_('COM_KUNENA_A_DISPLAY_THANKYOU_NUMBERS') ?>
+						</td>
+					</tr>
+					<tr align="center" valign="middle">
 						<td align="left" valign="top"><?php echo JText::_('COM_KUNENA_A_USER_EDIT') ?></td>
 								<td align="left" valign="top"><?php echo $lists ['useredit'];
 						?></td>
@@ -1205,9 +1215,38 @@ function editForum(&$row, $categoryList, $moderatorList, $lists, $accessLists, $
 						</td>
 					</tr>
 					<tr align="center" valign="middle">
-						<td align="left" valign="top"><?php echo JText::_('COM_KUNENA_A_SUBSCRIPTIONS') ?>
+						<td align="left" valign="top"><?php echo JText::_('COM_KUNENA_A_FAVORITES') ?></td>
+								<td align="left" valign="top"><?php echo $lists ['allowfavorites'];
+						?>
 						</td>
-								<td align="left" valign="top"><?php echo $lists ['allowsubscriptions'];
+								<td align="left" valign="top"><?php echo JText::_('COM_KUNENA_A_FAVORITES_DESC') ?>
+						</td>
+					</tr>
+					<tr align="center" valign="middle">
+						<td align="left" valign="top"><?php echo JText::_('COM_KUNENA_A_GHOSTMESSAGE') ?></td>
+								<td align="left" valign="top"><?php echo $lists ['boxghostmessage'];
+						?>
+						</td>
+								<td align="left" valign="top"><?php echo JText::_('COM_KUNENA_A_GHOSTMESSAGE_DESC') ?>
+						</td>
+					</tr>
+					<tr align="center" valign="middle">
+						<td align="left" valign="top"><?php echo JText::_('COM_KUNENA_A_SHOWBANNEDREASON_PROFILE') ?></td>
+								<td align="left" valign="top"><?php echo $lists ['showbannedreason'];
+						?>
+						</td>
+								<td align="left" valign="top"><?php echo JText::_('COM_KUNENA_A_SHOWBANNEDREASON_PROFILE_DESC') ?>
+						</td>
+					</tr>
+				</table>
+			</fieldset>
+			<fieldset>
+				<legend><?php echo JText::_('COM_KUNENA_SUBSCRIPTIONS') ?></legend>
+				<table cellpadding="4" cellspacing="0" border="0" width="100%" class="kadmin-adminform">
+					<tr align="center" valign="middle">
+						<td align="left" valign="top" width="25%"><?php echo JText::_('COM_KUNENA_A_SUBSCRIPTIONS') ?>
+						</td>
+								<td align="left" valign="top" width="25%"><?php echo $lists ['allowsubscriptions'];
 						?>
 						</td>
 								<td align="left" valign="top"><?php echo JText::_('COM_KUNENA_A_SUBSCRIPTIONS_DESC') ?>
@@ -1239,38 +1278,19 @@ function editForum(&$row, $categoryList, $moderatorList, $lists, $accessLists, $
 						</td>
 					</tr>
 					<tr align="center" valign="middle">
-						<td align="left" valign="top"><?php echo JText::_('COM_KUNENA_A_FAVORITES') ?></td>
-								<td align="left" valign="top"><?php echo $lists ['allowfavorites'];
-						?>
-						</td>
-								<td align="left" valign="top"><?php echo JText::_('COM_KUNENA_A_FAVORITES_DESC') ?>
-						</td>
+						<td align="left" valign="top"><?php echo JText::_('COM_KUNENA_A_SUBSCRIPTIONS_EMAIL_RECIPIENT_COUNT') ?></td>
+						<td align="left" valign="top"><?php echo JHTML::_('select.integerlist',0, 100, 5, 'cfg_email_recipient_count', null, kescape($kunena_config->email_recipient_count)); ?></td>
+						<td align="left" valign="top"><?php echo JText::_('COM_KUNENA_A_SUBSCRIPTIONS_EMAIL_RECIPIENT_COUNT_DESC') ?></td>
 					</tr>
 					<tr align="center" valign="middle">
-						<td align="left" valign="top"><?php echo JText::_('COM_KUNENA_A_GHOSTMESSAGE') ?></td>
-								<td align="left" valign="top"><?php echo $lists ['boxghostmessage'];
-						?>
-						</td>
-								<td align="left" valign="top"><?php echo JText::_('COM_KUNENA_A_GHOSTMESSAGE_DESC') ?>
-						</td>
+						<td align="left" valign="top"><?php echo JText::_('COM_KUNENA_A_SUBSCRIPTIONS_EMAIL_RECIPIENT_PRIVACY') ?></td>
+						<td align="left" valign="top"><?php echo $lists ['email_recipient_privacy']; ?></td>
+						<td align="left" valign="top"><?php echo JText::_('COM_KUNENA_A_SUBSCRIPTIONS_EMAIL_RECIPIENT_PRIVACY_DESC') ?></td>
 					</tr>
 					<tr align="center" valign="middle">
-						<td align="left" valign="top"><?php echo JText::_('COM_KUNENA_A_SHOWBANNEDREASON_PROFILE') ?></td>
-								<td align="left" valign="top"><?php echo $lists ['showbannedreason'];
-						?>
-						</td>
-								<td align="left" valign="top"><?php echo JText::_('COM_KUNENA_A_SHOWBANNEDREASON_PROFILE_DESC') ?>
-						</td>
-					</tr>
-					<tr align="center" valign="middle">
-						<td align="left" valign="top"><?php echo JText::_('COM_KUNENA_A_DISPLAY_THANKYOU_NUMBERS') ?></td>
-								<td align="left" valign="top"><input type="text"
-							name="cfg_thankyou_max" class="ksm-field"
-							value="<?php echo kescape($kunena_config->thankyou_max);
-						?>" />
-						</td>
-								<td align="left" valign="top"><?php echo JText::_('COM_KUNENA_A_DISPLAY_THANKYOU_NUMBERS') ?>
-						</td>
+						<td align="left" valign="top"><?php echo JText::_('COM_KUNENA_A_SUBSCRIPTIONS_EMAIL_VISIBLE_ADDRESS') ?></td>
+						<td align="left" valign="top"><input type="text" name="cfg_email_visible_address" value="<?php echo kescape($kunena_config->email_visible_address); ?>" /></td>
+						<td align="left" valign="top"><?php echo JText::_('COM_KUNENA_A_SUBSCRIPTIONS_EMAIL_VISIBLE_ADDRESS_DESC') ?></td>
 					</tr>
 				</table>
 			</fieldset>

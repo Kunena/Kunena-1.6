@@ -966,34 +966,30 @@ class CKunenaPosting {
 			$mailsender = JMailHelper::cleanAddress ( $this->_config->board_title );
 			$mailsubject = JMailHelper::cleanSubject ( "[" . $this->_config->board_title . "] " . $topicsubject . " (" . $this->parent->catname . ")" );
 
+			// Make a list from all receivers
 			$sentusers = array();
-			$bcc = array();
+			$receivers = array(0=>array(), 1=>array());
 			foreach ( $emailToList as $emailTo ) {
 				if (! $emailTo->email || ! JMailHelper::isEmailAddress ( $emailTo->email )) {
 					continue;
 				}
-				$bcc[$emailTo->subscription][] = $emailTo->email;
+				$receivers[$emailTo->subscription][] = $emailTo->email;
 				$sentusers[] = $emailTo->id;
 			}
-			// Send the same email up to 20 users by using BCC
-			$subs = !empty($bcc[1]) ? array_chunk($bcc[1], 20) : array();
-			$mods = !empty($bcc[0]) ? array_chunk($bcc[0], 20) : array();
 
+			// Create email
 			$mail = JFactory::getMailer();
-			$mail->setSender(array($this->_config->email, $mailsender));
 			$mail->setSubject($mailsubject);
+			$mail->setSender(array($this->_config->email, $mailsender));
+
+			// Send email to all subscribers
 			$mail->setBody($this->createEmailBody(1, $subject, $authorname, $LastPostUrl, $message, $once));
-			foreach ($subs as $emails) {
-				$mail->ClearBCCs();
-				$mail->addBCC($emails);
-				$mail->Send();
-			}
+			$this->sendEmail($mail, $receivers[1]);
+
+			// Send email to all moderators
 			$mail->setBody($this->createEmailBody(0, $subject, $authorname, $LastPostUrl, $message, $once));
-			foreach ($mods as $emails) {
-				$mail->ClearBCCs();
-				$mail->addBCC($emails);
-				$mail->Send();
-			}
+			$this->sendEmail($mail, $receivers[0]);
+
 			// Update subscriptions
 			if ($once && $sentusers) {
 				$sentusers = implode (',', $sentusers);
@@ -1007,7 +1003,37 @@ class CKunenaPosting {
 		}
 	}
 
-	public function createEmailBody($subscription, $subject, $authorname, $LastPostUrl, $message, $once) {
+	protected function sendEmail($mail, $receivers) {
+		if (empty($receivers)) return;
+		$email_recipient_count = !empty($this->_config->email_recipient_count) ? $this->_config->email_recipient_count : 1;
+		$email_recipient_privacy = !empty($this->_config->email_recipient_privacy) ? $this->_config->email_recipient_privacy : 'bcc';
+
+		// If we hide email addresses from other users, we need to add TO address to prevent email from becoming spam
+		if ($email_recipient_count > 1 && $email_recipient_privacy == 'bcc'
+			&& !empty($this->_config->email_visible_address) && JMailHelper::isEmailAddress ( $this->_config->email_visible_address )) {
+			$mail->AddAddress($this->_config->email_visible_address, JMailHelper::cleanAddress ( $this->_config->board_title ));
+			// Also make sure that email receiver limits are not violated (TO + CC + BCC = limit)
+			if ($email_recipient_count > 9) $email_recipient_count--;
+		}
+
+		$chunks = array_chunk($receivers, $email_recipient_count);
+		foreach ($chunks as $emails) {
+			if ($email_recipient_count == 1 || $email_recipient_privacy == 'to') {
+				$mail->ClearAddresses();
+				$mail->addRecipient($emails);
+			} elseif ($email_recipient_privacy == 'cc') {
+				$mail->ClearCCs();
+				$mail->addCC($emails);
+			} else {
+				$mail->ClearBCCs();
+				$mail->addBCC($emails);
+			}
+			$mail->Send();
+		}
+
+	}
+
+	protected function createEmailBody($subscription, $subject, $authorname, $LastPostUrl, $message, $once) {
 		if ($subscription) {
 			$msg1 = $this->get ( 'parent' ) ? JText::_ ( 'COM_KUNENA_POST_EMAIL_NOTIFICATION1' ) : JText::_ ( 'COM_KUNENA_POST_EMAIL_NOTIFICATION1_CAT' );
 			$msg2 = $this->get ( 'parent' ) ? JText::_ ( 'COM_KUNENA_POST_EMAIL_NOTIFICATION2' ) : JText::_ ( 'COM_KUNENA_POST_EMAIL_NOTIFICATION2_CAT' );
