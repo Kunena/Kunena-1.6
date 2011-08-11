@@ -367,6 +367,10 @@ class CKunenaConfig extends CKunenaConfigBase {
 	var $pubprofile = 1;
 	// New for 1.6.5
 	var $thankyou_max = 10;
+	// New for 1.6.6
+	var $email_recipient_count = 0;
+	var $email_recipient_privacy = 'bcc';
+	var $email_visible_address = '';
 
 	public function __construct($userinfo = null) {
 		parent::__construct ();
