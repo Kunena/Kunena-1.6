@@ -1665,6 +1665,13 @@ function showConfig($option) {
 	$topic_subscriptions[] = JHTML::_('select.option', 'every', JText::_('COM_KUNENA_OPTION_TOPIC_SUBSCRIPTIONS_EVERY'));
 	$lists ['topic_subscriptions'] = JHTML::_ ( 'select.genericlist', $topic_subscriptions, 'cfg_topic_subscriptions', 'class="inputbox" size="1"', 'value', 'text', $kunena_config->topic_subscriptions );
 
+	// Added new options into K1.6.6
+	$email_recipient_privacy = array();
+	$email_recipient_privacy[] = JHTML::_('select.option', 'to', JText::_('COM_KUNENA_A_SUBSCRIPTIONS_EMAIL_RECIPIENT_PRIVACY_OPTION_TO'));
+	$email_recipient_privacy[] = JHTML::_('select.option', 'cc', JText::_('COM_KUNENA_A_SUBSCRIPTIONS_EMAIL_RECIPIENT_PRIVACY_OPTION_CC'));
+	$email_recipient_privacy[] = JHTML::_('select.option', 'bcc', JText::_('COM_KUNENA_A_SUBSCRIPTIONS_EMAIL_RECIPIENT_PRIVACY_OPTION_BCC'));
+	$lists ['email_recipient_privacy'] = JHTML::_ ( 'select.genericlist', $email_recipient_privacy, 'cfg_email_recipient_privacy', 'class="inputbox" size="1"', 'value', 'text', $kunena_config->email_recipient_privacy );
+
 	html_Kunena::showConfig($kunena_config, $lists, $option);
 }
 

@@ -310,7 +310,7 @@ class KunenaUserBan extends JObject
 		$userid = $this->userid;
 		$myprofile = KunenaFactory::getUser();
 		$userprofile = KunenaFactory::getUser($userid);
-		if (!$myprofile->isModerator()) {
+		if (!$myprofile->isModerator(false)) {
 			$this->setError(JText::_('COM_KUNENA_MODERATION_ERROR_NOT_MODERATOR'));
 			return false;
 		}
