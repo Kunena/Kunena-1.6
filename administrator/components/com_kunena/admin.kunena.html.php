@@ -398,8 +398,7 @@ function showAdministration($rows, $children, $pageNav, $option, $lists) {
 					<th class="center"><small><?php echo JText::_('COM_KUNENA_CATEGORY_ANONYMOUS'); ?></small></th>
 					<th class="center"><small><?php echo JText::_('COM_KUNENA_ADMIN_POLLS'); ?></small></th>
 					<th class="center"><small><?php echo JText::_('COM_KUNENA_PUBLISHED'); ?></small></th>
-					<th class="center"><small><?php echo JText::_('COM_KUNENA_PUBLICACCESS'); ?></small></th>
-					<th class="center"><small><?php echo JText::_('COM_KUNENA_ADMINACCESS'); ?></small></th>
+					<th class="center"><small><?php echo JText::_('COM_KUNENA_ACCESS'); ?></small></th>
 					<th class="center"><small><?php echo JText::_('COM_KUNENA_CHECKEDOUT'); ?></small></th>
 				</tr>
 			</thead>
@@ -473,8 +472,7 @@ function showAdministration($rows, $children, $pageNav, $option, $lists) {
 			<?php endif; ?>
 
 			<td class="center"><?php echo JHTML::_('grid.published', $row, $i) ?></td>
-			<td width="" align="center"><?php echo kescape($row->groupname); ?></td>
-			<td width="" align="center"><?php echo kescape($row->admingroup); ?></td>
+			<td width="" align="center"><?php echo kescape($row->accessname); ?></td>
 			<td width="15%" align="center"><?php echo kescape($row->editor); ?></td>
 		</tr>
 			<?php
@@ -523,8 +521,10 @@ function editForum(&$row, $categoryList, $moderatorList, $lists, $accessLists, $
 		<div class="kadmin-functitle icon-adminforum"><?php echo JText::_('COM_KUNENA_ADMIN') ?></div>
 		<form action="index.php?option=<?php echo $option; ?>" method="post" name="adminForm">
 
-		<?php jimport('joomla.html.pane');
-		$myTabs = &JPane::getInstance('tabs', array('startOffset'=>0)); ?>
+		<?php
+		jimport('joomla.html.pane');
+		$myTabs = &JPane::getInstance('tabs', array('startOffset'=>0));
+		?>
 	<dl class="tabs" id="pane">
 	<dt title="<?php echo JText::_('COM_KUNENA_CATEGORY_INFO'); ?>"><?php echo JText::_('COM_KUNENA_CATEGORY_INFO'); ?></dt>
 	<dd>
@@ -532,11 +532,15 @@ function editForum(&$row, $categoryList, $moderatorList, $lists, $accessLists, $
 			<legend><?php echo JText::_('COM_KUNENA_BASICSFORUMINFO'); ?></legend>
 			<table cellpadding="4" cellspacing="0" border="0" width="100%" class="kadmin-adminform">
 				<tr>
-					<td width="200" valign="top"><?php echo JText::_('COM_KUNENA_PARENT'); ?></td>
-					<td><?php echo $categoryList; ?><br /><br /><?php echo JText::_('COM_KUNENA_PARENTDESC'); ?></td>
+					<td valign="top" width="25%"><?php echo JText::_('COM_KUNENA_PARENT'); ?></td>
+					<td>
+						<?php echo $categoryList; ?>
+						<div class="clr"></div>
+						<?php echo JText::_('COM_KUNENA_PARENTDESC'); ?>
+					</td>
 				</tr>
 				<tr>
-					<td width="200"><?php echo JText::_('COM_KUNENA_NAMEADD'); ?></td>
+					<td><?php echo JText::_('COM_KUNENA_NAMEADD'); ?></td>
 					<td><input class="inputbox" type="text" name="name" size="120" maxlength="<?php echo intval($kunena_config->maxsubject); ?>" value="<?php echo kescape ( $row->name ); ?>" /></td>
 				</tr>
 				<tr>
@@ -554,41 +558,56 @@ function editForum(&$row, $categoryList, $moderatorList, $lists, $accessLists, $
 			</table>
 		</fieldset>
 		</dd>
+		<dt title="<?php echo JText::_('COM_KUNENA_PERMISSIONS'); ?>"><?php echo JText::_('COM_KUNENA_PERMISSIONS'); ?></dt>
+		<dd>
+			<fieldset>
+				<legend><?php echo JText::_('COM_KUNENA_CATEGORY_PERMISSIONS'); ?></legend>
+				<table cellpadding="4" cellspacing="0" border="0" width="100%" class="kadmin-adminform">
+					<tr>
+						<td class="nowrap" valign="top" width="25%"><?php echo JText::_('COM_KUNENA_A_ACCESSTYPE_TITLE'); ?></td>
+						<td valign="top" width="25%"><?php echo $lists ['accesstypes']; ?></td>
+						<td><?php echo JText::_('COM_KUNENA_A_ACCESSTYPE_DESC'); ?></td>
+					</tr>
+					<tr class="kaccess kaccess-joomla-level" style="<?php echo $row->accesstype == 'none' ? 'display:none' : '' ?>">
+						<td class="nowrap" valign="top"><?php echo JText::_('COM_KUNENA_A_ACCESSLEVEL_TITLE');?></td>
+						<td valign="top"><?php echo $lists ['accesslevels']; ?></td>
+						<td valign="top"><?php echo JText::_('COM_KUNENA_A_ACCESSLEVEL_DESC') .'<br /><br />'. (KUNENA_JOOMLA_COMPAT == '1.5' ? JText::_('COM_KUNENA_A_ACCESSLEVEL_DESC_J15') : JText::_('COM_KUNENA_A_ACCESSLEVEL_DESC_J16')); ?></td>
+					</tr>
+					<tr class="kaccess kaccess-none" style="<?php echo $row->accesstype != 'none' ? 'display:none' : '' ?>">
+						<td class="nowrap" valign="top"><?php echo JText::_('COM_KUNENA_A_ACCESSGROUP_PRIMARY_TITLE'); ?></td>
+						<td valign="top"><?php echo $accessLists ['pub_access']; ?></td>
+						<td><?php echo JText::_('COM_KUNENA_A_ACCESSGROUP_PRIMARY_DESC') .'<br /><br />'. (KUNENA_JOOMLA_COMPAT == '1.5' ? JText::_('COM_KUNENA_A_ACCESSGROUP_PRIMARY_DESC_J15') : JText::_('COM_KUNENA_A_ACCESSGROUP_PRIMARY_DESC_J16')); ?></td>
+					</tr>
+					<tr class="kaccess kaccess-none" style="<?php echo $row->accesstype != 'none' ? 'display:none' : '' ?>">
+						<td class="nowrap" valign="top"><?php echo JText::_('COM_KUNENA_A_ACCESSGROUP_PRIMARY_CHILDS_TITLE'); ?></td>
+						<td valign="top"><?php echo $lists ['pub_recurse']; ?></td>
+						<td valign="top"><?php echo JText::_('COM_KUNENA_A_ACCESSGROUP_CHILDS_DESC'); ?></td>
+					</tr>
+					<tr class="kaccess kaccess-none" style="<?php echo $row->accesstype != 'none' ? 'display:none' : '' ?>">
+						<td valign="top"><?php echo JText::_('COM_KUNENA_A_ACCESSGROUP_SECONDARY_TITLE'); ?></td>
+						<td valign="top"><?php echo $accessLists ['admin_access']; ?></td>
+						<td valign="top"><?php echo JText::_('COM_KUNENA_A_ACCESSGROUP_SECONDARY_DESC') .'<br /><br />'. (KUNENA_JOOMLA_COMPAT == '1.5' ? JText::_('COM_KUNENA_A_ACCESSGROUP_SECONDARY_DESC_J15') : JText::_('COM_KUNENA_A_ACCESSGROUP_SECONDARY_DESC_J16')); ?></td>
+					</tr>
+					<tr class="kaccess kaccess-none" style="<?php echo $row->accesstype != 'none' ? 'display:none' : '' ?>">
+						<td class="nowrap" valign="top"><?php echo JText::_('COM_KUNENA_A_ACCESSGROUP_SECONDARY_CHILDS_TITLE'); ?></td>
+						<td valign="top"><?php echo $lists ['admin_recurse']; ?></td>
+						<td valign="top"><?php echo JText::_('COM_KUNENA_A_ACCESSGROUP_CHILDS_DESC'); ?></td>
+					</tr>
+				</table>
+			</fieldset>
+		</dd>
+
+		<?php if (!$row->id || $row->parent): ?>
 		<dt title="<?php echo JText::_('COM_KUNENA_ADVANCEDDESC'); ?>"><?php echo JText::_('COM_KUNENA_ADVANCEDDESC'); ?></dt>
 		<dd>
 			<fieldset>
 				<legend><?php echo JText::_('COM_KUNENA_ADVANCEDDESCINFO'); ?></legend>
 				<table cellpadding="4" cellspacing="0" border="0" width="100%" class="kadmin-adminform">
-					<?php if (!$row->id || $row->parent): ?>
 					<tr>
 						<td><?php echo JText::_('COM_KUNENA_LOCKED1'); ?></td>
  						<td><?php echo $lists ['forumLocked']; ?></td>
 						<td><?php echo JText::_('COM_KUNENA_LOCKEDDESC'); ?></td>
 					</tr>
-					<?php endif; ?>
-					<?php if ($row->accesstype == 'none'): ?>
-					<tr>
-						<td class="nowrap" valign="top"><?php echo JText::_('COM_KUNENA_PUBACC'); ?></td>
-						<td valign="top"><?php echo $accessLists ['pub_access']; ?></td>
-						<td><?php echo JText::_('COM_KUNENA_PUBACCDESC'); ?></td>
-					</tr>
-					<tr>
-						<td class="nowrap" valign="top"><?php echo JText::_('COM_KUNENA_CGROUPS'); ?></td>
-						<td valign="top"><?php echo $lists ['pub_recurse']; ?></td>
-						<td valign="top"><?php echo JText::_('COM_KUNENA_CGROUPSDESC'); ?></td>
-					</tr>
-					<tr>
-						<td valign="top"><?php echo JText::_('COM_KUNENA_ADMINLEVEL'); ?></td>
-						<td valign="top"><?php echo $accessLists ['admin_access']; ?></td>
-						<td valign="top"><?php echo JText::_('COM_KUNENA_ADMINLEVELDESC'); ?></td>
-					</tr>
-					<tr>
-						<td class="nowrap" valign="top"><?php echo JText::_('COM_KUNENA_CGROUPS1'); ?></td>
-						<td valign="top"><?php echo $lists ['admin_recurse']; ?></td>
-						<td valign="top"><?php echo JText::_('COM_KUNENA_CGROUPS1DESC'); ?></td>
-					</tr>
-					<?php endif; ?>
-					<?php if (!$row->id || $row->parent): ?>
 					<tr>
 						<td class="nowrap" valign="top"><?php echo JText::_('COM_KUNENA_REV'); ?></td>
 						<td valign="top"><?php echo $lists ['forumReview']; ?></td>
@@ -609,11 +628,8 @@ function editForum(&$row, $categoryList, $moderatorList, $lists, $accessLists, $
 						<td valign="top"><?php echo $lists ['allow_polls']; ?></td>
 						<td valign="top"><?php echo JText::_('COM_KUNENA_A_POLL_CATEGORIES_ALLOWED_DESC'); ?></td>
 					</tr>
-					<?php endif; ?>
 				</table>
 			</fieldset>
-
-			<?php if (!$row->id || $row->parent): ?>
 
 			<fieldset>
 				<legend><?php echo JText::_('COM_KUNENA_ADVANCEDDISPINFO'); ?></legend>
@@ -626,6 +642,7 @@ function editForum(&$row, $categoryList, $moderatorList, $lists, $accessLists, $
 				</table>
 			</fieldset>
 			</dd>
+
 			<dt title="<?php echo JText::_('COM_KUNENA_MODNEWDESC'); ?>"><?php echo JText::_('COM_KUNENA_MODNEWDESC'); ?></dt>
 			<dd>
 			<fieldset>

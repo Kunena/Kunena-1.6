@@ -992,20 +992,22 @@ function showAdministration($option) {
 
 	if (KUNENA_JOOMLA_COMPAT == '1.5') {
 		// Joomla 1.5
-		 $query= "SELECT a.*, a.parent>0 AS category, u.name AS editor, g.name AS groupname, g.id AS group_id, h.name AS admingroup
+		$query= "SELECT a.*, a.parent>0 AS category, u.name AS editor, g.name AS groupname, g.id AS group_id, h.name AS admingroup, v.name AS viewlevel
 			FROM #__kunena_categories AS a
 			LEFT JOIN #__users AS u ON u.id = a.checked_out
-			LEFT JOIN #__core_acl_aro_groups AS g ON g.id = a.pub_access
-			LEFT JOIN #__core_acl_aro_groups AS h ON h.id = a.admin_access
+			LEFT JOIN #__core_acl_aro_groups AS g ON a.accesstype='none' AND  g.id = a.pub_access
+			LEFT JOIN #__core_acl_aro_groups AS h ON a.accesstype='none' AND  h.id = a.admin_access
+			LEFT JOIN #__groups AS v ON a.accesstype='joomla.level' AND v.id = a.access
 			".$where
 		 	.$order;
 	} else {
 		// Joomla 1.6
-		$query = "SELECT a.*, a.parent>0 AS category, u.name AS editor, g.title AS groupname, h.title AS admingroup
+		$query = "SELECT a.*, a.parent>0 AS category, u.name AS editor, g.title AS groupname, h.title AS admingroup, v.title AS viewlevel
 			FROM #__kunena_categories AS a
 			LEFT JOIN #__users AS u ON u.id = a.checked_out
-			LEFT JOIN #__usergroups AS g ON g.id = a.pub_access
-			LEFT JOIN #__usergroups AS h ON h.id = a.admin_access
+			LEFT JOIN #__usergroups AS g ON a.accesstype='none' AND g.id = a.pub_access
+			LEFT JOIN #__usergroups AS h ON a.accesstype='none' AND  h.id = a.admin_access
+			LEFT JOIN #__viewlevels AS v ON a.accesstype='joomla.level' AND v.id = a.access
 			".$where
 			.$order;
 	}
@@ -1031,27 +1033,34 @@ function showAdministration($option) {
 			if ( empty($search))
 			$v->name = JText::_('COM_KUNENA_CATEGORY_ORPHAN').' : '.$v->name;
 		}
-		if ($v->accesstype != 'none') {
-			$v->groupname = JText::_('COM_KUNENA_INTEGRATION_'.strtoupper($v->accesstype));
+		if ($v->accesstype == 'joomla.level') {
+			if (KUNENA_JOOMLA_COMPAT == '1.5') {
+				$v->accessname = JText::_('COM_KUNENA_INTEGRATION_JOOMLA_LEVEL').': '.($v->viewlevel ? JText::_($v->viewlevel) : JText::_('COM_KUNENA_NOBODY'));
+			} else {
+				$v->accessname = JText::_('COM_KUNENA_INTEGRATION_JOOMLA_LEVEL').': '.($v->viewlevel ? $v->viewlevel : JText::_('COM_KUNENA_NOBODY'));
+			}
+		} elseif ($v->accesstype != 'none') {
+			$v->accessname = JText::_('COM_KUNENA_INTEGRATION_'.strtoupper(preg_replace('/[^\w\d]+/', '_', $v->accesstype))).': '.$v->access;
 		} elseif (KUNENA_JOOMLA_COMPAT == '1.5') {
 			// Joomla 1.5
 			if ($v->pub_access == 0) {
-				$v->groupname = JText::_('COM_KUNENA_EVERYBODY');
+				$v->accessname = JText::_('COM_KUNENA_PUBLIC');
 			} else if ($v->pub_access == - 1) {
-				$v->groupname = JText::_('COM_KUNENA_ALLREGISTERED');
-			} else if ($v->pub_access == 1) {
-				$v->groupname = JText::_('COM_KUNENA_NOBODY');
+				$v->accessname = JText::_('COM_KUNENA_ALLREGISTERED');
+			} else if ($v->pub_access == 1 || !$v->groupname) {
+				$v->accessname = JText::_('COM_KUNENA_NOBODY');
 			} else {
-				$v->groupname = JText::_( $v->groupname );
+				$v->accessname = JText::sprintf( $v->pub_recurse ? 'COM_KUNENA_A_GROUP_X_PLUS' : 'COM_KUNENA_A_GROUP_X_ONLY', JText::_( $v->groupname ));
+			}
+			if ($v->admingroup && $v->pub_access != $v->admin_access) {
+				$v->accessname .= ' / '.JText::sprintf( $v->admin_recurse ? 'COM_KUNENA_A_GROUP_X_PLUS' : 'COM_KUNENA_A_GROUP_X_ONLY', JText::_( $v->admingroup ));
 			}
 		} else {
 			// Joomla 1.6+
-			$v->groupname = $v->groupname ? JText::_( $v->groupname ) : JText::_('COM_KUNENA_NOBODY');
-		}
-		if ($v->accesstype != 'none') {
-			$v->admingroup = $v->access;
-		} else {
-			$v->admingroup = JText::_( $v->admingroup );
+			$v->accessname = JText::sprintf( $v->pub_recurse ? 'COM_KUNENA_A_GROUP_X_PLUS' : 'COM_KUNENA_A_GROUP_X_ONLY', $v->groupname ? JText::_( $v->groupname ) : JText::_('COM_KUNENA_NOBODY') );
+			if ($v->admingroup && $v->pub_access != $v->admin_access) {
+				$v->accessname .= ' / '.JText::sprintf( $v->admin_recurse ? 'COM_KUNENA_A_GROUP_X_PLUS' : 'COM_KUNENA_A_GROUP_X_ONLY', JText::_( $v->admingroup ));
+			}
 		}
 		if ($v->checked_out && !JTable::isCheckedOut(0, intval($v->checked_out))) {
 			$v->checked_out = 0;
@@ -1122,12 +1131,17 @@ function editForum($id, $option) {
 		$category->pub_recurse = 1;
 		$category->admin_recurse = 1;
 		if (KUNENA_JOOMLA_COMPAT == '1.5') {
+			$category->accesstype = 'none';
+			$category->access = 0;
 			$category->pub_access = 0;
+			$category->admin_access = 0;
 		} else {
+			$category->accesstype = 'joomla.level';
+			$category->access = 1;
 			$category->pub_access = 1;
+			$category->admin_access = 8;
 		}
 		$category->moderated = 1;
-		$category->accesstype = 'none';
 	}
 
 	$catList = array();
@@ -1144,25 +1158,32 @@ function editForum($id, $option) {
 	//create custom group levels to include into the public group selectList
 	if (KUNENA_JOOMLA_COMPAT == '1.5') {
 		$pub_groups = array ();
-		$adm_groups = array ();
 		$pub_groups [] = JHTML::_ ( 'select.option', 1, JText::_('COM_KUNENA_NOBODY') );
-		$pub_groups [] = JHTML::_ ( 'select.option', 0, JText::_('COM_KUNENA_EVERYBODY') );
+		$pub_groups [] = JHTML::_ ( 'select.option', 0, JText::_('COM_KUNENA_PUBLIC') );
 		$pub_groups [] = JHTML::_ ( 'select.option', - 1, JText::_('COM_KUNENA_ALLREGISTERED') );
-		$pub_groups = array_merge ( $pub_groups, $kunena_acl->get_group_children_tree ( null, 'Registered', true ) );
-		$adm_groups = array_merge ( $adm_groups, $kunena_acl->get_group_children_tree ( null, 'Public Backend', true ) );
+		$adm_groups = array ();
+		$adm_groups [] = JHTML::_ ( 'select.option', 0, JText::_('COM_KUNENA_NOBODY') );
+		$joomlagroups = $kunena_acl->get_group_children_tree ( null, 'USERS', false );
+		foreach ($joomlagroups as &$group) {
+			$group->text = preg_replace('/(^&nbsp; |\.&nbsp;|&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;)/', '- ', $group->text);
+		}
+		$pub_groups = array_merge ( $pub_groups, $joomlagroups );
+		$adm_groups = array_merge ( $adm_groups, $joomlagroups );
 		// Create the access control lists for Joomla 1.5
-		$accessLists ['pub_access'] = JHTML::_ ( 'select.genericlist', $pub_groups, 'pub_access', 'class="inputbox" size="4"', 'value', 'text', $category->pub_access );
-		$accessLists ['admin_access'] = JHTML::_ ( 'select.genericlist', $adm_groups, 'admin_access', 'class="inputbox" size="4"', 'value', 'text', $category->admin_access );
+		$accessLists ['pub_access'] = JHTML::_ ( 'select.genericlist', $pub_groups, 'pub_access', 'class="inputbox" size="10"', 'value', 'text', $category->pub_access );
+		$accessLists ['admin_access'] = JHTML::_ ( 'select.genericlist', $adm_groups, 'admin_access', 'class="inputbox" size="10"', 'value', 'text', $category->admin_access );
 	} else {
 		// Create the access control lists for Joomla 1.6
-		$accessLists ['pub_access'] = JHTML::_ ( 'access.usergroup', 'pub_access', $category->pub_access, 'class="inputbox" size="4"', false);
-		$accessLists ['admin_access'] = JHTML::_ ( 'access.usergroup', 'admin_access', $category->admin_access, 'class="inputbox" size="4"', false);
+		$accessLists ['pub_access'] = JHTML::_ ( 'access.usergroup', 'pub_access', $category->pub_access, 'class="inputbox" size="10"', false);
+		$accessLists ['admin_access'] = JHTML::_ ( 'access.usergroup', 'admin_access', $category->admin_access, 'class="inputbox" size="10"', false);
 	}
 	// Anonymous posts default
 	$post_anonymous = array ();
 	$post_anonymous [] = JHTML::_ ( 'select.option', '0', JText::_('COM_KUNENA_CATEGORY_ANONYMOUS_X_REG') );
 	$post_anonymous [] = JHTML::_ ( 'select.option', '1', JText::_('COM_KUNENA_CATEGORY_ANONYMOUS_X_ANO') );
 
+	$lists ['accesstypes'] = KunenaFactory::getAccessControl()->getAccessTypesList($category);
+	$lists ['accesslevels'] = KunenaFactory::getAccessControl()->getAccessLevelsList($category);
 	$lists ['pub_recurse'] = JHTML::_ ( 'select.genericlist', $yesno, 'pub_recurse', 'class="inputbox" size="1"', 'value', 'text', $category->pub_recurse );
 	$lists ['admin_recurse'] = JHTML::_ ( 'select.genericlist', $yesno, 'admin_recurse', 'class="inputbox" size="1"', 'value', 'text', $category->admin_recurse );
 	$lists ['forumLocked'] = JHTML::_ ( 'select.genericlist', $yesno, 'locked', 'class="inputbox" size="1"', 'value', 'text', $category->locked );
