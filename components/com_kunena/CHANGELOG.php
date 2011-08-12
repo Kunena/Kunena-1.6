@@ -33,6 +33,9 @@ Legend:
 
 Kunena 1.6.6-DEV
 
+12-August-2011 Xillibit
+^ [#57] Captcha plugin doesn't work in J1.6+
+
 11-August-2011 Xillibit
 ^ [#53] Move logout and login methods outside of display
 # [#53] Move logout and login methods outside of display (missing die)

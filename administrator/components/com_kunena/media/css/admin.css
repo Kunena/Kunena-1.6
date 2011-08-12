@@ -251,6 +251,9 @@ div.tpl-desc {
 input.ksm-field {
 	width: 50px;
 }
+input.ksm-field-large {
+	width: 250px;
+}
 .kadmin-statscover {
 	padding:0px;
 }
