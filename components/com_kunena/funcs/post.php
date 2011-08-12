@@ -29,7 +29,7 @@ class CKunenaPost {
 		$this->my = &JFactory::getUser ();
 
 		require_once(KUNENA_PATH_LIB.'/kunena.recaptcha.class.php');
-		$this->captcha = new recaptcha($this->config->captcha_pubkey, $this->config->captcha_privkey, JRequest::getVar('REMOTE_ADDR', null, 'server'));
+		$this->captcha = new KRecaptcha($this->config->captcha_pubkey, $this->config->captcha_privkey, JRequest::getVar('REMOTE_ADDR', null, 'server'));
 
 		$this->id = JRequest::getInt ( 'id', 0 );
 		if (! $this->id) {
@@ -1163,7 +1163,7 @@ class CKunenaPost {
 		</script>
 		');
 
-		echo $this->captcha->recaptcha_get_html();
+		echo $this->captcha->recaptchaGetHtml();
 	}
 
 	/**
@@ -1192,7 +1192,7 @@ class CKunenaPost {
 		$challenge	= JRequest::getString('recaptcha_challenge_field');
 		$response	= JRequest::getString('recaptcha_response_field');
 
-		$this->captcha->recaptcha_check_answer ($challenge, $response);
+		$this->captcha->recaptchaCheckAnswer ($challenge, $response);
 
 		$captcha_errors = array('invalid-site-private-key' => JText::_ ( 'COM_KUNENA_CAPTCHA_PRIVATE_KEY_INVALID' ) ,'invalid-request-cookie' => JText::_ ( 'COM_KUNENA_CAPTCHA_CHALLENGE_PARAMETER_INVALID' ),'incorrect-captcha-sol' => JText::_ ( 'COM_KUNENA_CAPTCHACODE_DO_NOT_MATCH' ));
 
