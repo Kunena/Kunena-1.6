@@ -1,6 +1,6 @@
 <?php
 /**
-* @version $Id: CHANGELOG.php 5006 2011-06-23 07:00:59Z mahagr $
+* @version $Id: CHANGELOG.php 5013 2011-06-23 07:00:59Z mahagr $
 * Kunena Component
 * @package Kunena
 *
@@ -33,9 +33,12 @@ Legend:
 
 Kunena 1.6.6-DEV
 
+12-August-2011 Matias
+# [#59] Add support for access levels in category permissions
+# [#58] Blocked users are getting email notifications on public categories
+
 11-August-2011 Xillibit
 ^ [#53] Move logout and login methods outside of display
-# [#53] Move logout and login methods outside of display (missing die)
 
 11-August-2011 Matias
 ^ [#44] Subscription tries to send too many emails: add configuration options
