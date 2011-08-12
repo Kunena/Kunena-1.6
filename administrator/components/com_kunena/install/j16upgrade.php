@@ -172,7 +172,7 @@ class jUpgradeComponentKunena extends jUpgrade {
 
 		// Do some custom post processing on the list.
 		foreach ($rows as &$row) {
-			if (isset($row['accesstype']) || $row['accesstype'] == 'none' ) {
+			if (!isset($row['accesstype']) || $row['accesstype'] == 'none' ) {
 				if ($row['admin_access'] != 0) {
 					$row['admin_access'] = $map[$row['admin_access']];
 				}
@@ -191,6 +191,9 @@ class jUpgradeComponentKunena extends jUpgrade {
 					// User groups
 					$row['pub_access'] = $map[$row['pub_access']];
 				}
+			} elseif ($row['accesstype'] == 'joomla.level') {
+				// Convert Joomla access levels
+				$row['access']++;
 			}
 		}
 		$this->setDestinationData($rows);

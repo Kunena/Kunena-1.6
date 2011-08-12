@@ -27,25 +27,17 @@ class CKunenaProfile {
 		$this->my = JFactory::getUser ();
 		$this->do = $do;
 
+		if ($this->do == 'login' ) {
+			return $this->login();
+		} elseif ( $this->do == 'logout' ) {
+			return $this->logout();
+		}
+
 		if (!$userid) {
 			$this->user = $this->my;
 		}
 		else {
 			$this->user = JFactory::getUser( $userid );
-		}
-
-		$this->allow = true;
-
-		if ($this->do == 'login' ) {
-			$this->login();
-			$this->allow = false;
-			return;
-		} elseif ( $this->do == 'logout' ) {
-			$this->logout();
-			$this->allow = false;
-			return;
-		} else {
-			continue;
 		}
 
 		if ($this->user->id == 0 || ($this->my->id == 0 && !$this->config->pubprofile)) {
@@ -68,6 +60,8 @@ class CKunenaProfile {
 			CKunenaTools::loadTemplate ( '/login.php' );
 			return;
 		}
+
+		$this->allow = true;
 
 		$this->profile = KunenaFactory::getUser ( $this->user->id );
 		if (!$this->profile->exists()) {
