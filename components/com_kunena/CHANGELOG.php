@@ -37,8 +37,14 @@ Kunena 1.6.6-DEV
 # [#59] Add support for access levels in category permissions
 # [#58] Blocked users are getting email notifications on public categories
 
+11-August-2011 Xillibit
+^ [#53] Move logout and login methods outside of display
+
 11-August-2011 Matias
 ^ [#44] Subscription tries to send too many emails: add configuration options
+
+10-August-2011 Xillibit
+# [#53] With CB 1.7.0 not possible to logout from Kunena
 
 10-August-2011 Matias
 # [#48] Notice: Use of undefined constant KUNENA_JOOMLA_COMPAT

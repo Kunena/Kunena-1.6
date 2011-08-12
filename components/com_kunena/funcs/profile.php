@@ -27,8 +27,10 @@ class CKunenaProfile {
 		$this->my = JFactory::getUser ();
 		$this->do = $do;
 
-		if ($this->do == 'login' || $this->do == 'logout') {
-			return;
+		if ($this->do == 'login' ) {
+			return $this->login();
+		} elseif ( $this->do == 'logout' ) {
+			return $this->logout();
 		}
 
 		if (!$userid) {
@@ -417,10 +419,6 @@ class CKunenaProfile {
 	}
 
 	function display() {
-		if ($this->do == 'login') {
-			$this->login();
-			return;
-		}
 		if (!$this->allow) {
 			return;
 		}
@@ -433,9 +431,6 @@ class CKunenaProfile {
 				break;
 			case 'cancel':
 				$this->cancel();
-				break;
-			case 'logout':
-				$this->logout();
 				break;
 			default:
 				$this->displaySummary();
