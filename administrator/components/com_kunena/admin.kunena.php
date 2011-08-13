@@ -1693,6 +1693,13 @@ function showConfig($option) {
 	$email_recipient_privacy[] = JHTML::_('select.option', 'bcc', JText::_('COM_KUNENA_A_SUBSCRIPTIONS_EMAIL_RECIPIENT_PRIVACY_OPTION_BCC'));
 	$lists ['email_recipient_privacy'] = JHTML::_ ( 'select.genericlist', $email_recipient_privacy, 'cfg_email_recipient_privacy', 'class="inputbox" size="1"', 'value', 'text', $kunena_config->email_recipient_privacy );
 
+	$captcha_theme = array();
+	$captcha_theme[] = JHTML::_('select.option', 'red', JText::_('COM_KUNENA_OPTION_CAPTCHA_THEME_RED'));
+	$captcha_theme[] = JHTML::_('select.option', 'white', JText::_('COM_KUNENA_OPTION_CAPTCHA_THEME_WHITE'));
+	$captcha_theme[] = JHTML::_('select.option', 'blackglass', JText::_('COM_KUNENA_OPTION_CAPTCHA_THEME_BLACK'));
+	$captcha_theme[] = JHTML::_('select.option', 'clean', JText::_('COM_KUNENA_OPTION_CAPTCHA_THEME_CLEAN'));
+	$lists ['captcha_theme'] = JHTML::_ ( 'select.genericlist', $captcha_theme, 'cfg_captcha_theme', 'class="inputbox" size="1"', 'value', 'text', $kunena_config->captcha_theme );
+
 	html_Kunena::showConfig($kunena_config, $lists, $option);
 }
 

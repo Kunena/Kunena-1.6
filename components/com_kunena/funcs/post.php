@@ -28,6 +28,9 @@ class CKunenaPost {
 
 		$this->my = &JFactory::getUser ();
 
+		require_once(KUNENA_PATH_LIB.'/kunena.recaptcha.class.php');
+		$this->captcha = new KRecaptcha($this->config->captcha_pubkey, $this->config->captcha_privkey, JRequest::getVar('REMOTE_ADDR', null, 'server'));
+
 		$this->id = JRequest::getInt ( 'id', 0 );
 		if (! $this->id) {
 			$this->id = JRequest::getInt ( 'parentid', 0 );
@@ -1134,17 +1137,33 @@ class CKunenaPost {
 		if (! $this->hasCaptcha ())
 			return;
 
-		$dispatcher = &JDispatcher::getInstance();
-        $results = $dispatcher->trigger( 'onCaptchaRequired', array( 'kunena.post' ) );
-
-		if (! JPluginHelper::isEnabled ( 'system', 'captcha' ) || !$results[0] ) {
+		if ( empty($this->config->captcha_pubkey) ) {
 			echo JText::_ ( 'COM_KUNENA_CAPTCHA_NOT_CONFIGURED' );
 			return;
 		}
 
-        if ($results[0]) {
-        	$dispatcher->trigger( 'onCaptchaView', array( 'kunena.post', 0, '', '<br />' ) );
-        }
+		$this->document->addCustomTag('
+		<script type="text/javascript">
+		<!--
+			var RecaptchaOptions = {
+				custom_translations : {
+				instructions_visual : "'.JText::_('COM_KUNENA_CAPTCHA_WRITE_CODE').'",
+				instructions_audio : "'.JText::_('COM_KUNENA_CAPTCHA_WRITE_AUDIO_CODE').'",
+				play_again : "'.JText::_('COM_KUNENA_CAPTCHA_LISTEN_AUDIO_AGAIN').'",
+				cant_hear_this : "'.JText::_('COM_KUNENA_CAPTCHA_SAVE_AUDIO_MP3').'",
+				visual_challenge : "'.JText::_('COM_KUNENA_CAPTCHA_CODE_VISUAL').'",
+				audio_challenge : "'.JText::_('COM_KUNENA_CAPTCHA_CODE_AUDIO').'",
+				refresh_btn : "'.JText::_('COM_KUNENA_CAPTCHA_REFRESH_CODE').'",
+				help_btn : "'.JText::_('COM_KUNENA_CAPTCHA_HELP').'",
+				incorrect_try_again : "'.JText::_('COM_KUNENA_CAPTCHA_INCORRECT_TRYAGAIN').'",
+			},
+			theme : "'.$this->config->captcha_theme.'"
+			};
+		//-->
+		</script>
+		');
+
+		echo $this->captcha->recaptchaGetHtml();
 	}
 
 	/**
@@ -1165,25 +1184,29 @@ class CKunenaPost {
 		if (! $this->hasCaptcha ())
 			return;
 
-		$dispatcher     = &JDispatcher::getInstance();
-        $results = $dispatcher->trigger( 'onCaptchaRequired', array( 'kunena.post' ) );
-
-		if (! JPluginHelper::isEnabled ( 'system', 'captcha' ) || !$results[0]) {
-			$this->_app->enqueueMessage ( JText::_ ( 'COM_KUNENA_CAPTCHA_CANNOT_CHECK_CODE' ), 'error' );
-			$this->redirectBack ();
+		if ( empty($this->config->captcha_privkey)) {
+			echo JText::_ ( 'COM_KUNENA_CAPTCHA_API_KEY_NOT_VALID' );
+			return;
 		}
 
-        if ( $results[0] ) {
-        	$captchaparams = array( JRequest::getVar( 'captchacode', '', 'post' )
-                        , JRequest::getVar( 'captchasuffix', '', 'post' )
-                        , JRequest::getVar( 'captchasessionid', '', 'post' ));
-        	$results = $dispatcher->trigger( 'onCaptchaVerify', $captchaparams );
-            if ( ! $results[0] ) {
-                $this->_app->enqueueMessage ( JText::_ ( 'COM_KUNENA_CAPTCHACODE_DO_NOT_MATCH' ), 'error' );
-				$this->redirectBack ();
-                return false;
-           }
-      }
+		$challenge	= JRequest::getString('recaptcha_challenge_field');
+		$response	= JRequest::getString('recaptcha_response_field');
+
+		$this->captcha->recaptchaCheckAnswer ($challenge, $response);
+
+		$captcha_errors = array('invalid-site-private-key' => JText::_ ( 'COM_KUNENA_CAPTCHA_PRIVATE_KEY_INVALID' ) ,'invalid-request-cookie' => JText::_ ( 'COM_KUNENA_CAPTCHA_CHALLENGE_PARAMETER_INVALID' ),'incorrect-captcha-sol' => JText::_ ( 'COM_KUNENA_CAPTCHACODE_DO_NOT_MATCH' ));
+
+		if ( !$this->captcha->is_valid ) {
+			$cap_error = '';
+			foreach ( $captcha_errors as $key=>$value ) {
+				if ( $this->captcha->error == $key ) $cap_error = $value;
+			}
+			$this->_app->enqueueMessage ( $cap_error, 'error' );
+			$this->redirectBack ();
+			return false;
+		} else {
+			return true;
+		}
 	}
 
 	function redirectBack() {

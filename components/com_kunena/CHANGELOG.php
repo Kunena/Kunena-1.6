@@ -33,6 +33,10 @@ Legend:
 
 Kunena 1.6.6-DEV
 
+12-August-2011 Xillibit
++ [#57] Captcha plugin doesn't work in J1.6+
+# [#57] Captcha plugin doesn't work in J1.6+ (missing recaptcha class and rename class methods in the right way)
+
 12-August-2011 Matias
 # [#59] Add support for access levels in category permissions
 # [#58] Blocked users are getting email notifications on public categories
