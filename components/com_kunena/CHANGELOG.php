@@ -33,6 +33,12 @@ Legend:
 
 Kunena 1.6.6-DEV
 
+13-August-2011 Matias
++ [#57] Create Kunena 2.0 compatible version of captcha + code improvements
++ [#57] Add new option to challenge new users with captcha
++ [#62] Save written message when posting/editing fails because of a mistake
+! NOTE: Old templates keep on working, but are missing new features!
+
 12-August-2011 Xillibit
 + [#57] Captcha plugin doesn't work in J1.6+
 # [#57] Captcha plugin doesn't work in J1.6+ (missing recaptcha class and rename class methods in the right way)

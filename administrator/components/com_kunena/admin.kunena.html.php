@@ -1422,36 +1422,30 @@ function editForum(&$row, $categoryList, $moderatorList, $lists, $accessLists, $
 					<legend><?php echo JText::_('COM_KUNENA_A_CAPTCHA_CONFIGURATION'); ?></legend>
 					<table cellpadding="4" cellspacing="0" border="0" width="100%" class="kadmin-adminform">
 					<tr align="center" valign="middle">
-						<td align="left" valign="top" width="25%"><?php echo JText::_('COM_KUNENA_CAPTCHA_ON') ?></td>
-								<td align="left" valign="top" width="25%"><?php echo $lists ['captcha'];
-						?></td>
-								<td align="left" valign="top"><?php echo JText::_('COM_KUNENA_CAPTCHA_DESC') ?>
+						<td align="left" valign="top" width="25%"><?php echo JText::_('COM_KUNENA_A_CAPTCHA_GUESTS') ?></td>
+						<td align="left" valign="top" width="25%"><?php echo $lists ['captcha']; ?></td>
+						<td align="left" valign="top"><?php echo JText::_('COM_KUNENA_A_CAPTCHA_GUESTS_DESC') ?></td>
+					</tr>
+					<tr align="center" valign="middle">
+						<td align="left" valign="top"><?php echo JText::_('COM_KUNENA_A_CAPTCHA_POST_LIMIT') ?></td>
+						<td align="left" valign="top"><input type="text" name="cfg_captcha_post_limit" class="ksm-field" value="<?php echo kescape($kunena_config->captcha_post_limit);?>" /></td>
+						<td align="left" valign="top"><?php echo JText::_('COM_KUNENA_A_CAPTCHA_POST_LIMIT_DESC') ?></td>
+					</tr>
+					<tr align="center" valign="middle">
+						<td align="left" valign="top"><?php echo JText::_('COM_KUNENA_A_RECAPTCHA_PUBLICKEY') ?></td>
+						<td align="left" valign="top"><input type="text" name="cfg_recaptcha_publickey" class="ksm-field-large" value="<?php echo kescape($kunena_config->recaptcha_publickey);?>" /></td>
+						<td align="left" valign="top"><?php echo JText::_('COM_KUNENA_A_RECAPTCHA_PUBLICKEY_DESC') ?>
 						</td>
 					</tr>
 					<tr align="center" valign="middle">
-						<td align="left" valign="top"><?php echo JText::_('COM_KUNENA_CAPTCHA_PUBLICKEY') ?></td>
-								<td align="left" valign="top"><input type="text"
-							name="cfg_captcha_pubkey" class="ksm-field-large"
-							value="<?php echo kescape($kunena_config->captcha_pubkey);
-						?>" /></td>
-								<td align="left" valign="top"><?php echo JText::_('COM_KUNENA_CAPTCHA_PUBLICKEY_DESC') ?>
-						</td>
+						<td align="left" valign="top"><?php echo JText::_('COM_KUNENA_A_RECAPTCHA_PRIVATEKEY') ?></td>
+						<td align="left" valign="top"><input type="text" name="cfg_recaptcha_privatekey" class="ksm-field-large" value="<?php echo kescape($kunena_config->recaptcha_privatekey); ?>" /></td>
+						<td align="left" valign="top"><?php echo JText::_('COM_KUNENA_A_RECAPTCHA_PRIVATEKEY_DESC') ?></td>
 					</tr>
 					<tr align="center" valign="middle">
-						<td align="left" valign="top"><?php echo JText::_('COM_KUNENA_CAPTCHA_PRIVATEKEY') ?></td>
-								<td align="left" valign="top"><input type="text"
-							name="cfg_captcha_privkey" class="ksm-field-large"
-							value="<?php echo kescape($kunena_config->captcha_privkey);
-						?>" /></td>
-								<td align="left" valign="top"><?php echo JText::_('COM_KUNENA_CAPTCHA_PRIVATEKEY_DESC') ?>
-						</td>
-					</tr>
-					<tr align="center" valign="middle">
-						<td align="left" valign="top"><?php echo JText::_('COM_KUNENA_CAPTCHA_THEME') ?></td>
-								<td align="left" valign="top"><?php echo $lists ['captcha_theme'];
-						?></td>
-								<td align="left" valign="top"><?php echo JText::_('COM_KUNENA_CAPTCHA_THEME_DESC') ?>
-						</td>
+						<td align="left" valign="top"><?php echo JText::_('COM_KUNENA_A_RECAPTCHA_THEME') ?></td>
+						<td align="left" valign="top"><?php echo $lists ['recaptcha_theme'];?></td>
+						<td align="left" valign="top"><?php echo JText::_('COM_KUNENA_A_RECAPTCHA_THEME_DESC') ?></td>
 					</tr>
 				</table>
 			</fieldset>
