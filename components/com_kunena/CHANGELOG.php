@@ -33,6 +33,9 @@ Legend:
 
 Kunena 1.6.6-DEV
 
+14-August-2011 Matias
+# [#57] Hide quick reply if captcha is enabled
+
 13-August-2011 Matias
 + [#57] Create Kunena 2.0 compatible version of captcha + code improvements
 + [#57] Add new option to challenge new users with captcha

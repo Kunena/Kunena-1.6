@@ -108,7 +108,7 @@ class KunenaAccessJoomla16 extends KunenaAccess {
 	 *
 	 * @return	array	List of view levels for which the user is authorised.
 	 */
-	public static function getGroupsByViewLevel($viewlevel) {
+	public function getGroupsByViewLevel($viewlevel) {
 		// Only load the view levels once.
 		if (empty(self::$viewLevels)) {
 			// Get a database object.
@@ -138,7 +138,7 @@ class KunenaAccessJoomla16 extends KunenaAccess {
 	 *
 	 * @return	array
 	 */
-	public static function getUsersByGroup($groupId, $recursive = false, $inUsers = array()) {
+	public function getUsersByGroup($groupId, $recursive = false, $inUsers = array()) {
 		// Get a database object.
 		$db = JFactory::getDbo();
 
