@@ -11,6 +11,8 @@
 // Dont allow direct linking
 defined ( '_JEXEC' ) or die ();
 
+kimport('spam.recaptcha');
+
 class CKunenaPost {
 	public $allow = 0;
 
@@ -26,10 +28,8 @@ class CKunenaPost {
 		require_once (KPATH_SITE . '/lib/kunena.poll.class.php');
 		$this->poll =& CKunenaPolls::getInstance();
 
-		$this->my = &JFactory::getUser ();
-
-		require_once(KUNENA_PATH_LIB.'/kunena.recaptcha.class.php');
-		$this->captcha = new KRecaptcha($this->config->captcha_pubkey, $this->config->captcha_privkey, JRequest::getVar('REMOTE_ADDR', null, 'server'));
+		$this->my = JFactory::getUser ();
+		$this->me = KunenaFactory::getUser ();
 
 		$this->id = JRequest::getInt ( 'id', 0 );
 		if (! $this->id) {
@@ -128,33 +128,35 @@ class CKunenaPost {
 	}
 
 	protected function post() {
-		$this->verifyCaptcha ();
-
-		if ($this->tokenProtection ())
-			return false;
-		if ($this->floodProtection ())
-			return false;
 		if ($this->isUserBanned() )
 			return false;
 		if ($this->isIPBanned())
 			return false;
 
-		$fields ['name'] = JRequest::getString ( 'authorname', $this->getAuthorName () );
-		$fields ['email'] = JRequest::getString ( 'email', null );
-		$fields ['subject'] = JRequest::getVar ( 'subject', null, 'POST', 'string', JREQUEST_ALLOWRAW );
-		$fields ['message'] = JRequest::getVar ( 'message', null, 'POST', 'string', JREQUEST_ALLOWRAW );
-		$fields ['topic_emoticon'] = JRequest::getInt ( 'topic_emoticon', null );
+		$this->fields ['name'] = JRequest::getString ( 'authorname', $this->getAuthorName () );
+		$this->fields ['email'] = JRequest::getString ( 'email', null );
+		$this->fields ['subject'] = JRequest::getVar ( 'subject', null, 'POST', 'string', JREQUEST_ALLOWRAW );
+		$this->fields ['message'] = JRequest::getVar ( 'message', null, 'POST', 'string', JREQUEST_ALLOWRAW );
+		$this->fields ['topic_emoticon'] = JRequest::getInt ( 'topic_emoticon', null );
 
-		$options ['attachments'] = 1;
-		$options ['anonymous'] = JRequest::getInt ( 'anonymous', 0 );
+		$this->options ['attachments'] = 1;
+		$this->options ['anonymous'] = JRequest::getInt ( 'anonymous', 0 );
+		$this->options ['subscribe'] = JRequest::getVar ( 'subscribeMe', '' );
 		$contentURL = JRequest::getVar ( 'contentURL', '' );
+
+		// These store above data into session
+		if ($this->tokenProtection ())
+			return false;
+		if ($this->floodProtection ())
+			return false;
+		$this->verifyCaptcha ();
 
 		require_once (KUNENA_PATH_LIB . '/kunena.posting.class.php');
 		$message = new CKunenaPosting ( );
 		if (! $this->id) {
-			$success = $message->post ( $this->catid, $fields, $options );
+			$success = $message->post ( $this->catid, $this->fields, $this->options );
 		} else {
-			$success = $message->reply ( $this->id, $fields, $options );
+			$success = $message->reply ( $this->id, $this->fields, $this->options );
 		}
 
 		if ($success) {
@@ -167,6 +169,7 @@ class CKunenaPost {
 			foreach ( $errors as $field => $error ) {
 				$this->_app->enqueueMessage ( $field . ': ' . $error, 'error' );
 			}
+			$this->_app->setUserState('com_kunena.postfields', array('catid'=>$this->catid, 'fields'=>$this->fields, 'options'=>$this->options));
 			$this->redirectBack ();
 		}
 
@@ -248,6 +251,11 @@ class CKunenaPost {
 
 		$this->kunena_editmode = 0;
 
+		$saved = $this->_app->getUserState('com_kunena.postfields');
+		if ($saved) {
+			$this->catid = $this->msg_cat->catid = $saved['catid'];
+		}
+		$this->_app->setUserState('com_kunena.postfields', null);
 		$message = $this->msg_cat;
 		if ($this->catid && $this->msg_cat->id > 0) {
 			if ($do == 'quote') {
@@ -273,7 +281,7 @@ class CKunenaPost {
 			$arrayanynomousbox = array();
 			foreach( $anynomouscatid as $item ) {
 				$arrayanynomousbox[] = '"'.$item->id.'":'.$item->post_anonymous;
-      		}
+			}
 
 			$arrayanynomousbox = implode(',',$arrayanynomousbox);
 			$this->document->addScriptDeclaration('var arrayanynomousbox={'.$arrayanynomousbox.'}');
@@ -298,7 +306,7 @@ class CKunenaPost {
 		$this->action = 'post';
 
 		$this->allow_anonymous = $this->cat_default_allow && $this->my->id;
-		$this->anonymous = ($this->allow_anonymous && ! empty ( $this->msg_cat->post_anonymous ));
+		$this->anonymous = isset($saved['options']['anonymous']) ? $saved['options']['anonymous'] : ($this->allow_anonymous) && ! empty ( $this->msg_cat->post_anonymous );
 		$this->allow_name_change = 0;
 		if (! $this->my->id || $this->config->changename || ! empty ( $this->msg_cat->allow_anonymous ) || CKunenaTools::isModerator ( $this->my->id, $this->catid )) {
 			$this->allow_name_change = 1;
@@ -308,6 +316,7 @@ class CKunenaPost {
 		$this->cansubscribe = 0;
 		if ($this->my->id && $this->config->allowsubscriptions && $this->config->topic_subscriptions != 'disabled') {
 			$this->cansubscribe = 1;
+			$this->subscriptionschecked = isset($saved['options']['subscribe']) ? $saved['options']['subscribe'] : $this->config->subscriptionschecked == 1;
 			if ($this->msg_cat && $this->msg_cat->thread) {
 				$this->_db->setQuery ( "SELECT thread FROM #__kunena_subscriptions WHERE userid={$this->_db->Quote($this->my->id)} AND thread={$this->_db->Quote($this->msg_cat->thread)}" );
 				$subscribed = $this->_db->loadResult ();
@@ -322,6 +331,14 @@ class CKunenaPost {
 		else
 			$this->title = JText::_ ( 'COM_KUNENA_POST_NEW_TOPIC' );
 
+		if ($saved) {
+			$this->authorName = $saved['fields']['name'];
+			$this->email = $saved['fields']['email'];
+			$this->resubject = $saved['fields']['subject'];
+			$this->message_text = $saved['fields']['message'];
+			$this->emoid = $saved['fields']['topic_emoticon'];
+		}
+
 		CKunenaTools::loadTemplate ( '/editor/form.php' );
 	}
 
@@ -334,6 +351,9 @@ class CKunenaPost {
 			return false;
 		if ($this->isIPBanned())
 			return false;
+
+		$saved = $this->_app->getUserState('com_kunena.postfields');
+		$this->_app->setUserState('com_kunena.postfields', null);
 
 		$message = $this->msg_cat;
 		if ($message->parent==0) $this->allow_topic_icons = 1;
@@ -373,7 +393,7 @@ class CKunenaPost {
 			}
 
 			$this->allow_anonymous = ! empty ( $this->msg_cat->allow_anonymous ) && $message->userid;
-			$this->anonymous = 0;
+			$this->anonymous = isset($saved['options']['anonymous']) ? $saved['options']['anonymous'] : 0;
 			$this->allow_name_change = 0;
 			if (! $this->my->id || $this->config->changename || ! empty ( $this->msg_cat->allow_anonymous ) || CKunenaTools::isModerator ( $this->my->id, $this->catid )) {
 				$this->allow_name_change = 1;
@@ -382,6 +402,15 @@ class CKunenaPost {
 
 			$this->title = JText::_ ( 'COM_KUNENA_POST_EDIT' ) . ' ' . $this->resubject;
 
+			if ($saved) {
+				$this->authorName = $saved['fields']['name'];
+				$this->email = $saved['fields']['email'];
+				$this->resubject = $saved['fields']['subject'];
+				$this->message_text = $saved['fields']['message'];
+				$this->emoid = $saved['fields']['topic_emoticon'];
+			}
+			$this->modified_reason = isset($saved['fields']['modified_reason']) ? $saved['fields']['modified_reason'] : '';
+
 			CKunenaTools::loadTemplate ( '/editor/form.php' );
 		} else {
 			$this->_app->redirect ( CKunenaLink::GetKunenaURL ( false ), JText::_ ( 'COM_KUNENA_POST_NOT_MODERATOR' ) );
@@ -389,8 +418,6 @@ class CKunenaPost {
 	}
 
 	protected function editpostnow() {
-		if ($this->tokenProtection ())
-			return false;
 		if (!$this->load())
 			return false;
 		if ($this->isUserBanned() )
@@ -398,19 +425,23 @@ class CKunenaPost {
 		if ($this->isIPBanned())
 			return false;
 
-		$fields ['name'] = JRequest::getString ( 'authorname', $this->msg_cat->name );
-		$fields ['email'] = JRequest::getString ( 'email', null );
-		$fields ['subject'] = JRequest::getVar ( 'subject', null, 'POST', 'string', JREQUEST_ALLOWRAW );
-		$fields ['message'] = JRequest::getVar ( 'message', null, 'POST', 'string', JREQUEST_ALLOWRAW );
-		$fields ['topic_emoticon'] = JRequest::getInt ( 'topic_emoticon', null );
-		$fields ['modified_reason'] = JRequest::getString ( 'modified_reason', null );
+		$this->fields ['name'] = JRequest::getString ( 'authorname', $this->msg_cat->name );
+		$this->fields ['email'] = JRequest::getString ( 'email', null );
+		$this->fields ['subject'] = JRequest::getVar ( 'subject', null, 'POST', 'string', JREQUEST_ALLOWRAW );
+		$this->fields ['message'] = JRequest::getVar ( 'message', null, 'POST', 'string', JREQUEST_ALLOWRAW );
+		$this->fields ['topic_emoticon'] = JRequest::getInt ( 'topic_emoticon', null );
+		$this->fields ['modified_reason'] = JRequest::getString ( 'modified_reason', null );
 
-		$options ['attachments'] = 1;
-		$options ['anonymous'] = JRequest::getInt ( 'anonymous', 0 );
+		$this->options ['attachments'] = 1;
+		$this->options ['anonymous'] = JRequest::getInt ( 'anonymous', 0 );
+
+		// This stores above data into session
+		if ($this->tokenProtection ())
+			return false;
 
 		require_once (KUNENA_PATH_LIB . '/kunena.posting.class.php');
 		$message = new CKunenaPosting ( );
-		$success = $message->edit ( $this->id, $fields, $options );
+		$success = $message->edit ( $this->id, $this->fields, $this->options );
 		if ($success) {
 			$success = $message->save ();
 		}
@@ -421,6 +452,7 @@ class CKunenaPost {
 			foreach ( $errors as $field => $error ) {
 				$this->_app->enqueueMessage ( $field . ': ' . $error, 'error' );
 			}
+			$this->_app->setUserState('com_kunena.postfields', array('catid'=>$this->catid, 'fields'=>$this->fields, 'options'=>$this->options));
 			$this->redirectBack ();
 		}
 
@@ -918,6 +950,8 @@ class CKunenaPost {
 	protected function moderatorProtection() {
 		if (! CKunenaTools::isModerator ( $this->my->id, $this->catid )) {
 			$this->_app->enqueueMessage ( JText::_ ( 'COM_KUNENA_POST_NOT_MODERATOR' ), 'notice' );
+			if (!empty($this->fields)) $this->_app->setUserState('com_kunena.postfields', array('catid'=>$this->catid, 'fields'=>$this->fields, 'options'=>$this->options));
+			$this->redirectBack ();
 			return true;
 		}
 		return false;
@@ -927,6 +961,8 @@ class CKunenaPost {
 		// get the token put in the message form to check that the form has been valided successfully
 		if (JRequest::checkToken ($method) == false) {
 			$this->_app->enqueueMessage ( JText::_ ( 'COM_KUNENA_ERROR_TOKEN' ), 'error' );
+			if (!empty($this->fields)) $this->_app->setUserState('com_kunena.postfields', array('catid'=>$this->catid, 'fields'=>$this->fields, 'options'=>$this->options));
+			$this->redirectBack ();
 			return true;
 		}
 		return false;
@@ -934,10 +970,13 @@ class CKunenaPost {
 
 	protected function lockProtection() {
 		if ($this->msg_cat && $this->msg_cat->locked && ! CKunenaTools::isModerator ( $this->my->id, $this->catid )) {
-			if ($this->msg_cat->catlocked)
+			if ($this->msg_cat->catlocked) {
 				$this->_app->enqueueMessage ( JText::_ ( 'COM_KUNENA_POST_ERROR_CATEGORY_LOCKED' ), 'error' );
-			else
+			} else {
 				$this->_app->enqueueMessage ( JText::_ ( 'COM_KUNENA_POST_ERROR_TOPIC_LOCKED' ), 'error' );
+			}
+			if (!empty($this->fields)) $this->_app->setUserState('com_kunena.postfields', array('catid'=>$this->catid, 'fields'=>$this->fields, 'options'=>$this->options));
+			$this->redirectBack ();
 			return true;
 		}
 		return false;
@@ -1128,42 +1167,38 @@ class CKunenaPost {
 	}
 
 	public function hasCaptcha() {
-		if ($this->config->captcha == 1 && $this->my->id < 1)
-			return true;
-		return false;
+		if (!empty($this->kunena_editmode)) return false;
+		return ((!$this->me->exists() && $this->config->captcha) || ($this->me->exists() && !$this->me->isModerator() && $this->me->posts < $this->config->captcha_post_limit));
 	}
 
 	public function displayCaptcha() {
 		if (! $this->hasCaptcha ())
 			return;
 
-		if ( empty($this->config->captcha_pubkey) ) {
-			echo JText::_ ( 'COM_KUNENA_CAPTCHA_NOT_CONFIGURED' );
-			return;
+		$captcha = KunenaSpamRecaptcha::getInstance();
+		$html = $captcha->getHtml();
+		if ( !$html ) {
+			$this->_app->enqueueMessage ( $captcha->getError(), 'error' );
+			$this->redirectBack ();
+			return false;
 		}
+		echo $html;
+		return true;
+	}
 
-		$this->document->addCustomTag('
-		<script type="text/javascript">
-		<!--
-			var RecaptchaOptions = {
-				custom_translations : {
-				instructions_visual : "'.JText::_('COM_KUNENA_CAPTCHA_WRITE_CODE').'",
-				instructions_audio : "'.JText::_('COM_KUNENA_CAPTCHA_WRITE_AUDIO_CODE').'",
-				play_again : "'.JText::_('COM_KUNENA_CAPTCHA_LISTEN_AUDIO_AGAIN').'",
-				cant_hear_this : "'.JText::_('COM_KUNENA_CAPTCHA_SAVE_AUDIO_MP3').'",
-				visual_challenge : "'.JText::_('COM_KUNENA_CAPTCHA_CODE_VISUAL').'",
-				audio_challenge : "'.JText::_('COM_KUNENA_CAPTCHA_CODE_AUDIO').'",
-				refresh_btn : "'.JText::_('COM_KUNENA_CAPTCHA_REFRESH_CODE').'",
-				help_btn : "'.JText::_('COM_KUNENA_CAPTCHA_HELP').'",
-				incorrect_try_again : "'.JText::_('COM_KUNENA_CAPTCHA_INCORRECT_TRYAGAIN').'",
-			},
-			theme : "'.$this->config->captcha_theme.'"
-			};
-		//-->
-		</script>
-		');
+	public function verifyCaptcha() {
+		if (! $this->hasCaptcha ())
+			return;
 
-		echo $this->captcha->recaptchaGetHtml();
+		$captcha = KunenaSpamRecaptcha::getInstance();
+		$success = $captcha->checkAnswer ();
+		if ( !$success ) {
+			$this->_app->setUserState('com_kunena.postfields', array('catid'=>$this->catid, 'fields'=>$this->fields, 'options'=>$this->options));
+			$this->_app->enqueueMessage ( $captcha->getError(), 'error' );
+			$this->redirectBack ();
+			return false;
+		}
+		return true;
 	}
 
 	/**
@@ -1179,36 +1214,6 @@ class CKunenaPost {
 	{
 		return htmlspecialchars($var, ENT_COMPAT, 'UTF-8');
 	}
-
-	public function verifyCaptcha() {
-		if (! $this->hasCaptcha ())
-			return;
-
-		if ( empty($this->config->captcha_privkey)) {
-			echo JText::_ ( 'COM_KUNENA_CAPTCHA_API_KEY_NOT_VALID' );
-			return;
-		}
-
-		$challenge	= JRequest::getString('recaptcha_challenge_field');
-		$response	= JRequest::getString('recaptcha_response_field');
-
-		$this->captcha->recaptchaCheckAnswer ($challenge, $response);
-
-		$captcha_errors = array('invalid-site-private-key' => JText::_ ( 'COM_KUNENA_CAPTCHA_PRIVATE_KEY_INVALID' ) ,'invalid-request-cookie' => JText::_ ( 'COM_KUNENA_CAPTCHA_CHALLENGE_PARAMETER_INVALID' ),'incorrect-captcha-sol' => JText::_ ( 'COM_KUNENA_CAPTCHACODE_DO_NOT_MATCH' ));
-
-		if ( !$this->captcha->is_valid ) {
-			$cap_error = '';
-			foreach ( $captcha_errors as $key=>$value ) {
-				if ( $this->captcha->error == $key ) $cap_error = $value;
-			}
-			$this->_app->enqueueMessage ( $cap_error, 'error' );
-			$this->redirectBack ();
-			return false;
-		} else {
-			return true;
-		}
-	}
-
 	function redirectBack() {
 		$httpReferer = JRequest::getVar ( 'HTTP_REFERER', JURI::base ( true ), 'server' );
 		$this->_app->redirect ( $httpReferer );

@@ -371,9 +371,10 @@ class CKunenaConfig extends CKunenaConfigBase {
 	var $email_recipient_count = 0;
 	var $email_recipient_privacy = 'bcc';
 	var $email_visible_address = '';
-	var $captcha_pubkey = '';
-	var $captcha_privkey = '';
-	var $captcha_theme = 'white';
+	var $captcha_post_limit = 0;
+	var $recaptcha_publickey = '';
+	var $recaptcha_privatekey = '';
+	var $recaptcha_theme = 'white';
 
 	public function __construct($userinfo = null) {
 		parent::__construct ();

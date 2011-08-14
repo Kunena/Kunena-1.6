@@ -11,6 +11,8 @@
  **/
 defined ( '_JEXEC' ) or die ();
 
+kimport('spam.recaptcha');
+
 class CKunenaViewMessage {
 	// Message actions
 	public $message_quickreply = null;
@@ -76,6 +78,7 @@ class CKunenaViewMessage {
 		$this->msg = $message;
 
 		$this->my = JFactory::getUser ();
+		$this->me = KunenaFactory::getUser ();
 		$this->config = KunenaFactory::getConfig ();
 		$this->db = JFactory::getDBO ();
 
@@ -235,7 +238,8 @@ class CKunenaViewMessage {
 
 		if (!$message->hold && (CKunenaTools::isModerator ( $this->my->id, $this->catid ) || !$this->topicLocked)) {
 			//user is allowed to reply/quote
-			if ($this->my->id) {
+			$this->captcha = KunenaSpamRecaptcha::getInstance();
+			if ($this->my->id && (CKunenaTools::isModerator ( $this->my->id, $this->catid ) || $this->me->posts >= $this->config->captcha_post_limit)) {
 				$this->message_quickreply = CKunenaLink::GetTopicPostReplyLink ( 'reply', $this->catid, $this->id, CKunenaTools::showButton ( 'reply', JText::_('COM_KUNENA_BUTTON_QUICKREPLY') ), 'nofollow', 'kicon-button kbuttoncomm btn-left kqreply', JText::_('COM_KUNENA_BUTTON_QUICKREPLY_LONG'), ' id="kreply'.$this->id.'"' );
 			}
 			$this->message_reply = CKunenaLink::GetTopicPostReplyLink ( 'reply', $this->catid, $this->id, CKunenaTools::showButton ( 'reply', JText::_('COM_KUNENA_BUTTON_REPLY') ), 'nofollow', 'kicon-button kbuttoncomm btn-left', JText::_('COM_KUNENA_BUTTON_REPLY_LONG') );
