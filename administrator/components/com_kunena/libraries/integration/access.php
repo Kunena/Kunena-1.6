@@ -225,7 +225,7 @@ window.addEvent('domready', function(){
 			if (!empty($this->adminsByCatid[$catid])) $adminlist += $this->adminsByCatid[$catid];
 		}
 
-		$query = new KDatabaseQuery();
+		$query = new KunenaDatabaseQuery();
 		$query->select('u.id, u.name, u.username, u.email');
 		$query->from('#__users AS u');
 		$query->where("u.block=0");

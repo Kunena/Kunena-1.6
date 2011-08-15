@@ -33,6 +33,9 @@ Legend:
 
 Kunena 1.6.6-DEV
 
+15-August-2011 Matias
+# [#64] Fix naming conflict with Nooku
+
 14-August-2011 Matias
 # [#57] Hide quick reply if captcha is enabled
 

@@ -112,7 +112,7 @@ class KunenaAccessNoixACL extends KunenaAccess {
 		$userlist = implode(',', $userids);
 
 		$db = JFactory::getDBO ();
-		$query = new KDatabaseQuery();
+		$query = new KunenaDatabaseQuery();
 		$query->select('u.id');
 		$query->from('#__users AS u');
 		$query->where("u.block=0");
