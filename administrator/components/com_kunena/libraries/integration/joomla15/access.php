@@ -90,7 +90,7 @@ class KunenaAccessJoomla15 extends KunenaAccess {
 		$userlist = implode(',', $userids);
 
 		$db = JFactory::getDBO ();
-		$query = new KDatabaseQuery();
+		$query = new KunenaDatabaseQuery();
 		$query->select('u.id');
 		$query->from('#__users AS u');
 		$query->where("u.block=0");
@@ -188,7 +188,7 @@ class KunenaAccessJoomla15 extends KunenaAccess {
 
 		if (!isset($cache[$cacheId]))
 		{
-			$query = new KDatabaseQuery();
+			$query = new KunenaDatabaseQuery();
 
 			// Make sure we get the groups
 			$query->select('DISTINCT g2.id');
