@@ -275,6 +275,8 @@ window.addEvent('domready', function(){
 	}
 
 	protected function loadAdmins($list = array()) {
+		$this->adminsByUserid = array();
+		$this->adminsByCatid = array();
 		foreach ( $list as $item ) {
 			$userid = intval ( $item->userid );
 			$catid = intval ( $item->catid );
@@ -285,6 +287,8 @@ window.addEvent('domready', function(){
 	}
 
 	protected function loadModerators($list = array()) {
+		$this->moderatorsByUserid = array();
+		$this->moderatorsByCatid = array();
 		foreach ( $list as $item ) {
 			$userid = intval ( $item->userid );
 			$catid = intval ( $item->catid );
