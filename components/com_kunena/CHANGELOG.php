@@ -33,6 +33,9 @@ Legend:
 
 Kunena 1.6.6-DEV
 
+16-August-2011 Matias
+# [#66] Extra SQL queries to fetch moderators if there are no moderators
+
 15-August-2011 Matias
 # [#64] Fix naming conflict with Nooku
 
