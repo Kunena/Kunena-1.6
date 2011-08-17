@@ -33,6 +33,9 @@ Legend:
 
 Kunena 1.6.6-DEV
 
+17-August-2011 Matias
+# [#71] Improve English language in forum configuration
+
 16-August-2011 Matias
 # [#66] Extra SQL queries to fetch moderators if there are no moderators
 # [#69] Parser double escapes all URLs resulting &amp;

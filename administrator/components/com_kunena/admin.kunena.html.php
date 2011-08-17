@@ -1261,38 +1261,29 @@ function editForum(&$row, $categoryList, $moderatorList, $lists, $accessLists, $
 				<legend><?php echo JText::_('COM_KUNENA_SUBSCRIPTIONS') ?></legend>
 				<table cellpadding="4" cellspacing="0" border="0" width="100%" class="kadmin-adminform">
 					<tr align="center" valign="middle">
-						<td align="left" valign="top" width="25%"><?php echo JText::_('COM_KUNENA_A_SUBSCRIPTIONS') ?>
-						</td>
-								<td align="left" valign="top" width="25%"><?php echo $lists ['allowsubscriptions'];
-						?>
-						</td>
-								<td align="left" valign="top"><?php echo JText::_('COM_KUNENA_A_SUBSCRIPTIONS_DESC') ?>
-						</td>
+						<td align="left" valign="top" width="25%"><?php echo JText::_('COM_KUNENA_A_SUBSCRIPTIONS') ?></td>
+						<td align="left" valign="top" width="25%"><?php echo $lists ['allowsubscriptions']; ?></td>
+						<td align="left" valign="top"><?php echo JText::_('COM_KUNENA_A_SUBSCRIPTIONS_DESC') ?></td>
 					</tr>
 					<tr align="center" valign="middle">
-						<td align="left" valign="top"><?php echo JText::_('COM_KUNENA_A_CATEGORY_SUBSCRIPTIONS') ?>
-						</td>
-							<td align="left" valign="top"><?php echo $lists ['category_subscriptions']; ?>
-						</td>
-							<td align="left" valign="top"><?php echo JText::_('COM_KUNENA_A_CATEGORY_SUBSCRIPTIONS_DESC') ?>
-						</td>
+						<td align="left" valign="top"><?php echo JText::_('COM_KUNENA_MAILFULL'); ?></td>
+						<td align="left" valign="top"><?php echo $lists ['mailfull']; ?></td>
+						<td align="left" valign="top"><?php echo JText::_('COM_KUNENA_MAILFULL_DESC'); ?></td>
 					</tr>
 					<tr align="center" valign="middle">
-						<td align="left" valign="top"><?php echo JText::_('COM_KUNENA_A_TOPIC_SUBSCRIPTIONS') ?>
-						</td>
-							<td align="left" valign="top"><?php echo $lists ['topic_subscriptions']; ?>
-						</td>
-							<td align="left" valign="top"><?php echo JText::_('COM_KUNENA_A_TOPIC_SUBSCRIPTIONS_DESC') ?>
-						</td>
+						<td align="left" valign="top"><?php echo JText::_('COM_KUNENA_A_CATEGORY_SUBSCRIPTIONS') ?></td>
+						<td align="left" valign="top"><?php echo $lists ['category_subscriptions']; ?></td>
+						<td align="left" valign="top"><?php echo JText::_('COM_KUNENA_A_CATEGORY_SUBSCRIPTIONS_DESC') ?></td>
 					</tr>
 					<tr align="center" valign="middle">
-						<td align="left" valign="top"><?php echo JText::_('COM_KUNENA_SUBSCRIPTIONSCHECKED') ?>
-						</td>
-								<td align="left" valign="top"><?php echo $lists ['subscriptionschecked'];
-						?>
-						</td>
-								<td align="left" valign="top"><?php echo JText::_('COM_KUNENA_SUBSCRIPTIONSCHECKED_DESC') ?>
-						</td>
+						<td align="left" valign="top"><?php echo JText::_('COM_KUNENA_A_TOPIC_SUBSCRIPTIONS') ?></td>
+						<td align="left" valign="top"><?php echo $lists ['topic_subscriptions']; ?></td>
+						<td align="left" valign="top"><?php echo JText::_('COM_KUNENA_A_TOPIC_SUBSCRIPTIONS_DESC') ?></td>
+					</tr>
+					<tr align="center" valign="middle">
+						<td align="left" valign="top"><?php echo JText::_('COM_KUNENA_SUBSCRIPTIONSCHECKED') ?></td>
+						<td align="left" valign="top"><?php echo $lists ['subscriptionschecked']; ?></td>
+						<td align="left" valign="top"><?php echo JText::_('COM_KUNENA_SUBSCRIPTIONSCHECKED_DESC') ?></td>
 					</tr>
 					<tr align="center" valign="middle">
 						<td align="left" valign="top"><?php echo JText::_('COM_KUNENA_A_SUBSCRIPTIONS_EMAIL_RECIPIENT_COUNT') ?></td>
@@ -1396,15 +1387,6 @@ function editForum(&$row, $categoryList, $moderatorList, $lists, $accessLists, $
 						?>
 						</td>
 								<td align="left" valign="top"><?php echo JText::_('COM_KUNENA_A_MAIL_ADMIN_DESC') ?>
-						</td>
-					</tr>
-					<tr align="center" valign="middle">
-						<td align="left" valign="top"><?php echo JText::_('COM_KUNENA_MAILFULL');
-						?></td>
-						<td align="left" valign="top"><?php echo $lists ['mailfull'];
-						?></td>
-						<td align="left" valign="top"><?php echo JText::_('COM_KUNENA_MAILFULL_DESC');
-						?>
 						</td>
 					</tr>
 					<tr align="center" valign="middle">
