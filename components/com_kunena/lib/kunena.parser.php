@@ -302,14 +302,12 @@ class KunenaBBCodeInterpreter extends BBCodeInterpreter {
 				break;
 			case 'url' :
 				$task->autolink_disable --;
-				// www. > http://www.
-
 				if (isset ( $tag->options ['default'] )) {
 					$tempstr = $tag->options ['default'];
-					if (substr ( $tempstr, 0, 4 ) == 'www.') {
+					if (! preg_match ( "`^(https?://)`", $tempstr )) {
 						$tempstr = 'http://' . $tempstr;
 					}
-					$tns = '<a href="' . kunena_htmlspecialchars ( $tempstr, ENT_QUOTES ) . '" rel="nofollow" target="_blank">';
+					$tns = '<a href="' . $tempstr . '" rel="nofollow" target="_blank">';
 					$tne = '</a>';
 					return TAGPARSER_RET_REPLACED;
 				}
@@ -423,7 +421,7 @@ class KunenaBBCodeInterpreter extends BBCodeInterpreter {
 				return TAGPARSER_RET_REPLACED;
 				break;
 			case 'url' :
-				$tempstr = kunena_htmlspecialchars ( $between, ENT_QUOTES );
+				$tempstr = $between;
 				if (! preg_match ( "`^(https?://)`", $tempstr )) {
 					$tempstr = 'http://' . $tempstr;
 				}
@@ -439,27 +437,25 @@ class KunenaBBCodeInterpreter extends BBCodeInterpreter {
 						return TAGPARSER_RET_REPLACED;
 					}
 					$fileurl = $between;
+					if (! preg_match ( '|^(https?://)|', $fileurl )) {
+						$fileurl = 'http://' . $fileurl;
+					}
 					if ($kunena_config->bbcode_img_secure != 'image') {
 						static $file_ext = null;
 						$matches = null;
 
 						if (empty ( $file_ext )) {
-							$params = &JComponentHelper::getParams ( 'com_media' );
+							$params = JComponentHelper::getParams ( 'com_media' );
 							$file_ext = explode ( ',', $params->get ( 'upload_extensions' ) );
 						}
 						preg_match ( '/\.([\w\d]+)$/', $fileurl, $matches );
 						if (! isset ( $matches [1] ) || ! in_array ( JString::strtolower ( $matches [1] ), $file_ext )) {
 							// if the image has not exentions return it like a link and if it's allowed in configuration
 							if ($kunena_config->bbcode_img_secure == 'link') {
-								if (! preg_match ( "`^(https?://)`", $fileurl )) {
-									$fileurl = 'http://' . $fileurl;
-								}
-
-								$fileurl = kunena_htmlspecialchars ( $fileurl, ENT_QUOTES  );
-								$tag_new = '<a href="' . $fileurl . '" rel="nofollow" target="_blank">' . $fileurl . '</a>';
+								$tag_new = '<a href="' . $fileurl . '" rel="nofollow" target="_blank">' . $between . '</a>';
 								return TAGPARSER_RET_REPLACED;
 							} else {
-								$tag_new = kunena_htmlspecialchars ( $fileurl, ENT_QUOTES  );
+								$tag_new = $fileurl;
 								return TAGPARSER_RET_REPLACED;
 							}
 							break;
@@ -492,7 +488,6 @@ class KunenaBBCodeInterpreter extends BBCodeInterpreter {
 					$imgtagsize = isset ( $tag->options ["size"] ) ? ( int ) kunena_htmlspecialchars ( $tag->options ["size"] ) : 0;
 
 					// Need to check if we are nested inside a URL code
-					$fileurl = kunena_htmlspecialchars ( $fileurl, ENT_QUOTES );
 					if ($task->autolink_disable == 0 && $kunena_config->lightbox) {
 						$tag_new = '<div class="kmsgimage"><a href="'.$fileurl.'" title="" rel="lightbox[gallery]"><img src="'.$fileurl.'"'.($imgtagsize ? ' width="'.$imgtagsize.'"' : '').'" style="max-height:'.$kunena_config->imageheight.'px; " alt="" /></a></div>';
 					} else {
