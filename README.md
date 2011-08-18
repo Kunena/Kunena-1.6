@@ -9,11 +9,13 @@
 
 ## REQUIREMENTS
 
-*Kunena* 1.6.5 requires
+*Kunena* 1.7.0 requirements:
 
-    Joomla 1.5.23+ or Joomla 1.6.6 or Joomla 1.7.0
-    PHP 5.3+
-    MySQL 5.x+
+    Joomla! 1.5: version 1.5.20 or greater (>= 1.5.23 recommended for IE9 / FireFox 4 / Chrome 6 support)
+    Joomla! 1.6: version 1.6.4 or greater (>= 1.6.6 recommended)
+    Joomla! 1.7: version 1.7.0 or greater
+    PHP: version 5.2.3 or greater (>= 5.3.6 recommended)
+    MySQL: version 4.1.19 or greater (>= 5.0 recommended)
 
 Our installer will check for minimal version requirements and will abort the install if they are not met.
 
@@ -22,7 +24,7 @@ In addition we recommend the following PHP settings:
     max_execution_time     >= 30
     memory_limit           >= 16M  (>= 64M recommended) - depends on other Joomla extensions used
     safe_mode               = off
-    upload_max_filesize    >= 3M
+    upload_max_filesize    >= 2M
     GD, DOM, JSON support installed
 
 *Kunena* requires the following Joomla settings:
