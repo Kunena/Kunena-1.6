@@ -33,6 +33,10 @@ Legend:
 
 Kunena 1.6.6-DEV
 
+18-August-2011 Matias
+# [#71] Improve English language by using category and topic instead of forum and thread
+# [#71] Improve English language (small changes)
+
 17-August-2011 Matias
 # [#71] Improve English language in forum configuration
 
