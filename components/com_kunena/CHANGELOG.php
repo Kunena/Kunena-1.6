@@ -1,6 +1,6 @@
 <?php
 /**
-* @version $Id: CHANGELOG.php 5013 2011-06-23 07:00:59Z mahagr $
+* @version $Id: CHANGELOG.php 5100 2011-06-23 07:00:59Z mahagr $
 * Kunena Component
 * @package Kunena
 *
@@ -31,11 +31,12 @@ Legend:
 
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-Kunena 1.6.6-DEV
+Kunena 1.7.0-DEV
 
 18-August-2011 Matias
 # [#71] Improve English language by using category and topic instead of forum and thread
 # [#71] Improve English language (small changes)
+^ [#45] Rename release to Kunena 1.7.0
 
 17-August-2011 Matias
 # [#71] Improve English language in forum configuration
