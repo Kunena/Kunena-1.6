@@ -37,6 +37,7 @@ Kunena 1.7.0-DEV
 # [#71] Improve English language by using category and topic instead of forum and thread
 # [#71] Improve English language (small changes)
 ^ [#45] Rename release to Kunena 1.7.0
+^ [#45] Update version requirements
 
 17-August-2011 Matias
 # [#71] Improve English language in forum configuration
