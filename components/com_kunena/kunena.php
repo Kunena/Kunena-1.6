@@ -351,6 +351,7 @@ if ($kunena_config->board_offline && ! CKunenaTools::isAdmin ()) {
 		if ($markaction == "allread") {
 			if (!JRequest::checkToken()) {
 				$kunena_app->enqueueMessage ( JText::_ ( 'COM_KUNENA_ERROR_TOKEN' ), 'error' );
+				while (@ob_end_clean());
 				$kunena_app->redirect ( CKunenaLink::GetCategoryURL('listcat', $catid, false) );
 			}
 			$kunena_session->markAllCategoriesRead ();
@@ -358,6 +359,7 @@ if ($kunena_config->board_offline && ! CKunenaTools::isAdmin ()) {
 		if (!$kunena_session->save ()) $kunena_app->enqueueMessage ( JText::_('COM_KUNENA_ERROR_SESSION_SAVE_FAILED'), 'error' );
 
 		if ($markaction == "allread") {
+			while (@ob_end_clean());
 			$kunena_app->redirect ( CKunenaLink::GetCategoryURL('listcat', $catid, false), JText::_('COM_KUNENA_GEN_ALL_MARKED') );
 		}
 
@@ -563,6 +565,7 @@ if ($kunena_config->board_offline && ! CKunenaTools::isAdmin ()) {
 		case 'markthisread' :
 			if (!JRequest::checkToken('get')) {
 				$kunena_app->enqueueMessage ( JText::_ ( 'COM_KUNENA_ERROR_TOKEN' ), 'error' );
+				while (@ob_end_clean());
 				$kunena_app->redirect ( CKunenaLink::GetCategoryURL('showcat' , $catid, false ), JText::_('COM_KUNENA_GEN_FORUM_MARKED') );
 			}
 			// Mark all unread topics in the category to read
@@ -575,6 +578,7 @@ if ($kunena_config->board_offline && ! CKunenaTools::isAdmin ()) {
 			$kunena_db->query ();
 			if (KunenaError::checkDatabaseError()) return;
 
+			while (@ob_end_clean());
 			$kunena_app->redirect ( CKunenaLink::GetCategoryURL('showcat' , $catid, false ), JText::_('COM_KUNENA_GEN_FORUM_MARKED') );
 			break;
 
@@ -582,8 +586,10 @@ if ($kunena_config->board_offline && ! CKunenaTools::isAdmin ()) {
 			if (!JRequest::checkToken('get')) {
 				$kunena_app->enqueueMessage ( JText::_ ( 'COM_KUNENA_ERROR_TOKEN' ), 'error' );
 				if ($userid == 0) {
+					while (@ob_end_clean());
 					$kunena_app->redirect ( CKunenaLink::GetCategoryURL('showcat' , $catid, false ) );
 				} else {
+					while (@ob_end_clean());
 					$kunena_app->redirect ( CKunenaLink::GetProfileURL($userid, false) );
 				}
 			}
@@ -600,6 +606,7 @@ if ($kunena_config->board_offline && ! CKunenaTools::isAdmin ()) {
 				KunenaError::checkDatabaseError();
 			}
 
+			while (@ob_end_clean());
 			$kunena_app->redirect ( CKunenaLink::GetCategoryURL('showcat' , $catid, false ), $success_msg );
 			break;
 
@@ -607,8 +614,10 @@ if ($kunena_config->board_offline && ! CKunenaTools::isAdmin ()) {
 			if (!JRequest::checkToken('get')) {
 				$kunena_app->enqueueMessage ( JText::_ ( 'COM_KUNENA_ERROR_TOKEN' ), 'error' );
 				if ($userid == 0) {
+					while (@ob_end_clean());
 					$kunena_app->redirect ( CKunenaLink::GetCategoryURL('showcat' , $catid, false ), $success_msg );
 				} else {
+					while (@ob_end_clean());
 					$kunena_app->redirect ( CKunenaLink::GetProfileURL($userid, false), $success_msg );
 				}
 			}
@@ -624,8 +633,10 @@ if ($kunena_config->board_offline && ! CKunenaTools::isAdmin ()) {
 			}
 
 			if ($userid == 0) {
+				while (@ob_end_clean());
 				$kunena_app->redirect ( CKunenaLink::GetCategoryURL('showcat' , $catid, false ), $success_msg );
 			} else {
+				while (@ob_end_clean());
 				$kunena_app->redirect ( CKunenaLink::GetProfileURL($userid, false), $success_msg );
 			}
 			break;
@@ -656,6 +667,7 @@ if ($kunena_config->board_offline && ! CKunenaTools::isAdmin ()) {
 				case "bulkFavorite" :
 					if (!JRequest::checkToken()) {
 						$kunena_app->enqueueMessage ( JText::_ ( 'COM_KUNENA_ERROR_TOKEN' ), 'error' );
+						while (@ob_end_clean());
 						$kunena_app->redirect ( CKunenaLink::GetProfileURL($kunena_my->id, false) );
 					}
 					require_once(JPATH_ROOT.'/administrator/components/com_kunena/libraries/api.php');
@@ -669,12 +681,14 @@ if ($kunena_config->board_offline && ! CKunenaTools::isAdmin ()) {
 						$message = JText::_('COM_KUNENA_POST_UNFAVORITED_TOPIC');
 					}
 
+					while (@ob_end_clean());
 					$kunena_app->redirect(CKunenaLink::GetProfileURL($kunena_my->id, false),$message);
 					break;
 
 				case "bulkSub" :
 					if (!JRequest::checkToken()) {
 						$kunena_app->enqueueMessage ( JText::_ ( 'COM_KUNENA_ERROR_TOKEN' ), 'error' );
+						while (@ob_end_clean());
 						$kunena_app->redirect ( CKunenaLink::GetProfileURL($kunena_my->id, false) );
 					}
 					require_once(JPATH_ROOT.'/administrator/components/com_kunena/libraries/api.php');
@@ -688,6 +702,7 @@ if ($kunena_config->board_offline && ! CKunenaTools::isAdmin ()) {
 						$message = JText::_('COM_KUNENA_POST_NO_UNSUBSCRIBED_TOPIC');
 					}
 
+					while (@ob_end_clean());
 					$kunena_app->redirect(CKunenaLink::GetProfileURL($kunena_my->id, false),$message);
 					break;
 				case "bulkDelPerm" :
@@ -748,6 +763,7 @@ if ($kunena_config->board_offline && ! CKunenaTools::isAdmin ()) {
 				}
 			}
 
+			while (@ob_end_clean());
 			$kunena_app->redirect ( CKunenaLink::GetKunenaURL(false) );
 			break;
 
@@ -872,6 +888,7 @@ if(JDEBUG == 1){
 		}
 		$redirect[$url] = 1;
 		$app->setUserState( 'com_kunena.redirect', $redirect);
+		while (@ob_end_clean());
 		$app->redirect ($url);
 	}
 }

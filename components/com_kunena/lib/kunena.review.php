@@ -71,6 +71,7 @@ class CKunenaReview {
 		} //end foreach
 
 		if ($success) $this->app->enqueueMessage ( JText::_ ( 'COM_KUNENA_MODERATE_APPROVE_SUCCESS' ), 'notice' );
+		while (@ob_end_clean());
 		$this->app->redirect ( $backUrl );
 	}
 
@@ -96,7 +97,7 @@ class CKunenaReview {
 			}
 		} //end foreach
 
-
+		while (@ob_end_clean());
 		$this->app->redirect ( $backUrl );
 	}
 
@@ -127,6 +128,7 @@ class CKunenaReview {
 	protected function _checkToken() {
 		if (JRequest::checkToken () == false) {
 			$this->_app->enqueueMessage ( JText::_ ( 'COM_KUNENA_ERROR_TOKEN' ), 'error' );
+			while (@ob_end_clean());
 			$this->_app->redirect ( CKunenaLink::GetReviewURL ( false ) );
 
 			return true;

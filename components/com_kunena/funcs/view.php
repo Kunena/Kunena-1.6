@@ -818,6 +818,7 @@ class CKunenaView {
 
 	function redirect() {
 		if ($this->redirect) {
+			while (@ob_end_clean());
 			$this->app->redirect($this->redirect);
 		}
 	}

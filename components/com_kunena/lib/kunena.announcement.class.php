@@ -56,6 +56,7 @@ class CKunenaAnnouncement {
 
 	function edit($id) {
 		if (! $this->canEdit) {
+			while (@ob_end_clean());
 			$this->app->redirect ( CKunenaLink::GetKunenaURL ( false ), JText::_ ( 'COM_KUNENA_POST_NOT_MODERATOR' ) );
 		}
 		if ($this->tokenProtection ())
@@ -92,6 +93,7 @@ class CKunenaAnnouncement {
 		}
 		$this->db->setQuery ( $query );
 		if ($this->db->query ()) {
+			while (@ob_end_clean());
 			$this->app->redirect ( CKunenaLink::GetAnnouncementURL ( 'show', null, false ), $msg );
 		}
 		if (KunenaError::checkDatabaseError()) return;
@@ -99,6 +101,7 @@ class CKunenaAnnouncement {
 
 	function delete($id) {
 		if (! $this->canEdit) {
+			while (@ob_end_clean());
 			$this->app->redirect ( CKunenaLink::GetKunenaURL ( false ), JText::_ ( 'COM_KUNENA_POST_NOT_MODERATOR' ) );
 		}
 		$query = "DELETE FROM #__kunena_announcement WHERE id={$this->db->Quote ($id)} ";
@@ -106,6 +109,7 @@ class CKunenaAnnouncement {
 		$this->db->query ();
 		if (KunenaError::checkDatabaseError()) return;
 
+		while (@ob_end_clean());
 		$this->app->redirect ( CKunenaLink::GetAnnouncementURL ( 'show', null, false ), JText::_ ( 'COM_KUNENA_ANN_DELETED' ) );
 	}
 
@@ -171,6 +175,7 @@ class CKunenaAnnouncement {
 				break;
 			case 'edit' :
 				if (!$this->canEdit) {
+					while (@ob_end_clean());
 					$this->app->redirect ( CKunenaLink::GetKunenaURL( false ), JText::_( 'COM_KUNENA_POST_NOT_MODERATOR' ));
 					return;
 				}
@@ -178,6 +183,7 @@ class CKunenaAnnouncement {
 			// Continue
 			case 'add' :
 				if (!$this->canEdit) {
+					while (@ob_end_clean());
 					$this->app->redirect(CKunenaLink::GetKunenaURL(false), JText::_('COM_KUNENA_POST_NOT_MODERATOR'));
 					return;
 				}

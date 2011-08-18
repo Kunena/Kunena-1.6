@@ -480,9 +480,11 @@ class CKunenaProfile {
 			if(strlen($post['password']) < '5' && strlen($post['password2']) < '5' ) { // so that "0" can be used as password e.g.
 				if($post['password'] != $post['password2']) {
 					$msg	= JText::_('COM_KUNENA_PROFILE_PASSWORD_MISMATCH');
+					while (@ob_end_clean());
 					$this->_app->redirect ( $err_return, $msg, 'error' );
 				}
 				$msg	= JText::_('COM_KUNENA_PROFILE_PASSWORD_NOT_MINIMUM');
+				while (@ob_end_clean());
 				$this->_app->redirect ( $err_return, $msg, 'error' );
 			}
 		}
@@ -597,6 +599,7 @@ class CKunenaProfile {
 			if (!$fileinfo['status']) $this->_app->enqueueMessage ( JText::sprintf ( 'COM_KUNENA_UPLOAD_FAILED', $fileinfo['name']).': '.$fileinfo['error'], 'error' );
 			else $this->_app->enqueueMessage ( JText::sprintf ( 'COM_KUNENA_PROFILE_AVATAR_UPLOADED' ) );
 
+			//while (@ob_end_clean());
 			//$this->_app->redirect ( CKunenaLink::GetMyProfileURL($this->profile->userid, '', false), JText::_('COM_KUNENA_AVATAR_UPLOADED_WITH_SUCCESS'));
 
 		} else if ( $action == 'delete' ) {
@@ -630,7 +633,11 @@ class CKunenaProfile {
 		$err_return = CKunenaLink::GetMyProfileURL($this->user->get('id'), 'edit', false);
 
 		// Check for request forgeries
-		JRequest::checkToken() or $this->_app->redirect ( $err_return, COM_KUNENA_ERROR_TOKEN, 'error' );
+		if(!JRequest::checkToken()) {
+			while (@ob_end_clean());
+			$this->_app->redirect ( $err_return, COM_KUNENA_ERROR_TOKEN, 'error' );
+			return false;
+		}
 
 		// perform security checks
 		if ($this->user->get('id') <= 0 || $this->user->get('id') != $this->my->get('id')) {
@@ -657,6 +664,7 @@ class CKunenaProfile {
 		$comment = JRequest::getString ( 'comment', '' );
 
 		if(!JRequest::checkToken()) {
+			while (@ob_end_clean());
 			$this->_app->redirect ( CKunenaLink::GetProfileURL($this->profile->userid, false), COM_KUNENA_ERROR_TOKEN, 'error' );
 			return false;
 		}
@@ -742,11 +750,13 @@ class CKunenaProfile {
 			$this->_app->enqueueMessage ( JText::_('COM_KUNENA_MODERATE_DELETED_BAD_MESSAGES') );
 		}
 
+		while (@ob_end_clean());
 		$this->_app->redirect ( CKunenaLink::GetProfileURL($this->profile->userid, false) );
 	}
 
 	function cancel()
 	{
+		while (@ob_end_clean());
 		$this->_app->redirect ( CKunenaLink::GetMyProfileURL($this->profile->userid, '', false) );
 	}
 
@@ -756,24 +766,28 @@ class CKunenaProfile {
 		$remember = JRequest::getInt ( 'remember', 0, 'POST');
 		$return = JRequest::getString ( 'return', '', 'POST' );
 		if(!JRequest::checkToken()) {
+			while (@ob_end_clean());
 			$this->_app->redirect ( JRequest::getVar ( 'HTTP_REFERER', JURI::base ( true ), 'server' ), COM_KUNENA_ERROR_TOKEN, 'error' );
 		}
 
 		$login = KunenaFactory::getLogin();
 		$result = $login->loginUser($username, $password, $remember, $return);
 		if ($result) $this->_app->enqueueMessage ( $result, 'notice' );
+		while (@ob_end_clean());
 		$this->_app->redirect ( JRequest::getVar ( 'HTTP_REFERER', JURI::base ( true ), 'server' ) );
 	}
 
 	function logout() {
 		$return = JRequest::getString ( 'return', '', 'POST' );
 		if(!JRequest::checkToken()) {
+			while (@ob_end_clean());
 			$this->_app->redirect ( JRequest::getVar ( 'HTTP_REFERER', JURI::base ( true ), 'server' ), COM_KUNENA_ERROR_TOKEN, 'error' );
 		}
 
 		$login = KunenaFactory::getLogin();
 		$result = $login->logoutUser($return);
 		if ($result) $this->_app->enqueueMessage ( $result, 'notice' );
+		while (@ob_end_clean());
 		$this->_app->redirect ( JRequest::getVar ( 'HTTP_REFERER', JURI::base ( true ), 'server' ) );
 	}
 }

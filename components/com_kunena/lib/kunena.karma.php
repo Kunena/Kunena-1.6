@@ -64,8 +64,10 @@ $kunena_my = JFactory::getUser();
 						if (JRequest::checkToken ( 'get' ) == false) {
 							$this->_app->enqueueMessage ( JText::_ ( 'COM_KUNENA_ERROR_TOKEN' ), 'error' );
 							if ($pid) {
+								while (@ob_end_clean());
 								$kunena_app->redirect ( CKunenaLink::GetLatestPageAutoRedirectURL ( $pid, $kunena_config->messages_per_page, $catid) );
 							} else {
+								while (@ob_end_clean());
 								$kunena_app->redirect ( CKunenaLink::GetMyProfileURL ( $userid) );
 							}
 							return;
@@ -95,9 +97,11 @@ $kunena_my = JFactory::getUser();
 
                            	 	if ($pid) {
 								    $kunena_app->enqueueMessage(JText::_('COM_KUNENA_KARMA_INCREASED'));
+								    while (@ob_end_clean());
 									$kunena_app->redirect ( CKunenaLink::GetMessageURL ( $pid, $catid, 0, false ) );
 								} else {
                                 	$kunena_app->enqueueMessage(JText::_('COM_KUNENA_KARMA_INCREASED'));
+                                	while (@ob_end_clean());
 									$kunena_app->redirect ( CKunenaLink::GetMyProfileURL ( $userid) );
                                 }
                             }
@@ -116,23 +120,28 @@ $kunena_my = JFactory::getUser();
 
                             	if ($pid) {
 									$kunena_app->enqueueMessage(JText::_('COM_KUNENA_KARMA_DECREASED'));
+									while (@ob_end_clean());
 									$kunena_app->redirect ( CKunenaLink::GetMessageURL ( $pid, $catid, 0, false ) );
 								} else {
 									$kunena_app->enqueueMessage(JText::_('COM_KUNENA_KARMA_DECREASED'));
+									while (@ob_end_clean());
 									$kunena_app->redirect ( CKunenaLink::GetMyProfileURL ( $userid) );
                                 }
                             }
                             else
                             { //you got me there... don't know what to $do
                                 $kunena_app->enqueueMessage(JText::_('COM_KUNENA_USER_ERROR_KARMA'));
+                                while (@ob_end_clean());
                     			$kunena_app->redirect ( CKunenaLink::GetLatestPageAutoRedirectURL ( $pid, $kunena_config->messages_per_page ) );
                             }
                         } else {
                         	if ($pid) {
                         		$kunena_app->enqueueMessage(JText::_('COM_KUNENA_KARMA_WAIT'));
+                        		while (@ob_end_clean());
                         		$kunena_app->redirect ( CKunenaLink::GetMessageURL ( $pid, $catid, 0, false ) );
                         	}else{
                         		$kunena_app->enqueueMessage(JText::_('COM_KUNENA_KARMA_WAIT'));
+                        		while (@ob_end_clean());
                         		$kunena_app->redirect ( CKunenaLink::GetMyProfileURL ( $userid) );
                         	}
                         }
@@ -151,9 +160,11 @@ $kunena_my = JFactory::getUser();
 
                         	if ($pid) {
                             	$kunena_app->enqueueMessage(JText::_('COM_KUNENA_KARMA_SELF_INCREASE'));
+                            	while (@ob_end_clean());
                         		$kunena_app->redirect ( CKunenaLink::GetMessageURL ( $pid, $catid, 0, false ) );
                             } else {
                             	$kunena_app->enqueueMessage(JText::_('COM_KUNENA_KARMA_SELF_INCREASE'));
+                            	while (@ob_end_clean());
                         		$kunena_app->redirect ( CKunenaLink::GetMyProfileURL ( $userid) );
                             }
                         }
@@ -165,9 +176,11 @@ $kunena_my = JFactory::getUser();
                             if (KunenaError::checkDatabaseError()) return;
                         	if ($pid) {
                             	$kunena_app->enqueueMessage(JText::_('COM_KUNENA_KARMA_SELF_DECREASE'));
+                            	while (@ob_end_clean());
                         		$kunena_app->redirect ( CKunenaLink::GetMessageURL ( $pid, $catid, 0, false ) );
                             } else {
                             	$kunena_app->enqueueMessage(JText::_('COM_KUNENA_KARMA_SELF_DECREASE'));
+                            	while (@ob_end_clean());
                         		$kunena_app->redirect ( CKunenaLink::GetMyProfileURL ( $userid) );
                             }
                         }
@@ -176,6 +189,7 @@ $kunena_my = JFactory::getUser();
                 else
                 { //get outa here, you fraud!
                     $kunena_app->enqueueMessage(JText::_('COM_KUNENA_USER_ERROR_KARMA'));
+                    while (@ob_end_clean());
                     $kunena_app->redirect ( CKunenaLink::GetLatestPageAutoRedirectURL ( $pid, $kunena_config->messages_per_page ) );
                 }
                 ?>

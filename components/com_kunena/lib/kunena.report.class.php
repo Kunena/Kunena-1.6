@@ -39,25 +39,28 @@ class CKunenaReport {
 
 	public function reportAllowed() {
 		jimport ( 'joomla.mail.helper' );
-		
+
 		if ( !$this->id ) {
 			JError::raiseError ( 404, JText::_ ( 'COM_KUNENA_UNAVAILABLE') );
 			return false;
 		}
 
 		if ($this->config->reportmsg == 0) {
+			while (@ob_end_clean());
 			$this->app->redirect ( CKunenaLink::GetThreadPageURL ( 'view', $this->catid, $this->id, NULL, NULL, $this->id, false ) );
 			return false;
 		}
 
 		if (! $this->config->email || ! JMailHelper::isEmailAddress ( $this->config->email )) {
 			$this->app->enqueueMessage ( JText::_ ( 'COM_KUNENA_EMAIL_INVALID' ), 'error' );
+			while (@ob_end_clean());
 			$this->app->redirect ( CKunenaLink::GetThreadPageURL ( 'view', $this->catid, $this->id, NULL, NULL, $this->id, false ) );
 			return false;
 		}
 
 		if ($this->my->id == 0) {
 			$this->app->enqueueMessage ( JText::_ ( 'COM_KUNENA_FORUM_UNAUTHORIZIED2' ), 'error' );
+			while (@ob_end_clean());
 			$this->app->redirect ( CKunenaLink::GetThreadPageURL ( 'view', $this->catid, $this->id, NULL, NULL, $this->id, false ) );
 			return false;
 		}
@@ -79,6 +82,7 @@ class CKunenaReport {
 			return false;
 
 		if (! JRequest::checkToken ()) {
+			while (@ob_end_clean());
 			$this->app->redirect ( CKunenaLink::GetThreadPageURL ( 'view', $this->catid, $this->id, NULL, NULL, $this->id, false ), COM_KUNENA_ERROR_TOKEN, 'error' );
 			return false;
 		}
@@ -143,6 +147,7 @@ class CKunenaReport {
 		} else {
 			// Do nothing empty subject or reason is empty
 			$this->app->enqueueMessage ( JText::_ ( 'COM_KUNENA_REPORT_FORG0T_SUB_MES' ) );
+			while (@ob_end_clean());
 			$this->app->redirect ( CKunenaLink::GetReportURL () );
 		}
 	}
@@ -161,6 +166,7 @@ class CKunenaReport {
 		}
 
 		$this->app->enqueueMessage ( JText::_ ( 'COM_KUNENA_REPORT_SUCCESS' ) );
+		while (@ob_end_clean());
 		$this->app->redirect ( CKunenaLink::GetThreadPageURL ( 'view', $this->catid, $this->id, NULL, NULL, $this->id, false ) );
 	}
 

@@ -199,6 +199,7 @@ function kunenaInstallerError($type, $errstr) {
 	$model = JModel::getInstance('Install', 'KunenaModel');
 	$model->addStatus($type, false, $errstr);
 	$app = JFactory::getApplication();
+	while (@ob_end_clean());
 	$app->redirect ( 'index.php?option=com_kunena&view=install' );
 }
 
