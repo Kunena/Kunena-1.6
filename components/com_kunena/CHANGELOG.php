@@ -38,6 +38,7 @@ Kunena 1.7.0-DEV
 # [#71] Improve English language (small changes)
 ^ [#45] Rename release to Kunena 1.7.0
 ^ [#45] Update version requirements
+^ [#46] Hide JXtended and NoixACL Access control options if they are not used (deprecated)
 
 17-August-2011 Matias
 # [#71] Improve English language in forum configuration

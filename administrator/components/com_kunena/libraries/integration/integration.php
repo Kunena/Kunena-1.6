@@ -57,10 +57,13 @@ abstract class KunenaIntegration extends JObject {
 			$class = 'Kunena' . ucfirst ( $name ) . ucfirst ( $integration );
 			if (class_exists ( $class )) {
 				$object = new $class ( );
-				if ($object->priority)
+				if ($object->priority > 0)
 					return $object;
+				elseif ($object->priority < 0)
+					return false;
 			}
 		}
+		return null;
 	}
 
 	static protected function detectJoomla() {
@@ -84,7 +87,7 @@ abstract class KunenaIntegration extends JObject {
 				$priority = 0;
 				if ($obj)
 					$priority = $obj->priority;
-				$list [$integration] = $priority;
+				if ($obj !== false) $list [$integration] = $priority;
 				unset ( $obj );
 			}
 		}

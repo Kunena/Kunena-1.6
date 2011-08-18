@@ -15,8 +15,16 @@ defined( '_JEXEC' ) or die('');
 
 class KunenaAccessNoixACL extends KunenaAccess {
 	function __construct() {
-		if (KUNENA_JOOMLA_COMPAT != '1.5')
-			return null;
+		if (KUNENA_JOOMLA_COMPAT != '1.5') {
+			// Do not use in Joomla 1.6+
+			$this->priority = -1;
+			return;
+		}
+		if (KunenaFactory::getConfig()->integration_access != 'noixacl') {
+			// Deprecated: do not list in new installations
+			$this->priority = -1;
+			return;
+		}
 		if (!is_file(JPATH_ADMINISTRATOR.'/components/com_noixacl/noixacl.php'))
 			return null;
 		$this->priority = 40;
