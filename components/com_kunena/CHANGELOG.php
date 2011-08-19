@@ -33,11 +33,17 @@ Legend:
 
 Kunena 1.7.0-DEV
 
+19-August-2011 Matias
+# [#69] Make local URIs to work in all tags [url], [url=xxx] and [img]
+# [#76] Joomla 1.7: Multi-language menu support is missing
+
 18-August-2011 Matias
 # [#71] Improve English language by using category and topic instead of forum and thread
 # [#71] Improve English language (small changes)
 ^ [#45] Rename release to Kunena 1.7.0
 ^ [#45] Update version requirements
+^ [#46] Hide JXtended and NoixACL Access control options if they are not used (deprecated)
+# [#77] Joomla 1.6/1.7 and IE9: empty page flickers after posting
 
 17-August-2011 Matias
 # [#71] Improve English language in forum configuration

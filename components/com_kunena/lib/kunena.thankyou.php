@@ -39,34 +39,40 @@ class CKunenaThankyou {
 	function setThankyou(){
 		if (JRequest::checkToken ( 'get' ) == false) {
 				$this->_app->enqueueMessage ( JText::_ ( 'COM_KUNENA_ERROR_TOKEN' ), 'error' );
+				while (@ob_end_clean());
 				$this->_app->redirect ( CKunenaLink::GetMessageURL ( $this->pid, $this->catid, 0, false ) );
 				return;
 		}
 		if (!$this->my->id) {
 			$this->_app->enqueueMessage(JText::_('COM_KUNENA_THANKYOU_LOGIN'));
+			while (@ob_end_clean());
 			$this->_app->redirect ( CKunenaLink::GetMessageURL ( $this->pid, $this->catid, 0, false ) );
 		}
 		if(!$this->config->showthankyou) {
 			$this->_app->enqueueMessage(JText::_('COM_KUNENA_THANKYOU_DISABLED'));
 			$this->_app->redirect ( CKunenaLink::GetMessageURL ( $this->pid, $this->catid, 0, false ) );
+			while (@ob_end_clean());
 		}
 		require_once(KPATH_SITE.'/lib/kunena.posting.class.php');
 		$post = new CKunenaPosting();
 		if (!$post->action($this->pid)) {
 			$errors = $post->getErrors();
 			$this->_app->enqueueMessage(reset($post->getErrors()));
+			while (@ob_end_clean());
 			$this->_app->redirect ( CKunenaLink::GetMessageURL ( $this->pid, $this->catid, 0, false ) );
 		}
 		$this->targetuserid = $post->get('userid');
 		//Check if the user already said thank you to this post
 		if ($this->my->id == $this->targetuserid) {
 			$this->_app->enqueueMessage ( JText::_ ( 'COM_KUNENA_THANKYOU_NOT_YOURSELF' ) );
+			while (@ob_end_clean());
 			$this->_app->redirect ( CKunenaLink::GetMessageURL ( $this->pid, $this->catid, 0, false ) );
 			return;
 		}
 		$saidit = KunenaThankYou::checkIfThankYouAllready ( $this->pid, $this->my->id );
 		if (! empty ( $saidit )) {
 			$this->_app->enqueueMessage ( JText::_ ( 'COM_KUNENA_THANKYOU_ALLREADY' ) );
+			while (@ob_end_clean());
 			$this->_app->redirect ( CKunenaLink::GetMessageURL ( $this->pid, $this->catid, 0, false ) );
 			return;
 		}
@@ -79,6 +85,7 @@ class CKunenaThankyou {
 		$activityIntegration->onAfterThankyou($this->targetuserid, $this->my->id, $post);
 
 		$this->_app->enqueueMessage ( JText::_ ( 'COM_KUNENA_THANKYOU_SUCCESS' ) );
+		while (@ob_end_clean());
 		$this->_app->redirect ( CKunenaLink::GetMessageURL ( $this->pid, $this->catid, 0, false ) );
 	}
 

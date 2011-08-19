@@ -509,6 +509,7 @@ class CKunenaTools {
 		$backUrl = $kunena_app->getUserState ( "com_kunena.ActionBulk" );
 		if (!JRequest::checkToken()) {
 			$kunena_app->enqueueMessage ( JText::_ ( 'COM_KUNENA_ERROR_TOKEN' ), 'error' );
+			while (@ob_end_clean());
 			$kunena_app->redirect ( $backUrl );
 		}
 
@@ -529,6 +530,7 @@ class CKunenaTools {
 
 		} //end foreach
 
+		while (@ob_end_clean());
 		$kunena_app->redirect ( $backUrl, $message );
 	}
 
@@ -540,6 +542,7 @@ class CKunenaTools {
 		$backUrl = $kunena_app->getUserState ( "com_kunena.ActionBulk" );
 		if (!JRequest::checkToken()) {
 			$kunena_app->enqueueMessage ( JText::_ ( 'COM_KUNENA_ERROR_TOKEN' ), 'error' );
+			while (@ob_end_clean());
 			$kunena_app->redirect ( $backUrl );
 		}
 
@@ -559,6 +562,7 @@ class CKunenaTools {
 			}
 		} //end foreach
 
+		while (@ob_end_clean());
 		$kunena_app->redirect ( $backUrl, $message );
 	}
 
@@ -569,6 +573,7 @@ class CKunenaTools {
 		$backUrl = $kunena_app->getUserState ( "com_kunena.ActionBulk" );
 		if (!JRequest::checkToken()) {
 			$kunena_app->enqueueMessage ( JText::_ ( 'COM_KUNENA_ERROR_TOKEN' ), 'error' );
+			while (@ob_end_clean());
 			$kunena_app->redirect ( $backUrl );
 		}
 
@@ -595,6 +600,7 @@ class CKunenaTools {
 
 		} //end foreach
 
+		while (@ob_end_clean());
 		$kunena_app->redirect ( $backUrl );
 	}
 
@@ -605,6 +611,7 @@ class CKunenaTools {
 		$backUrl = $kunena_app->getUserState ( "com_kunena.ActionBulk" );
 		if (!JRequest::checkToken()) {
 			$kunena_app->enqueueMessage ( JText::_ ( 'COM_KUNENA_ERROR_TOKEN' ), 'error' );
+			while (@ob_end_clean());
 			$kunena_app->redirect ( $backUrl );
 		}
 
@@ -638,6 +645,7 @@ class CKunenaTools {
 			}
 		} //end foreach
 
+		while (@ob_end_clean());
 		$kunena_app->redirect ( $backUrl );
 	}
 

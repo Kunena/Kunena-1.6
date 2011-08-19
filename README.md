@@ -76,7 +76,7 @@ The *Kunena* projects thrives on contributions from the community. Our dedicated
 2. [Create a topic (unless there already is one)](http://www.kunena.org/forum/newtopic)
 3. [Checkout our GIT repository on github](https://github.com/Kunena)
 4. [Read our documentation](http://docs.kunena.org)
-5. [Read our developer wiki](https://github.com/Kunena/Kunena/wiki)
+5. [Read our developer wiki](https://github.com/Kunena/Kunena-2.0/wiki)
 6. Send us a pull request
 
 

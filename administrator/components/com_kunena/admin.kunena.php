@@ -21,6 +21,9 @@
 
 defined( '_JEXEC' ) or die();
 
+// Start output buffering to cleanup if redirect
+ob_start();
+
 JToolBarHelper::title('&nbsp;', 'kunena.png');
 
 $view = JRequest::getCmd ( 'view' );
@@ -47,6 +50,7 @@ if (!$kn_version->checkVersion() && $task!='schema' && $task!='schemadiff') {
 	require_once(dirname(__FILE__).'/install.script.php');
 	Com_KunenaInstallerScript::preflight( null, null );
 	Com_KunenaInstallerScript::install ( null );
+	while (@ob_end_clean());
 	$kunena_app->redirect(JURI::root().'administrator/index.php?option=com_kunena&view=install');
 }
 
@@ -360,6 +364,7 @@ switch ($task) {
 		CKunenaTools::reCountBoards ();
 		// Also reset the name info stored with messages
 		//CKunenaTools::updateNameInfo();
+		while (@ob_end_clean());
 		$kunena_app->redirect ( JURI::base () . 'index.php?option=com_kunena', JText::_('COM_KUNENA_RECOUNTFORUMS_DONE') );
 		break;
 
@@ -622,6 +627,7 @@ html_Kunena::showFbFooter ();
 				$retval = false;
 			}
 		}
+		while (@ob_end_clean());
 		$kunena_app->redirect( JURI::base () . 'index.php?option='.$option.'&task=showTemplates');
 	}
 
@@ -637,10 +643,12 @@ html_Kunena::showFbFooter ();
 		$retval	= true;
 		if (!$cid[0] ) {
 			$app->enqueueMessage ( JText::_('COM_KUNENA_A_TEMPLATE_MANAGER_TEMPLATE_NOT_SPECIFIED'), 'error' );
+			while (@ob_end_clean());
 			$kunena_app->redirect( JURI::base () . 'index.php?option='.$option.'&task=showTemplates');
 		}
 		if (isTemplateDefault($template) || $cid[0] == 'default') {
 			$app->enqueueMessage ( JText::sprintf('COM_KUNENA_A_TEMPLATE_MANAGER_UNINSTALL_CANNOT_DEFAULT', $cid), 'error' );
+			while (@ob_end_clean());
 			$kunena_app->redirect( JURI::base () . 'index.php?option='.$option.'&task=showTemplates');
 			return;
 		}
@@ -653,6 +661,7 @@ html_Kunena::showFbFooter ();
 			JError::raiseWarning(100, JText::_('COM_KUNENA_A_TEMPLATE_MANAGER_TEMPLATE').' '.JText::_('COM_KUNENA_A_TEMPLATE_MANAGER_UNINSTALL').': '.JText::_('COM_KUNENA_A_TEMPLATE_MANAGER_DIR_NOT_EXIST'));
 			$retval = false;
 		}
+		while (@ob_end_clean());
 		$kunena_app->redirect( JURI::base () . 'index.php?option='.$option.'&task=showTemplates');
 		return $retval;
 	}
@@ -820,6 +829,7 @@ function parseXMLTemplateFile($templateBaseDir, $templateDir)
 		$default	= JRequest::getBool('default');
 		JArrayHelper::toInteger($menus);
 		if (!$template) {
+			while (@ob_end_clean());
 			$kunena_app->redirect( JURI::base () . 'index.php?option='.$option, JText::_('COM_KUNENA_A_TEMPLATE_MANAGER_OPERATION_FAILED').': '.JText::_('COM_KUNENA_A_TEMPLATE_MANAGER_TEMPLATE_NOT_SPECIFIED'));
 		}
 		// Set FTP credentials, if given
@@ -835,13 +845,16 @@ function parseXMLTemplateFile($templateBaseDir, $templateDir)
 			$txt = $registry->toString();
 			$return = JFile::write($file, $txt);
 			if (!$return) {
+				while (@ob_end_clean());
 				$kunena_app->redirect('index.php?option='.$option, JText::_('COM_KUNENA_A_TEMPLATE_MANAGER_OPERATION_FAILED').': '.JText::sprintf('COM_KUNENA_A_TEMPLATE_MANAGER_FAILED_WRITE_FILE.', $file));
 			}
 		}
 		$task = JRequest::getCmd('task');
-			if($task == 'applyTemplate') {
+		if($task == 'applyTemplate') {
+			while (@ob_end_clean());
 			$kunena_app->redirect( JURI::base () . 'index.php?option='.$option.'&task=editKTemplate&cid[]='.$template, JText::_('COM_KUNENA_A_TEMPLATE_MANAGER_CONFIGURATION_SAVED'));
 		} else {
+			while (@ob_end_clean());
 			$kunena_app->redirect( JURI::base () . 'index.php?option='.$option.'&task=showTemplates', JText::_('COM_KUNENA_A_TEMPLATE_MANAGER_CONFIGURATION_SAVED'));
 		}
 	}
@@ -864,6 +877,7 @@ function parseXMLTemplateFile($templateBaseDir, $templateDir)
 			$kunena_db->query ();
 			KunenaError::checkDatabaseError();
 		}
+		while (@ob_end_clean());
 		$kunena_app->redirect( JURI::base () . 'index.php?option='.$option.'&task=showTemplates', JText::_('COM_KUNENA_A_TEMPLATE_MANAGER_DEFAULT_SELECTED'));
 	}
 
@@ -892,6 +906,7 @@ function parseXMLTemplateFile($templateBaseDir, $templateDir)
 		jimport('joomla.filesystem.file');
 		if (JFile::getExt($filename) !== 'css') {
 			$msg = JText::_('COM_KUNENA_A_TEMPLATE_MANAGER_WRONG_CSS');
+			while (@ob_end_clean());
 			$kunena_app->redirect( JURI::base () . 'index.php?option='.$option.'&task=chooseCSSTemplate&id='.$template, $msg, 'error');
 		}
 		$content = JFile::read(KUNENA_PATH_TEMPLATE.'/'.$template.'/css/'.$filename);
@@ -906,6 +921,7 @@ function parseXMLTemplateFile($templateBaseDir, $templateDir)
 		else
 		{
 			$msg = JText::sprintf('COM_KUNENA_A_TEMPLATE_MANAGER_FAILED_COULD_NOT_OPEN'.$filename);
+			while (@ob_end_clean());
 			$kunena_app->redirect( JURI::base () . 'index.php?option='.$option.$msg);
 		}
 	}
@@ -918,9 +934,11 @@ function parseXMLTemplateFile($templateBaseDir, $templateDir)
 		$filename		= JRequest::getVar('filename', '', 'post', 'cmd');
 		$filecontent	= JRequest::getVar('filecontent', '', 'post', 'string', JREQUEST_ALLOWRAW);
 		if (!$template) {
+			while (@ob_end_clean());
 			$kunena_app->redirect( JURI::base () . 'index.php?option='.$option. JText::_('COM_KUNENA_A_TEMPLATE_MANAGER_OPERATION_FAILED').': '.JText::_('COM_KUNENA_A_TEMPLATE_MANAGER_TEMPLATE_NOT_SPECIFIED.'));
 		}
 		if (!$filecontent) {
+			while (@ob_end_clean());
 			$kunena_app->redirect( JURI::base () . 'index.php?option='.$option. JText::_('COM_KUNENA_A_TEMPLATE_MANAGER_OPERATION_FAILED').': '.JText::_('COM_KUNENA_A_TEMPLATE_MANAGER_CONTENT_EMPTY'));
 		}
 		// Set FTP credentials, if given
@@ -937,8 +955,10 @@ function parseXMLTemplateFile($templateBaseDir, $templateDir)
 			JError::raiseNotice('SOME_ERROR_CODE', JText::_('COM_KUNENA_A_TEMPLATE_MANAGER_COULD_NOT_CSS_UNWRITABLE'));
 		}
 		if ($return) {
+			while (@ob_end_clean());
 			$kunena_app->redirect( JURI::base () . 'index.php?option='.$option.'&task=editKTemplate&cid[]='.$template, JText::_('COM_KUNENA_A_TEMPLATE_MANAGER_FILE_SAVED'));
 		} else {
+			while (@ob_end_clean());
 			$kunena_app->redirect( JURI::base () . 'index.php?option='.$option.'&id='.$template.'&task=chooseCSSTemplate', JText::_('COM_KUNENA_A_TEMPLATE_MANAGER_OPERATION_FAILED').': '.JText::sprintf('COM_KUNENA_A_TEMPLATE_MANAGER_FAILED_OPEN_FILE.', $file));
 		}
 	}
@@ -950,6 +970,7 @@ function parseXMLTemplateFile($templateBaseDir, $templateDir)
 		// Set FTP credentials, if given
 		jimport('joomla.client.helper');
 		JClientHelper::setCredentialsFromRequest('ftp');
+		while (@ob_end_clean());
 		$kunena_app->redirect( JURI::base () . 'index.php?option='.$option);
 	}
 
@@ -1111,6 +1132,7 @@ function editForum($id, $option) {
 	$category = KunenaCategory::getInstance ( $id );
 	if ($category->isCheckedOut($kunena_my->id)) {
 		$kunena_app->enqueueMessage ( JText::sprintf('COM_KUNENA_A_CATEGORY_CHECKED_OUT', $category->id), 'notice' );
+		while (@ob_end_clean());
 		$kunena_app->redirect ( JURI::base () . "index.php?option=$option&task=showAdministration" );
 	}
 
@@ -1208,6 +1230,7 @@ function saveForum($option) {
 	$kunena_app = JFactory::getApplication ();
 	if (!JRequest::checkToken()) {
 		$kunena_app->enqueueMessage ( JText::_ ( 'COM_KUNENA_ERROR_TOKEN' ), 'error' );
+		while (@ob_end_clean());
 		$kunena_app->redirect ( JURI::base () . "index.php?option=$option&task=showAdministration" );
 	}
 
@@ -1221,6 +1244,7 @@ function saveForum($option) {
 	}
 	if (! $row->save ( JRequest::get('post', JREQUEST_ALLOWRAW), 'parent' )) {
 		$kunena_app->enqueueMessage ( $row->getError (), 'error' );
+		while (@ob_end_clean());
 		$kunena_app->redirect ( JURI::base () . "index.php?option=$option&task=showAdministration" );
 	}
 	$row->reorder ();
@@ -1229,6 +1253,7 @@ function saveForum($option) {
 	$kunena_db->query ();
 	KunenaError::checkDatabaseError();
 
+	while (@ob_end_clean());
 	$kunena_app->redirect ( JURI::base () . "index.php?option=$option&task=showAdministration" );
 }
 
@@ -1236,6 +1261,7 @@ function orderForum() {
 	$kunena_app = JFactory::getApplication ();
 	if (!JRequest::checkToken()) {
 		$kunena_app->enqueueMessage ( JText::_ ( 'COM_KUNENA_ERROR_TOKEN' ), 'error' );
+		while (@ob_end_clean());
 		$kunena_app->redirect ( JURI::base () . "index.php?option=com_kunena&task=showAdministration" );
 	}
 
@@ -1262,6 +1288,7 @@ function orderForum() {
 	}
 
 	$msg = JText::_('COM_KUNENA_NEW_ORDERING_SAVED');
+	while (@ob_end_clean());
 	$kunena_app->redirect('index.php?option=com_kunena&task='.$rettask, $msg);
 }
 
@@ -1270,10 +1297,12 @@ function setForumVariable($cid, $variable, $value) {
 	$kunena_app = JFactory::getApplication ();
 	if (!JRequest::checkToken()) {
 		$kunena_app->enqueueMessage ( JText::_ ( 'COM_KUNENA_ERROR_TOKEN' ), 'error' );
+		while (@ob_end_clean());
 		$kunena_app->redirect ( $redirect );
 	}
 	if (empty ( $cid )) {
 		$kunena_app->enqueueMessage ( JText::_('COM_KUNENA_A_NO_CATEGORIES_SELECTED'), 'notice' );
+		while (@ob_end_clean());
 		$kunena_app->redirect ( $redirect );
 	}
 
@@ -1301,10 +1330,14 @@ function setForumVariable($cid, $variable, $value) {
 	$kunena_db->query ();
 	KunenaError::checkDatabaseError();
 
-	if (count($cid) == 1)
+	if (count($cid) == 1) {
+		while (@ob_end_clean());
 		$kunena_app->redirect ( $redirect, JText::sprintf('COM_KUNENA_A_CATEGORY_SAVED', kescape($category->name)) );
-	if (count($cid) > 1)
+	}
+	if (count($cid) > 1) {
+		while (@ob_end_clean());
 		$kunena_app->redirect ( $redirect, JText::sprintf('COM_KUNENA_A_CATEGORIES_SAVED', $count) );
+	}
 }
 
 function deleteForum($cid = null, $option) {
@@ -1312,10 +1345,12 @@ function deleteForum($cid = null, $option) {
 	$kunena_app = JFactory::getApplication ();
 	if (!JRequest::checkToken()) {
 		$kunena_app->enqueueMessage ( JText::_ ( 'COM_KUNENA_ERROR_TOKEN' ), 'error' );
+		while (@ob_end_clean());
 		$kunena_app->redirect ( $redirect );
 	}
 	if (empty ( $cid )) {
 		$kunena_app->enqueueMessage ( JText::_('COM_KUNENA_A_NO_CATEGORIES_SELECTED'), 'notice' );
+		while (@ob_end_clean());
 		$kunena_app->redirect ( $redirect );
 	}
 
@@ -1334,6 +1369,7 @@ function deleteForum($cid = null, $option) {
 		}
 	}
 
+	while (@ob_end_clean());
 	$kunena_app->redirect ( $redirect );
 }
 
@@ -1342,6 +1378,7 @@ function cancelForum($option) {
 	$kunena_app = JFactory::getApplication ();
 	if (!JRequest::checkToken()) {
 		$kunena_app->enqueueMessage ( JText::_ ( 'COM_KUNENA_ERROR_TOKEN' ), 'error' );
+		while (@ob_end_clean());
 		$kunena_app->redirect ( $redirect );
 	}
 	$id = JRequest::getInt('id', 0);
@@ -1353,6 +1390,7 @@ function cancelForum($option) {
 	} else {
 		$kunena_app->enqueueMessage ( JText::sprintf('COM_KUNENA_A_CATEGORY_CHECKED_OUT', $category->id), 'notice' );
 	}
+	while (@ob_end_clean());
 	$kunena_app->redirect ( $redirect );
 }
 
@@ -1361,6 +1399,7 @@ function orderForumUpDown($uid, $inc, $option) {
 	$kunena_app = JFactory::getApplication ();
 	if (!JRequest::checkToken()) {
 		$kunena_app->enqueueMessage ( JText::_ ( 'COM_KUNENA_ERROR_TOKEN' ), 'error' );
+		while (@ob_end_clean());
 		$kunena_app->redirect ( $redirect );
 	}
 
@@ -1375,6 +1414,7 @@ function orderForumUpDown($uid, $inc, $option) {
 	$row->load ( $uid );
 	$row->move ( $inc, $where );
 
+	while (@ob_end_clean());
 	$kunena_app->redirect ( $redirect );
 }
 
@@ -1716,6 +1756,7 @@ function defaultConfig($option) {
 	$kunena_db->query ();
 	KunenaError::checkDatabaseError();
 
+	while (@ob_end_clean());
 	$kunena_app->redirect ( JURI::base () . "index.php?option=$option&task=showconfig", JText::_('COM_KUNENA_CONFIG_DEFAULT') );
 }
 
@@ -1732,8 +1773,10 @@ function revertConfig($option) {
 		$kunena_db->query ();
 		KunenaError::checkDatabaseError();
 
+		while (@ob_end_clean());
 		$kunena_app->redirect ( JURI::base () . "index.php?option=$option&task=showconfig", JText::_('COM_KUNENA_CONFIG_REVERT_CONFIG_DONE') );
 	} else {
+		while (@ob_end_clean());
 		$kunena_app->redirect ( JURI::base () . "index.php?option=$option&task=showconfig", JText::_('COM_KUNENA_CONFIG_REVERT_CONFIG_CANNOT') );
 	}
 }
@@ -1777,6 +1820,7 @@ function saveConfig($option) {
 	$kunena_db->query ();
 	KunenaError::checkDatabaseError();
 
+	while (@ob_end_clean());
 	$kunena_app->redirect ( JURI::base () . "index.php?option=$option&task=showconfig", JText::_('COM_KUNENA_CONFIGSAVED') );
 }
 
@@ -1808,8 +1852,10 @@ function saveCss($file, $csscontent, $option) {
 	echo $tmpstr;
 
 	if (CKunenaFile::write ( $file, $csscontent )) {
+		while (@ob_end_clean());
 		$kunena_app->redirect ( JURI::base () . "index.php?option=$option&task=showCss", JText::_('COM_KUNENA_CFC_SAVED') );
 	} else {
+		while (@ob_end_clean());
 		$kunena_app->redirect ( JURI::base () . "index.php?option=$option&task=showCss", JText::_('COM_KUNENA_CFC_NOTSAVED') );
 	}
 }
@@ -1911,6 +1957,7 @@ function addModerator($option, $id, $cid = null, $publish = 1) {
 	$kunena_db->query ();
 	KunenaError::checkDatabaseError();
 
+	while (@ob_end_clean());
 	$kunena_app->redirect ( JURI::base () . "index.php?option=$option&task=edit2&uid=" . $id );
 }
 
@@ -2075,6 +2122,7 @@ function saveUserProfile($option) {
 
 	if (!JRequest::checkToken()) {
 		$kunena_app->enqueueMessage ( JText::_ ( 'COM_KUNENA_ERROR_TOKEN' ), 'error' );
+		while (@ob_end_clean());
 		$kunena_app->redirect ( JURI::base () . "index.php?option=$option&task=showprofiles" );
 	}
 
@@ -2121,6 +2169,7 @@ function saveUserProfile($option) {
 	$kunena_db->query ();
 	KunenaError::checkDatabaseError();
 
+	while (@ob_end_clean());
 	$kunena_app->redirect ( JURI::base () . "index.php?option=com_kunena&task=showprofiles" );
 }
 
@@ -2130,6 +2179,7 @@ function trashUserMessages ( $option, $uid ) {
 
 	if (!JRequest::checkToken()) {
 		$kunena_app->enqueueMessage ( JText::_ ( 'COM_KUNENA_ERROR_TOKEN' ), 'error' );
+		while (@ob_end_clean());
 		$kunena_app->redirect ( JURI::base () . "index.php?option=$option&task=profiles" );
 	}
 
@@ -2148,6 +2198,7 @@ function trashUserMessages ( $option, $uid ) {
 			$kunena_mod->deleteMessage($messageID->id, false);
 		}
 	}
+	while (@ob_end_clean());
 	$kunena_app->redirect ( JURI::base () . "index.php?option=com_kunena&task=profiles" , JText::_('COM_KUNENA_A_USERMES_TRASHED_DONE'));
 }
 
@@ -2182,6 +2233,7 @@ function moveUserMessagesNow ( $option, $cid ) {
 
 	if (!JRequest::checkToken()) {
 		$kunena_app->enqueueMessage ( JText::_ ( 'COM_KUNENA_ERROR_TOKEN' ), 'error' );
+		while (@ob_end_clean());
 		$kunena_app->redirect ( JURI::base () . "index.php?option=$option&task=profiles" );
 	}
 
@@ -2201,6 +2253,7 @@ function moveUserMessagesNow ( $option, $cid ) {
 			}
 		}
 	}
+	while (@ob_end_clean());
 	$kunena_app->redirect ( JURI::base () . "index.php?option=com_kunena&task=profiles", JText::_('COM_A_KUNENA_USERMES_MOVED_DONE') );
 }
 
@@ -2208,12 +2261,14 @@ function logout ( $option, $userid ) {
 	$app = JFactory::getApplication ();
 	if (!JRequest::checkToken()) {
 		$app->enqueueMessage ( JText::_ ( 'COM_KUNENA_ERROR_TOKEN' ), 'error' );
+		while (@ob_end_clean());
 		$app->redirect ( JURI::base () . "index.php?option=$option&task=showprofiles" );
 	}
 	$options = array();
 	$options['clientid'][] = 0; // site
 	$app->logout( (int) $userid[0], $options);
 
+	while (@ob_end_clean());
 	$app->redirect ( JURI::base () . "index.php?option=com_kunena&task=profiles", JText::_('COM_A_KUNENA_USER_LOGOUT_DONE') );
 }
 
@@ -2221,6 +2276,7 @@ function deleteUser ( $option, $uid ) {
 	$kunena_app = & JFactory::getApplication ();
 	if (!JRequest::checkToken()) {
 		$kunena_app->enqueueMessage ( JText::_ ( 'COM_KUNENA_ERROR_TOKEN' ), 'error' );
+		while (@ob_end_clean());
 		$kunena_app->redirect ( JURI::base () . "index.php?option=$option&task=showprofiles" );
 	}
 	$path = KUNENA_PATH_LIB  .'/kunena.moderation.tools.class.php';
@@ -2238,6 +2294,7 @@ function deleteUser ( $option, $uid ) {
 		}
 	}
 
+	while (@ob_end_clean());
 	$kunena_app->redirect ( JURI::base () . "index.php?option=com_kunena&task=profiles", $message );
 }
 
@@ -2245,6 +2302,7 @@ function userban($option, $userid, $block = 0) {
 	$kunena_app = & JFactory::getApplication ();
 	if (!JRequest::checkToken()) {
 		$kunena_app->enqueueMessage ( JText::_ ( 'COM_KUNENA_ERROR_TOKEN' ), 'error' );
+		while (@ob_end_clean());
 		$kunena_app->redirect ( JURI::base () . "index.php?option=$option&task=showprofiles" );
 	}
 
@@ -2279,6 +2337,7 @@ function userban($option, $userid, $block = 0) {
 	} else {
 		$kunena_app->enqueueMessage ( $message );
 	}
+	while (@ob_end_clean());
 	$kunena_app->redirect ( JURI::base () . "index.php?option=com_kunena&task=profiles" );
 }
 
@@ -2301,6 +2360,7 @@ function doprune($kunena_db, $option) {
 	$kunena_app = & JFactory::getApplication ();
 	if (!JRequest::checkToken()) {
 		$kunena_app->enqueueMessage ( JText::_ ( 'COM_KUNENA_ERROR_TOKEN' ), 'error' );
+		while (@ob_end_clean());
 		$kunena_app->redirect ( JURI::base () . "index.php?option=$option&task=pruneforum" );
 		return;
 	}
@@ -2359,6 +2419,7 @@ function doprune($kunena_db, $option) {
 		$kunena_db->query ();
 		if (KunenaError::checkDatabaseError()) return;
 	}
+	while (@ob_end_clean());
 	$kunena_app->redirect ( JURI::base () . "index.php?option=$option&task=pruneforum", "" . JText::_('COM_KUNENA_FORUMPRUNEDFOR') . " " . $prune_days . " " . JText::_('COM_KUNENA_PRUNEDAYS') . "; " . JText::_('COM_KUNENA_PRUNEDELETED') . $deleted . " " . JText::_('COM_KUNENA_PRUNETHREADS') );
 }
 
@@ -2379,6 +2440,7 @@ function douserssync($kunena_db, $option) {
 	$kunena_db = &JFactory::getDBO ();
 	if (!JRequest::checkToken()) {
 		$kunena_app->enqueueMessage ( JText::_ ( 'COM_KUNENA_ERROR_TOKEN' ), 'error' );
+		while (@ob_end_clean());
 		$kunena_app->redirect ( JURI::base () . "index.php?option=$option&task=syncusers" );
 		return;
 	}
@@ -2407,6 +2469,7 @@ function douserssync($kunena_db, $option) {
 		$kunena_app->enqueueMessage ( JText::_('COM_KUNENA_SYNC_USERS_DO_RENAME') . " $cnt" );
 	}
 
+	while (@ob_end_clean());
 	$kunena_app->redirect ( JURI::base () . "index.php?option=$option&task=syncusers" );
 }
 
@@ -2449,6 +2512,7 @@ function deleteAttachment($id, $redirect, $message) {
 	$kunena_app = & JFactory::getApplication ();
 	$kunena_db = &JFactory::getDBO ();
 	if (! $id) {
+		while (@ob_end_clean());
 		$kunena_app->redirect ( $redirect );
 		return;
 	}
@@ -2458,6 +2522,7 @@ function deleteAttachment($id, $redirect, $message) {
 	$attachments->deleteAttachment($id);
 
 	$kunena_app->enqueueMessage ( JText::_($message) );
+	while (@ob_end_clean());
 	$kunena_app->redirect ( $redirect );
 }
 
@@ -2542,6 +2607,7 @@ function showsmilies($option) {
 					JError::raiseNotice(100, JText::_($err));
 					// REDIRECT
 					if ($return) {
+						while (@ob_end_clean());
 						$kunena_app->redirect(base64_decode($return));
 					}
 					return;
@@ -2559,6 +2625,7 @@ function showsmilies($option) {
 					JError::raiseNotice(100, JText::_('COM_KUNENA_A_EMOTICONS_UPLOAD_ERROR_EXIST'));
 					// REDIRECT
 					if ($return) {
+						while (@ob_end_clean());
 						$kunena_app->redirect(base64_decode($return));
 					}
 					return;
@@ -2576,6 +2643,7 @@ function showsmilies($option) {
 					JError::raiseWarning(100, JText::_('COM_KUNENA_A_EMOTICONS_UPLOAD_ERROR_UNABLE'));
 					// REDIRECT
 					if ($return) {
+						while (@ob_end_clean());
 						$kunena_app->redirect(base64_decode($return));
 					}
 					return;
@@ -2590,12 +2658,14 @@ function showsmilies($option) {
 					$kunena_app->enqueueMessage(JText::_('COM_KUNENA_A_EMOTICONS_UPLOAD_SUCCESS'));
 					// REDIRECT
 					if ($return) {
+						while (@ob_end_clean());
 						$kunena_app->redirect(base64_decode($return));
 					}
 					return;
 				}
 			}
 		} else {
+			while (@ob_end_clean());
 			$kunena_app->redirect('index.php', 'Invalid Request', 'error');
 		}
 	}
@@ -2646,6 +2716,7 @@ function savesmiley($option, $id = NULL) {
 	$kunena_db = &JFactory::getDBO ();
 	if (!JRequest::checkToken()) {
 		$kunena_app->enqueueMessage ( JText::_ ( 'COM_KUNENA_ERROR_TOKEN' ), 'error' );
+		while (@ob_end_clean());
 		$kunena_app->redirect ( JURI::base () . "index.php?option=$option&task=showsmilies" );
 		return;
 	}
@@ -2656,6 +2727,7 @@ function savesmiley($option, $id = NULL) {
 
 	if (empty ( $smiley_code ) || empty ( $smiley_location )) {
 		$task = ($id == NULL) ? 'newsmiley' : 'editsmiley&id=' . $id;
+		while (@ob_end_clean());
 		$kunena_app->redirect ( JURI::base () . "index.php?option=$option&task=" . $task, JText::_('COM_KUNENA_MISSING_PARAMETER') );
 		$kunena_app->close ();
 	}
@@ -2667,6 +2739,7 @@ function savesmiley($option, $id = NULL) {
 	foreach ( $smilies as $value ) {
 		if (in_array ( $smiley_code, $value ) && ! ($value ['id'] == $id)) {
 			$task = ($id == NULL) ? 'newsmiley' : 'editsmiley&id=' . $id;
+			while (@ob_end_clean());
 			$kunena_app->redirect ( JURI::base () . "index.php?option=$option&task=" . $task, JText::_('COM_KUNENA_CODE_ALLREADY_EXITS') );
 			$kunena_app->close ();
 		}
@@ -2682,6 +2755,7 @@ function savesmiley($option, $id = NULL) {
 	$kunena_db->query ();
 	if (KunenaError::checkDatabaseError()) return;
 
+	while (@ob_end_clean());
 	$kunena_app->redirect ( JURI::base () . "index.php?option=$option&task=showsmilies", JText::_('COM_KUNENA_SMILEY_SAVED') );
 }
 
@@ -2690,6 +2764,7 @@ function deletesmiley($option, $cid) {
 	$kunena_db = &JFactory::getDBO ();
 	if (!JRequest::checkToken()) {
 		$kunena_app->enqueueMessage ( JText::_ ( 'COM_KUNENA_ERROR_TOKEN' ), 'error' );
+		while (@ob_end_clean());
 		$kunena_app->redirect ( JURI::base () . "index.php?option=$option&task=showsmilies" );
 		return;
 	}
@@ -2703,6 +2778,7 @@ function deletesmiley($option, $cid) {
 		if (KunenaError::checkDatabaseError()) return;
 	}
 
+	while (@ob_end_clean());
 	$kunena_app->redirect ( JURI::base () . "index.php?option=$option&task=showsmilies", JText::_('COM_KUNENA_SMILEY_DELETED') );
 }
 
@@ -2797,6 +2873,7 @@ function showRanks($option) {
 					JError::raiseNotice(100, JText::_($err));
 					// REDIRECT
 					if ($return) {
+						while (@ob_end_clean());
 						$kunena_app->redirect(base64_decode($return));
 					}
 					return;
@@ -2814,6 +2891,7 @@ function showRanks($option) {
 					JError::raiseNotice(100, JText::_('COM_KUNENA_A_RANKS_UPLOAD_ERROR_EXIST'));
 					// REDIRECT
 					if ($return) {
+						while (@ob_end_clean());
 						$kunena_app->redirect(base64_decode($return));
 					}
 					return;
@@ -2831,6 +2909,7 @@ function showRanks($option) {
 					JError::raiseWarning(100, JText::_('COM_KUNENA_A_RANKS_UPLOAD_ERROR_UNABLE'));
 					// REDIRECT
 					if ($return) {
+						while (@ob_end_clean());
 						$kunena_app->redirect(base64_decode($return));
 					}
 					return;
@@ -2845,12 +2924,14 @@ function showRanks($option) {
 					$kunena_app->enqueueMessage(JText::_('COM_KUNENA_A_RANKS_UPLOAD_SUCCESS'));
 					// REDIRECT
 					if ($return) {
+						while (@ob_end_clean());
 						$kunena_app->redirect(base64_decode($return));
 					}
 					return;
 				}
 			}
 		} else {
+			while (@ob_end_clean());
 			$kunena_app->redirect('index.php', 'Invalid Request', 'error');
 		}
 	}
@@ -2887,6 +2968,7 @@ function deleteRank($option, $cid = null) {
 	$kunena_app = & JFactory::getApplication ();
 	if (!JRequest::checkToken()) {
 		$kunena_app->enqueueMessage ( JText::_ ( 'COM_KUNENA_ERROR_TOKEN' ), 'error' );
+		while (@ob_end_clean());
 		$kunena_app->redirect ( JURI::base () . "index.php?option=$option&task=ranks" );
 		return;
 	}
@@ -2899,6 +2981,7 @@ function deleteRank($option, $cid = null) {
 		if (KunenaError::checkDatabaseError()) return;
 	}
 
+	while (@ob_end_clean());
 	$kunena_app->redirect ( JURI::base () . "index.php?option=$option&task=ranks", JText::_('COM_KUNENA_RANK_DELETED') );
 }
 
@@ -2908,6 +2991,7 @@ function saveRank($option, $id = NULL) {
 
 	if (!JRequest::checkToken()) {
 		$kunena_app->enqueueMessage ( JText::_ ( 'COM_KUNENA_ERROR_TOKEN' ), 'error' );
+		while (@ob_end_clean());
 		$kunena_app->redirect ( JURI::base () . "index.php?option=$option&task=ranks" );
 		return;
 	}
@@ -2919,6 +3003,7 @@ function saveRank($option, $id = NULL) {
 
 	if (empty ( $rank_title ) || empty ( $rank_image )) {
 		$task = ($id == NULL) ? 'newRank' : 'editRank&id=' . $id;
+		while (@ob_end_clean());
 		$kunena_app->redirect ( JURI::base () . "index.php?option=$option&task=" . $task, JText::_('COM_KUNENA_MISSING_PARAMETER') );
 		$kunena_app->close ();
 	}
@@ -2929,6 +3014,7 @@ function saveRank($option, $id = NULL) {
 	foreach ( $ranks as $value ) {
 		if (in_array ( $rank_title, $value ) && ! ($value ['rank_id'] == $id)) {
 			$task = ($id == NULL) ? 'newRank' : 'editRank&id=' . $id;
+			while (@ob_end_clean());
 			$kunena_app->redirect ( JURI::base () . "index.php?option=$option&task=" . $task, JText::_('COM_KUNENA_RANK_ALLREADY_EXITS') );
 			$kunena_app->close ();
 		}
@@ -2942,6 +3028,7 @@ function saveRank($option, $id = NULL) {
 	$kunena_db->query ();
 	if (KunenaError::checkDatabaseError()) return;
 
+	while (@ob_end_clean());
 	$kunena_app->redirect ( JURI::base () . "index.php?option=$option&task=ranks", JText::_('COM_KUNENA_RANK_SAVED') );
 }
 
@@ -3105,6 +3192,7 @@ function deleteitemsnow ( $option, $cid ) {
 		}
 	}
 
+	while (@ob_end_clean());
 	$kunena_app->redirect ( JURI::base () . "index.php?option=$option&task=showtrashview", JText::_('COM_KUNENA_TRASH_DELETE_DONE') );
 }
 
@@ -3128,6 +3216,7 @@ function trashrestore($option, $cid) {
 		}
 	}
 
+	while (@ob_end_clean());
 	$kunena_app->redirect ( JURI::base () . "index.php?option=$option&task=showtrashview", JText::_('COM_KUNENA_TRASH_RESTORE_DONE') );
 }
 //===============================
@@ -3691,3 +3780,5 @@ function KUNENA_gdVersion() {
 function kescape($string) {
 	return htmlspecialchars($string, ENT_COMPAT, 'UTF-8');
 }
+
+ob_end_flush();

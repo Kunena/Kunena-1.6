@@ -60,6 +60,7 @@ class CKunenaUserlist {
 		if ($this->search != "") {
 			if (!JRequest::checkToken()) {
 				$this->app->enqueueMessage ( JText::_ ( 'COM_KUNENA_ERROR_TOKEN' ), 'error' );
+				while (@ob_end_clean());
 				$this->app->redirect ( CKunenaLink::GetUserlistURL() );
 				return false;
 			}

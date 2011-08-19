@@ -230,6 +230,7 @@ class CKunenaPost {
 		} else {
 			$redirectmsg .= JText::_ ( 'COM_KUNENA_POST_SUCCESS_POSTED' );
 		}
+		while (@ob_end_clean());
 		$this->_app->redirect ( CKunenaLink::GetMessageURL ( $id, $this->catid, 0, false ), $redirectmsg );
 	}
 
@@ -413,6 +414,7 @@ class CKunenaPost {
 
 			CKunenaTools::loadTemplate ( '/editor/form.php' );
 		} else {
+			while (@ob_end_clean());
 			$this->_app->redirect ( CKunenaLink::GetKunenaURL ( false ), JText::_ ( 'COM_KUNENA_POST_NOT_MODERATOR' ) );
 		}
 	}
@@ -485,6 +487,7 @@ class CKunenaPost {
 		if ($this->msg_cat->review && !CKunenaTools::isModerator($this->my->id,$this->catid)) {
 			$this->_app->enqueueMessage ( JText::_ ( 'COM_KUNENA_GEN_MODERATED' ) );
 		}
+		while (@ob_end_clean());
 		$this->_app->redirect ( CKunenaLink::GetMessageURL ( $this->id, $this->catid, 0, false ) );
 	}
 
@@ -509,6 +512,7 @@ class CKunenaPost {
 		} else {
 			$this->_app->enqueueMessage ( JText::_ ( 'COM_KUNENA_POST_SUCCESS_DELETE') );
 		}
+		while (@ob_end_clean());
 		$this->_app->redirect ( CKunenaLink::GetMessageURL ( $this->id, $this->catid, 0, false ) );
 	}
 
@@ -533,6 +537,7 @@ class CKunenaPost {
 		} else {
 			$this->_app->enqueueMessage ( JText::_ ( 'COM_KUNENA_POST_SUCCESS_UNDELETE') );
 		}
+		while (@ob_end_clean());
 		$this->_app->redirect ( CKunenaLink::GetMessageURL ( $this->id, $this->catid, 0, false ) );
 	}
 
@@ -559,10 +564,12 @@ class CKunenaPost {
 			$this->_app->enqueueMessage( JText::_ ( 'COM_KUNENA_POST_SUCCESS_DELETE' ));
 		}
 
-		if ($this->msg_cat->parent)
+		if ($this->msg_cat->parent) {
 			$this->redirectBack ();
-		else
+		} else {
+			while (@ob_end_clean());
 			$this->_app->redirect ( CKunenaLink::GetCategoryURL ( 'showcat', $this->catid, false ));
+		}
 	}
 
 	protected function deletethread() {
@@ -587,6 +594,7 @@ class CKunenaPost {
 			$message = JText::_ ( 'COM_KUNENA_TOPIC_SUCCESS_DELETE' );
 		}
 
+		while (@ob_end_clean());
 		$this->_app->redirect ( CKunenaLink::GetCategoryURL ( 'showcat', $this->catid, false ), $message );
 	}
 
@@ -670,6 +678,7 @@ class CKunenaPost {
 		} else {
 			$this->_app->enqueueMessage( JText::_ ( 'COM_KUNENA_POST_SUCCESS_MOVE' ));
 		}
+		while (@ob_end_clean());
 		$this->_app->redirect ( CKunenaLink::GetMessageURL ( $this->id, $this->catid, 0, false ) );
 	}
 
@@ -692,6 +701,7 @@ class CKunenaPost {
 				$activity->onAfterSubscribe($thread, 1);
 			}
 		}
+		while (@ob_end_clean());
 		$this->_app->redirect ( CKunenaLink::GetLatestPageAutoRedirectURL ( $this->id, $this->config->messages_per_page ), $success_msg );
 	}
 
@@ -714,6 +724,7 @@ class CKunenaPost {
 				$activity->onAfterSubscribe($thread, 0);
 			}
 		}
+		while (@ob_end_clean());
 		$this->_app->redirect ( CKunenaLink::GetLatestPageAutoRedirectURL ( $this->id, $this->config->messages_per_page ), $success_msg );
 	}
 
@@ -736,6 +747,7 @@ class CKunenaPost {
 				$activity->onAfterFavorite($thread, 1);
 			}
 		}
+		while (@ob_end_clean());
 		$this->_app->redirect ( CKunenaLink::GetLatestPageAutoRedirectURL ( $this->id, $this->config->messages_per_page ), $success_msg );
 	}
 
@@ -758,6 +770,7 @@ class CKunenaPost {
 				$activity->onAfterFavorite($thread, 0);
 			}
 		}
+		while (@ob_end_clean());
 		$this->_app->redirect ( CKunenaLink::GetLatestPageAutoRedirectURL ( $this->id, $this->config->messages_per_page ), $success_msg );
 	}
 
@@ -782,6 +795,7 @@ class CKunenaPost {
 			$activity = KunenaFactory::getActivityIntegration();
 			$activity->onAfterSticky($this->id, 1);
 		}
+		while (@ob_end_clean());
 		$this->_app->redirect ( CKunenaLink::GetLatestPageAutoRedirectURL ( $this->id, $this->config->messages_per_page ), $success_msg );
 	}
 
@@ -806,6 +820,7 @@ class CKunenaPost {
 			$activity = KunenaFactory::getActivityIntegration();
 			$activity->onAfterSticky($this->id, 0);
 		}
+		while (@ob_end_clean());
 		$this->_app->redirect ( CKunenaLink::GetLatestPageAutoRedirectURL ( $this->id, $this->config->messages_per_page ), $success_msg );
 	}
 
@@ -830,6 +845,7 @@ class CKunenaPost {
 			$activity = KunenaFactory::getActivityIntegration();
 			$activity->onAfterLock($this->id, 1);
 		}
+		while (@ob_end_clean());
 		$this->_app->redirect ( CKunenaLink::GetLatestPageAutoRedirectURL ( $this->id, $this->config->messages_per_page ), $success_msg );
 	}
 
@@ -854,6 +870,7 @@ class CKunenaPost {
 			$activity = KunenaFactory::getActivityIntegration();
 			$activity->onAfterLock($this->id, 0);
 		}
+		while (@ob_end_clean());
 		$this->_app->redirect ( CKunenaLink::GetLatestPageAutoRedirectURL ( $this->id, $this->config->messages_per_page ), $success_msg );
 	}
 
@@ -889,6 +906,7 @@ class CKunenaPost {
 				CKunenaTools::modifyCategoryStats($this->id, $this->msg_cat->parent, $this->msg_cat->time,$this->msg_cat->catid);
 			}
 		}
+		while (@ob_end_clean());
 		$this->_app->redirect ( CKunenaLink::GetMessageURL ( $this->id, $this->catid, 0, false ), $success_msg );
 	}
 
@@ -1216,6 +1234,7 @@ class CKunenaPost {
 	}
 	function redirectBack() {
 		$httpReferer = JRequest::getVar ( 'HTTP_REFERER', JURI::base ( true ), 'server' );
+		while (@ob_end_clean());
 		$this->_app->redirect ( $httpReferer );
 	}
 }
