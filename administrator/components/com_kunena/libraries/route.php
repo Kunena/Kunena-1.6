@@ -31,6 +31,8 @@ abstract class KunenaRoute {
 		if (!$uri) {
 			$link = self::current(true);
 			$link->delVar ( 'Itemid' );
+			$link->delVar ( 'defaultmenu' );
+			$link->delVar ( 'language' );
 		}
 		else if (is_numeric($uri)) {
 			return intval($uri);
@@ -47,6 +49,8 @@ abstract class KunenaRoute {
 		if (!$uri) {
 			$link = self::current(true);
 			$link->delVar ( 'Itemid' );
+			$link->delVar ( 'defaultmenu' );
+			$link->delVar ( 'language' );
 		} else if (is_numeric($uri)) {
 			$item = self::$menu[intval($uri)];
 			return JRoute::_($item->link."&Itemid={$item->id}");
@@ -145,6 +149,7 @@ abstract class KunenaRoute {
 		if (self::$menu === null) {
 			self::$menu = $menus->getMenu ();
 			$my = JFactory::getUser ();
+			$language = JFactory::getDocument()->getLanguage();
 			foreach ( self::$menu as $item ) {
 				if (! is_object ( $item ))
 					continue;
@@ -152,7 +157,7 @@ abstract class KunenaRoute {
 				$authorise = isset($item->parent_id) ? $menus->authorise($item->id) : !empty($item->published) && (!isset ( $item->access ) || $item->access <= $my->aid);
 				$parent = isset($item->parent_id) ? ($item->parent_id == 1 ? 0 : $item->parent_id) : $item->parent;
 
-				if ($authorise) {
+				if ($authorise && (!isset($item->language) || $item->language == '*' || strtolower($item->language) == strtolower($language))) {
 					self::$childlist[$item->menutype][$parent][$item->id] = $item->id;
 				}
 			}

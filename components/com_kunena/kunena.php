@@ -67,6 +67,14 @@ if (empty($_POST) && $format == 'html') {
 	$menu = JSite::getMenu ();
 	$active = $menu->getActive ();
 
+	// Joomla 1.6+ multi-language support
+	if (isset($active->language) && $active->language != '*') {
+		$language = JFactory::getDocument()->getLanguage();
+		if (strtolower($active->language) != strtolower($language)) {
+			$this->redirect (KunenaRoute::_(null, false));
+		}
+	}
+
 	// Legacy menu item and Itemid=0 support with redirect and notice
 	if (empty($active->query ['view'])) {
 		$new = $menu->getItem (KunenaRoute::getItemID ());

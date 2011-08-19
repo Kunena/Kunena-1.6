@@ -35,6 +35,7 @@ Kunena 1.7.0-DEV
 
 19-August-2011 Matias
 # [#69] Make local URIs to work in all tags [url], [url=xxx] and [img]
+# [#76] Joomla 1.7: Multi-language menu support is missing
 
 18-August-2011 Matias
 # [#71] Improve English language by using category and topic instead of forum and thread
