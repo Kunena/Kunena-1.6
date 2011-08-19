@@ -304,7 +304,7 @@ class KunenaBBCodeInterpreter extends BBCodeInterpreter {
 				$task->autolink_disable --;
 				if (isset ( $tag->options ['default'] )) {
 					$tempstr = $tag->options ['default'];
-					if (! preg_match ( "`^(https?://)`", $tempstr )) {
+					if (! preg_match ( "`^(/|https?://)`", $tempstr )) {
 						$tempstr = 'http://' . $tempstr;
 					}
 					$tns = '<a href="' . $tempstr . '" rel="nofollow" target="_blank">';
@@ -422,7 +422,7 @@ class KunenaBBCodeInterpreter extends BBCodeInterpreter {
 				break;
 			case 'url' :
 				$tempstr = $between;
-				if (! preg_match ( "`^(https?://)`", $tempstr )) {
+				if (! preg_match ( "`^(/|https?://)`", $tempstr )) {
 					$tempstr = 'http://' . $tempstr;
 				}
 				$tag_new = '<a href="' . $tempstr .'" rel="nofollow" target="_blank">' . $between . '</a>';
@@ -437,7 +437,7 @@ class KunenaBBCodeInterpreter extends BBCodeInterpreter {
 						return TAGPARSER_RET_REPLACED;
 					}
 					$fileurl = $between;
-					if (! preg_match ( '|^(https?://)|', $fileurl )) {
+					if (! preg_match ( '`^(/|https?://)`', $fileurl )) {
 						$fileurl = 'http://' . $fileurl;
 					}
 					if ($kunena_config->bbcode_img_secure != 'image') {
