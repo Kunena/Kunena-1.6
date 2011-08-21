@@ -33,6 +33,11 @@ Legend:
 
 Kunena 1.7.0-DEV
 
+21-August-2011 Matias
+# [#82] AUP integration: better detection to prevent crash on older versions
+# [#83] Joomla 1.5: Access levels are not working
+# [#84] Joomla 1.5: "Primary/Secondary Includes Child Groups" doesn't work
+
 19-August-2011 Matias
 # [#69] Make local URIs to work in all tags [url], [url=xxx] and [img]
 # [#76] Joomla 1.7: Multi-language menu support is missing
