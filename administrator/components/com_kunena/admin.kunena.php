@@ -1073,7 +1073,7 @@ function showAdministration($option) {
 			} else {
 				$v->accessname = JText::sprintf( $v->pub_recurse ? 'COM_KUNENA_A_GROUP_X_PLUS' : 'COM_KUNENA_A_GROUP_X_ONLY', JText::_( $v->groupname ));
 			}
-			if ($v->admingroup && $v->pub_access != $v->admin_access) {
+			if ($v->pub_access > 0 && $v->admingroup && $v->pub_access != $v->admin_access) {
 				$v->accessname .= ' / '.JText::sprintf( $v->admin_recurse ? 'COM_KUNENA_A_GROUP_X_PLUS' : 'COM_KUNENA_A_GROUP_X_ONLY', JText::_( $v->admingroup ));
 			}
 		} else {

@@ -165,7 +165,7 @@ class CKunenaWhoIsOnline {
 		$do = JRequest::getCmd('do');
 
 		$isuser = $this->_IsUser();
-		$this->myip = getenv('REMOTE_ADDR');
+		$this->myip = $_SERVER ["REMOTE_ADDR"];
 
 		$online = $this->_getOnlineUsers();
 
