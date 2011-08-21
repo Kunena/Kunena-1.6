@@ -33,6 +33,9 @@ Legend:
 
 Kunena 1.7.0-DEV
 
+21-August-2011 Xillibit
+# [#86] Let user to put only 8 attachments
+
 21-August-2011 Matias
 # [#82] AUP integration: better detection to prevent crash on older versions
 # [#83] Joomla 1.5: Access levels are not working

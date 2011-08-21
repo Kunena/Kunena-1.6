@@ -553,7 +553,12 @@ function cancelForm() {
 	return true;
 }
 
-function newAttachment() {
+var __attachment_counter = 0;
+
+function newAttachment() {	
+	if (__attachment_counter < '8') __attachment_counter++;
+	else return false;
+	
 	var __kattachment = document.id('kattachment-id');
 	if (!__kattachment) return;
 	__kattachment.setStyle('display', 'none');
