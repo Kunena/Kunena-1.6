@@ -38,6 +38,7 @@ Kunena 1.7.0-DEV
 # [#83] Joomla 1.5: Access levels are not working
 # [#84] Joomla 1.5: "Primary/Secondary Includes Child Groups" doesn't work
 # [#59] Joomla 1.5: Fix Mootools 1.12 support when editing category
+# [#59] Joomla 1.5: On Public category there's no need to show Public / Public Back-end
 
 19-August-2011 Matias
 # [#69] Make local URIs to work in all tags [url], [url=xxx] and [img]
