@@ -233,6 +233,7 @@
 	<target name="copy" depends="minify">
 		<mkdir dir="${build_dir}/archive" />
 		<language tag="ar-AA" />
+        <language tag="bg-BG" />
 		<language tag="ca-ES" />
 		<!-- language tag="cs-CZ" /-->
 		<language tag="da-DK" />
@@ -247,6 +248,7 @@
 		<language tag="id-ID" />
 		<!--language tag="it-IT" /-->
 		<!--language tag="ja-JP" /-->
+        <language tag="km-KH" />
 		<language tag="lt-LT" />
 		<!-- language tag="mk-MK" /-->
 		<language tag="nb-NO" />
@@ -254,7 +256,9 @@
 		<language tag="pl-PL" />
 		<!--language tag="pt-BR" /-->
 		<!--language tag="pt-PT" /-->
+        <language tag="ro-RO" />
 		<language tag="ru-RU" />
+        <language tag="sq-AL" />
 		<!--language tag="sr-RS" /-->
 		<!--language tag="sr-YU" /-->
 		<!--language tag="sv-SE" /-->
