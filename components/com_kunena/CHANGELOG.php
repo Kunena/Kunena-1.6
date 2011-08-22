@@ -33,6 +33,9 @@ Legend:
 
 Kunena 1.7.0-DEV
 
+22-August-2011 Matias
+# [#89] Joomla 1.7: Add ACL support to backend
+
 21-August-2011 Xillibit
 # [#86] Let user to put only 8 attachments
 
