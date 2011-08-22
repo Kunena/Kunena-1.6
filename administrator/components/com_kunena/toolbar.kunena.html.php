@@ -26,7 +26,16 @@ defined( '_JEXEC' ) or die();
 // ################################################################
 class CKunenaToolbar
 {
-    function _ADMIN()
+    function _CPANEL_MENU()
+    {
+		if (version_compare(JVERSION, '1.6', '>')) {
+			if (JFactory::getUser()->authorise('core.admin', 'com_kunena')) {
+				JToolBarHelper::preferences('com_kunena');
+			}
+		}
+    }
+
+	function _ADMIN()
     {
 
         JToolBarHelper::spacer();

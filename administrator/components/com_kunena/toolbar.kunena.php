@@ -156,6 +156,12 @@ switch ($task)
 
         break;
 
+	case "cpanel":
+	case "":
+        CKunenaToolbar::_CPANEL_MENU();
+
+        break;
+
     default:
 
         CKunenaToolbar::BACKONLY_MENU();
