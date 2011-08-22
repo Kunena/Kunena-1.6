@@ -33,6 +33,9 @@ Legend:
 
 Kunena 1.7.0-DEV
 
+22-August-2011 Xillibit
+# [#92] Article links under J1.6+ doesn't tale care of seo
+
 22-August-2011 Matias
 # [#89] Joomla 1.7: Add ACL support to backend
 
