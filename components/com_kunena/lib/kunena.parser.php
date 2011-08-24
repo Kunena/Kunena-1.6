@@ -701,7 +701,9 @@ class KunenaBBCodeInterpreter extends BBCodeInterpreter {
 						if (KUNENA_JOOMLA_COMPAT == '1.5') {
 							$url = JRoute::_(ContentHelperRoute::getArticleRoute($article->id, $article->catid, $article->sectionid));
 						} else {
-							$url = JRoute::_(ContentHelperRoute::getArticleRoute($article->id, $article->catid));
+							$slug = $article->alias ? ($article->id.':'.$article->alias) : $article->id;
+							$catslug = $article->category_alias ? ($article->catid.':'.$article->category_alias) : $article->catid;
+							$url = JRoute::_(ContentHelperRoute::getArticleRoute($slug, $catslug));
 						}
 
 						// TODO: make configurable
