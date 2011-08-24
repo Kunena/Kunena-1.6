@@ -33,6 +33,9 @@ Legend:
 
 Kunena 1.7.0-DEV
 
+24-August-2011 Xillibit
+Update fr-FR language
+
 23-August-2011 Xillibit
 # [#92] Article links under J1.6+ doesn't take care of seo (Part 2)
 
