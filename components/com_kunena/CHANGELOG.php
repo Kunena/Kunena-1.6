@@ -35,6 +35,7 @@ Kunena 1.7.0-DEV
 
 25-August-2011 Matias
 # [#95] Fix broken template chooser support
+# [#96] Joomla 1.5: Last login time in user list uses wrong timezone
 
 22-August-2011 Matias
 # [#89] Joomla 1.7: Add ACL support to backend
