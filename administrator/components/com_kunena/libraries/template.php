@@ -12,6 +12,7 @@
 // Dont allow direct linking
 defined( '_JEXEC' ) or die();
 jimport('joomla.html.parameter');
+jimport('joomla.filesystem.path');
 
 class KunenaParameter extends JParameter {
 	public function getXml() {
@@ -44,9 +45,9 @@ class KunenaTemplate extends JObject
 	*/
 	public function __construct($name=null) {
 		if (!$name) {
-			$config = KunenaFactory::getConfig();
-			$name = $config->template;
+			$name = KunenaFactory::getConfig()->template;
 		}
+		$name = JPath::clean($name);
 		$xml = KPATH_SITE . "/template/{$name}/template.xml";
 		if (!is_readable ( $xml )) {
 			$name = 'default';
@@ -220,11 +221,9 @@ class KunenaTemplate extends JObject
 	 * @return	KunenaTemplate	The template object.
 	 * @since	1.6
 	 */
-	static public function getInstance($name=null)
-	{
+	static public function getInstance($name=null) {
 		if (!$name) {
-			$config = KunenaFactory::getConfig();
-			$name = $config->template;
+			$name = JRequest::getString ( 'kunena_template', KunenaFactory::getConfig()->template, 'COOKIE' );
 		}
 		if (empty(self::$_instances[$name])) {
 			self::$_instances[$name] = new KunenaTemplate($name);
