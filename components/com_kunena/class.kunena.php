@@ -62,11 +62,9 @@ define('KUNENA_LIVEUPLOADEDPATH', KUNENA_JLIVEURL . 'media/kunena');
 
 // now continue with other paths
 
-$fb_user_template = JRequest::getString('fb_user_template', '', 'COOKIE');
-$fb_user_img_template = JRequest::getString('fb_user_img_template', '', 'COOKIE');
+$fb_user_template = JRequest::getString('kunena_template', '', 'COOKIE');
 // don't allow directory travelling
 $fb_user_template = strtr($fb_user_template, '\\/', '');
-$fb_user_img_template = strtr($fb_user_img_template, '\\/', '');
 
 if (JString::strlen($fb_user_template) > 0 && file_exists(KUNENA_PATH_TEMPLATE .'/'. $fb_user_template . '/template.xml'))
 {
@@ -81,11 +79,7 @@ else
     $fb_cur_template = 'default';
     }
 
-if (JString::strlen($fb_user_img_template) > 0 && file_exists(KUNENA_PATH_TEMPLATE .'/'. $fb_user_img_template . '/images'))
-{
-    $fb_cur_img_template = $fb_user_img_template;
-    }
-else if (file_exists(KUNENA_PATH_TEMPLATE .'/'. $kunena_config->template . '/images'))
+if (file_exists(KUNENA_PATH_TEMPLATE .'/'. $kunena_config->template . '/images'))
 {
     $fb_cur_img_template = $kunena_config->template;
     }

@@ -155,13 +155,7 @@ class CKunenaUserlist {
 	}
 
 	function getLastvisitdate($date) {
-		if (KUNENA_JOOMLA_COMPAT == '1.5') {
-			$lastvisit = JHTML::_('date', $date, '%Y-%m-%d %H:%M:%S');
-		} else {
-			$lastvisit = JHTML::_('date', $date, 'Y-m-d\TH:i:sP ');
-		}
-
-		return $lastvisit;
+		return CKunenaTimeformat::showDate($date, 'date_today', 'utc');
 	}
 
 	function display() {

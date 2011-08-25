@@ -725,52 +725,16 @@ if ($kunena_config->board_offline && ! CKunenaTools::isAdmin ()) {
 			break;
 
 		case 'templatechooser' :
-			$fb_user_template = strval ( JRequest::getVar ( 'kunena_user_template', '', 'COOKIE' ) );
-
-			$fb_user_img_template = strval ( JRequest::getVar ( 'kunena_user_img_template', $fb_user_img_template ) );
-			$fb_change_template = strval ( JRequest::getVar ( 'kunena_change_template', $fb_user_template ) );
-			$fb_change_img_template = strval ( JRequest::getVar ( 'kunena_change_img_template', $fb_user_img_template ) );
-
-			if ($fb_change_template) {
-				// clean template name
-
-				$fb_change_template = preg_replace ( '#\W#', '', $fb_change_template );
-
-				if (JString::strlen ( $fb_change_template ) >= 40) {
-					$fb_change_template = JString::substr ( $fb_change_template, 0, 39 );
+			$name = JRequest::getString ( 'kunena_template', JRequest::getString ( 'kunena_template', '', 'COOKIE' ) );
+			if ($name) {
+				$name = preg_replace ( '/[\W\D]/', '', $name );
+				if (!is_readable ( KPATH_SITE . "/template/{$name}/template.xml" )) {
+					$name = 'default';
 				}
-
-				// check that template exists in case it was deleted
-
-				if (file_exists ( KUNENA_PATH_TEMPLATE . '/' . $fb_change_template . '/css/kunena.forum.css' )) {
-					$lifetime = 60 * 10;
-					$fb_current_template = $fb_change_template;
-					setcookie ( 'kunena_user_template', "$fb_change_template", time () + $lifetime );
-				} else {
-					setcookie ( 'kunena_user_template', '', time () - 3600 );
-				}
+				setcookie ( 'kunena_template', $name, time () + 3600 );
+			} else {
+				setcookie ( 'kunena_template', null, time () - 3600 );
 			}
-
-			if ($fb_change_img_template) {
-				// clean template name
-
-				$fb_change_img_template = preg_replace ( '#\W#', '', $fb_change_img_template );
-
-				if (JString::strlen ( $fb_change_img_template ) >= 40) {
-					$fb_change_img_template = JString::substr ( $fb_change_img_template, 0, 39 );
-				}
-
-				// check that template exists in case it was deleted
-
-				if (file_exists ( KUNENA_PATH_TEMPLATE . '/' . $fb_change_img_template . '/css/kunena.forum.css' )) {
-					$lifetime = 60 * 10;
-					$fb_current_img_template = $fb_change_img_template;
-					setcookie ( 'kunena_user_img_template', "$fb_change_img_template", time () + $lifetime );
-				} else {
-					setcookie ( 'kunena_user_img_template', '', time () - 3600 );
-				}
-			}
-
 			while (@ob_end_clean());
 			$kunena_app->redirect ( CKunenaLink::GetKunenaURL(false) );
 			break;
