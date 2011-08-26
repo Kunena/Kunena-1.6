@@ -17,6 +17,6 @@
 	<files>
 		<filename>sr-YU.com_kunena.ini</filename>
 		<filename>sr-YU.com_kunena.tpl_default.ini</filename>
-		<!-- filename>sr-YU.com_kunena.tpl_example.ini</filename -->
+		<filename>sr-YU.com_kunena.tpl_example.ini</filename>
 	</files>
 </install>
