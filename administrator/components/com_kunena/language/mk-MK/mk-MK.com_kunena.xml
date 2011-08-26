@@ -1,8 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- $Id$ -->
 <!DOCTYPE install>
 <install type="language" version="1.5" client="administrator" method="upgrade">
-	<name>Kunena Forum - Macedonian</name>
+	<name>Kunena Forum - Macedonian (Macedonia)</name>
 	<tag>mk-MK</tag>
 	<creationDate>@kunenaversiondate@</creationDate>
 	<version>@kunenaversion@</version>
@@ -15,8 +14,10 @@
 	<description>Macedonian language file for Kunena Forum Component</description>
 
 	<files>
-		<!-- filename>mk-MK.com_kunena.ini</filename -->
-		<!-- filename>mk-MK.com_kunena.install.ini</filename -->
-		<!-- filename>mk-MK.com_kunena.menu.ini</filename -->
+		<filename>mk-MK.com_kunena.ini</filename>
+		<filename>mk-MK.com_kunena.install.ini</filename>
+		<filename>mk-MK.com_kunena.menu.ini</filename>
+		<filename>mk-MK.com_kunena.sys.ini</filename>
+		<filename>mk-MK.plg_system_kunena.sys.ini</filename>
 	</files>
 </install>

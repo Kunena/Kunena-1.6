@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE install>
+<install type="language" version="1.5" client="site" method="upgrade">
+	<name>Kunena Forum - Azerbaijani (Azerbaijan)</name>
+	<tag>az-AZ</tag>
+	<creationDate>@kunenaversiondate@</creationDate>
+	<version>@kunenaversion@</version>
+	<build>@kunenaversionbuild@</build>
+	<author>armin</author>
+	<authorEmail>unknown</authorEmail>
+	<authorUrl>unknown</authorUrl>
+	<copyright>(C) 2011 unknown</copyright>
+	<license>GNU/GPL</license>
+	<description>Azerbaijani language file for Kunena Forum Component</description>
+
+	<files>
+		<filename>az-AZ.com_kunena.ini</filename>
+		<filename>az-AZ.com_kunena.tpl_default.ini</filename>
+		<filename>az-AZ.com_kunena.tpl_example.ini</filename>
+	</files>
+</install>
