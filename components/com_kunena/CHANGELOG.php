@@ -41,6 +41,7 @@ Kunena 1.7.0-DEV
 + [#98] Add languages az-AZ, et-EE, he-IL, sq-AL and .tx/config file
 - [#99] Remove ar-AA, bg-BG, ca-ES, da-DK, fa-IR, hu-HU, id-ID, nb-NO, nl-NL, ro-RO, th-TH, tr-TR
 # [#96] Joomla 1.5: Last login time in user list uses wrong timezone (part 2)
+# [#100] Joomla 1.7: Warning: preg_match() when editing profile
 
 25-August-2011 Matias
 # [#95] Fix broken template chooser support

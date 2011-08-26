@@ -169,7 +169,7 @@ class CKunenaProfile {
 				$str .=  " selected=\"selected\"";
 			}
 
-			$str .=  ">{$this->escape(JString::ucwords(JString::str_ireplace('/', ' / ', $val)))}</option>\n";
+			$str .=  ">{$this->escape(JString::ucwords(str_replace('/', ' / ', $val)))}</option>\n";
 		}
 
 		$str .=  "</select>\n";
