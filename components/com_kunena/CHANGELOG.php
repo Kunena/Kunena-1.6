@@ -33,6 +33,15 @@ Legend:
 
 Kunena 1.7.0-DEV
 
+26-August-2011 Matias
+^ [#98] Update ar-AA, bg-BG, ca-ES, cs-CZ, da-DK, de-DE, el-GR, es-ES, fa-IR
+^ [#98] Update fi-FI, hu-HU, id-ID, it-IT, ja-JP, km-KH, lt-LT, mk-MK, nb-NO
+^ [#98] Update nl-NL, pl-PL, pt-BR, pt-PT, ro-RO, ru-RU, sr-RS, sr-YU, sv-SE
+^ [#98] Update th-TH, tr-TR, vi-VN, zh-CN, zh-TW
++ [#98] Add languages az-AZ, et-EE, he-IL, sq-AL and .tx/config file
+- [#99] Remove ar-AA, bg-BG, ca-ES, da-DK, fa-IR, hu-HU, id-ID, nb-NO, nl-NL, ro-RO, th-TH, tr-TR
+# [#96] Joomla 1.5: Last login time in user list uses wrong timezone (part 2)
+
 25-August-2011 Matias
 # [#95] Fix broken template chooser support
 # [#96] Joomla 1.5: Last login time in user list uses wrong timezone

@@ -155,7 +155,7 @@ class CKunenaUserlist {
 	}
 
 	function getLastvisitdate($date) {
-		return CKunenaTimeformat::showDate($date, 'date_today', 'utc');
+		return $date;
 	}
 
 	function display() {
