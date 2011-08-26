@@ -47,7 +47,7 @@ class KunenaRouter {
 		'unsubscribecat'=>array(),
 		'karma'=>array(),
 		'bulkactions'=>array(),
-		'templatechooser'=>array(),
+		'template'=>array(),
 		'credits'=>array(),
 		'json'=>array(),
 		'rss'=>array(),
