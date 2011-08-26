@@ -33,6 +33,9 @@ Legend:
 
 Kunena 1.7.0-DEV
 
+26-August-2011 Xillibit
+# [#102] Don't select super user in userlist doens't work
+
 26-August-2011 Matias
 ^ [#98] Update ar-AA, bg-BG, ca-ES, cs-CZ, da-DK, de-DE, el-GR, es-ES, fa-IR
 ^ [#98] Update fi-FI, hu-HU, id-ID, it-IT, ja-JP, km-KH, lt-LT, mk-MK, nb-NO
