@@ -43,6 +43,7 @@ Kunena 1.7.0-DEV
 # [#96] Joomla 1.5: Last login time in user list uses wrong timezone (part 2)
 # [#100] Joomla 1.7: Warning: preg_match() when editing profile
 + [#95] Template chooser: Add &func=template&name=xxx
+# [#95] Template chooser: Fix a bug where images come from the wrong template
 
 25-August-2011 Matias
 # [#95] Fix broken template chooser support
