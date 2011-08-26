@@ -1,8 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- $Id$ -->
 <!DOCTYPE install>
 <install type="language" version="1.5" client="site" method="upgrade">
-	<name>Kunena Forum - Macedonian</name>
+	<name>Kunena Forum - Macedonian (Macedonia)</name>
 	<tag>mk-MK</tag>
 	<creationDate>@kunenaversiondate@</creationDate>
 	<version>@kunenaversion@</version>
@@ -16,7 +15,7 @@
 
 	<files>
 		<filename>mk-MK.com_kunena.ini</filename>
-		<!-- filename>mk-MK.com_kunena.tpl_default.ini</filename -->
-		<!-- filename>mk-MK.com_kunena.tpl_example.ini</filename -->
+		<filename>mk-MK.com_kunena.tpl_default.ini</filename>
+		<filename>mk-MK.com_kunena.tpl_example.ini</filename>
 	</files>
 </install>
