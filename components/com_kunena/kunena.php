@@ -724,18 +724,19 @@ if ($kunena_config->board_offline && ! CKunenaTools::isAdmin ()) {
 
 			break;
 
-		case 'templatechooser' :
-			$name = JRequest::getString ( 'kunena_template', JRequest::getString ( 'kunena_template', '', 'COOKIE' ) );
+		case 'template' :
+			jimport('joomla.filesystem.path');
+			$name = JRequest::getString ( 'name', JRequest::getString ( 'kunena_template', '', 'COOKIE' ) );
+			while (@ob_end_clean());
 			if ($name) {
-				$name = preg_replace ( '/[\W\D]/', '', $name );
+				$name = JPath::clean($name);
 				if (!is_readable ( KPATH_SITE . "/template/{$name}/template.xml" )) {
 					$name = 'default';
 				}
-				setcookie ( 'kunena_template', $name, time () + 3600 );
+				setcookie ( 'kunena_template', $name, 0, JURI::root(true).'/' );
 			} else {
-				setcookie ( 'kunena_template', null, time () - 3600 );
+				setcookie ( 'kunena_template', null, time () - 3600, JURI::root(true).'/' );
 			}
-			while (@ob_end_clean());
 			$kunena_app->redirect ( CKunenaLink::GetKunenaURL(false) );
 			break;
 

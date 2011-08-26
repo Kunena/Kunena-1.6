@@ -79,20 +79,11 @@ else
     $fb_cur_template = 'default';
     }
 
-if (file_exists(KUNENA_PATH_TEMPLATE .'/'. $kunena_config->template . '/images'))
-{
-    $fb_cur_img_template = $kunena_config->template;
-    }
-else
-{
-    $fb_cur_img_template = 'default';
-    }
-
 // only for preview module - maybe used later by users to change template
 
 define('KUNENA_RELTMPLTPATH', $fb_cur_template);
 define('KUNENA_ABSTMPLTPATH', KUNENA_PATH_TEMPLATE .'/'. $fb_cur_template);
-define('KUNENA_ABSTMPLTMAINIMGPATH', KUNENA_PATH_TEMPLATE .'/'. $fb_cur_img_template);
+define('KUNENA_ABSTMPLTMAINIMGPATH', KUNENA_PATH_TEMPLATE .'/'. $fb_cur_template);
 
 define('KUNENA_ABSIMAGESPATH', KUNENA_ABSTMPLTMAINIMGPATH . '/images/');
 
@@ -109,7 +100,7 @@ define('KUNENA_ABSRANKSPATH', KUNENA_ABSIMAGESPATH . 'ranks/');
 define('KUNENA_ABSCATIMAGESPATH', KUNENA_ROOT_PATH.'/media/kunena/'.$kunena_config->catimagepath); // Kunena category images absolute path
 
 define('KUNENA_TMPLTURL', KUNENA_DIRECTURL . "template/{$fb_cur_template}/");
-define('KUNENA_TMPLTMAINIMGURL', KUNENA_DIRECTURL . "template/{$fb_cur_img_template}/");
+define('KUNENA_TMPLTMAINIMGURL', KUNENA_DIRECTURL . "template/{$fb_cur_template}/");
 
 // IMAGES URL PATH
 define('KUNENA_TMPLTCSSURL', KUNENA_TMPLTURL . 'css/kunena.forum-min.css');
