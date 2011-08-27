@@ -18,11 +18,13 @@ $files = getTranslations('administrator/components/com_kunena/language');
 foreach ($files as $file) {
 	$contents = file_get_contents($file);
 	$contents = str_replace('_QQ_','"\""',$contents);
+	echo "$file:\n";
 	$strings = (array) parse_ini_string($contents, false, INI_SCANNER_RAW);
 }
 $files = getTranslations('components/com_kunena/language');
 foreach ($files as $file) {
 	$contents = file_get_contents($file);
 	$contents = str_replace('_QQ_','"\""',$contents);
+	echo "$file:\n";
 	$strings = (array) parse_ini_string($contents, false, INI_SCANNER_RAW);
 }
