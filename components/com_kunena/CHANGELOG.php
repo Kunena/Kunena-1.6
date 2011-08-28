@@ -36,6 +36,9 @@ Kunena 1.7.0-DEV
 28-August-2011 Xillibit
 # [#110] Undefined property: stdClass::$category_alias
 
+27-August-2011 Matias
+# [#98] Fix broken language files
+
 26-August-2011 Xillibit
 # [#102] Don't select super user in userlist doesn't work
 
