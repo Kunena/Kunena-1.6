@@ -33,8 +33,11 @@ Legend:
 
 Kunena 1.7.0-DEV
 
+28-August-2011 Xillibit
+# [#110] Undefined property: stdClass::$category_alias
+
 26-August-2011 Xillibit
-# [#102] Don't select super user in userlist doens't work
+# [#102] Don't select super user in userlist doesn't work
 
 26-August-2011 Matias
 ^ [#98] Update ar-AA, bg-BG, ca-ES, cs-CZ, da-DK, de-DE, el-GR, es-ES, fa-IR

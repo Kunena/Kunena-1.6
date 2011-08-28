@@ -702,7 +702,7 @@ class KunenaBBCodeInterpreter extends BBCodeInterpreter {
 							$url = JRoute::_(ContentHelperRoute::getArticleRoute($article->id, $article->catid, $article->sectionid));
 						} else {
 							$slug = $article->alias ? ($article->id.':'.$article->alias) : $article->id;
-							$catslug = $article->category_alias ? ($article->catid.':'.$article->category_alias) : $article->catid;
+							$catslug = isset($article->category_alias) ? ($article->catid.':'.$article->category_alias) : $article->catid;
 							$url = JRoute::_(ContentHelperRoute::getArticleRoute($slug, $catslug));
 						}
 
