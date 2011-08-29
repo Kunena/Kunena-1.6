@@ -42,7 +42,7 @@ $kunena_config = KunenaFactory::getConfig ();
 				</ul>
 			</div>
 			<div class="kcredits-more">
-				<?php echo JText::sprintf('COM_KUNENA_CREDITS_THANKS_PART_LONG', 'Beat', 'Alakentu', 'GoremanX', 'madLyfe', 'Mortti', '<a href="http://www.kunena.org" target="_blank" rel="follow">www.kunena.org</a>'); ?>
+				<?php echo JText::sprintf('COM_KUNENA_CREDITS_THANKS_PART_LONG', 'Beat', 'BoardBoss', 'GoremanX', 'madLyfe', 'Mortti', '<a href="http://www.kunena.org" target="_blank" rel="follow">www.kunena.org</a>'); ?>
 				<?php echo JText::_('COM_KUNENA_CREDITS_THANKS'); ?>
 			</div>
 			<div class="kcredits-language">
