@@ -31,13 +31,14 @@ Legend:
 
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-Kunena 1.7.0-DEV
+Kunena 1.7.0
 
 29-August-2011 Matias
 ^ [#107] Update credits
 # [#108] English language: Category Manager locked description error
 # [#111] Lightbox image width leads to invalid html, trim long urls break
 ^ [#98] Update nl-NL
+^ [#45] Kunena 1.7.0 Release (Tale)
 
 28-August-2011 Xillibit
 # [#110] Undefined property: stdClass::$category_alias
