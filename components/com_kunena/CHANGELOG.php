@@ -35,6 +35,7 @@ Kunena 1.7.0-DEV
 
 29-August-2011 Matias
 ^ [#107] Update credits
+# [#108] English language: Category Manager locked description error
 
 28-August-2011 Xillibit
 # [#110] Undefined property: stdClass::$category_alias
