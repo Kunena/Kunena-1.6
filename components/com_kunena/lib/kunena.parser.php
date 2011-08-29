@@ -77,7 +77,7 @@ class KunenaBBCodeInterpreter extends BBCodeInterpreter {
 		$kunena_config = KunenaFactory::getConfig ();
 		if ($kunena_config->trimlongurls) {
 			// shorten URL text if they are too long (>65chars)
-			$task->text = preg_replace ( '/<a href=(\"|\')((http(s?):\/\/)?(([^\'\"]{' . $kunena_config->trimlongurlsfront . '})([^\'\"]{4,})([^\'\"]{' . $kunena_config->trimlongurlsback . '})))\1(.*)>\3?\5<\/a>/u', '<a href="\2" \9>\6...\8</a>', $task->text );
+			$task->text = preg_replace ( '/<a href=(\"|\')((http(s?):\/\/)?(([^\'\"]{' . $kunena_config->trimlongurlsfront . '})([^\'\"]{4,})([^\'\"]{' . $kunena_config->trimlongurlsback . '})))\1([^>]*)>\3?\5<\/a>/u', '<a href="\2" \9>\6...\8</a>', $task->text );
 		}
 
 		if ($kunena_config->autoembedyoutube) {
@@ -489,7 +489,7 @@ class KunenaBBCodeInterpreter extends BBCodeInterpreter {
 
 					// Need to check if we are nested inside a URL code
 					if ($task->autolink_disable == 0 && $kunena_config->lightbox) {
-						$tag_new = '<div class="kmsgimage"><a href="'.$fileurl.'" title="" rel="lightbox[gallery]"><img src="'.$fileurl.'"'.($imgtagsize ? ' width="'.$imgtagsize.'"' : '').'" style="max-height:'.$kunena_config->imageheight.'px; " alt="" /></a></div>';
+						$tag_new = '<div class="kmsgimage"><a href="'.$fileurl.'" title="" rel="lightbox[gallery]"><img src="'.$fileurl.'"'.($imgtagsize ? ' width="'.$imgtagsize.'"' : '').' style="max-height:'.$kunena_config->imageheight.'px; " alt="" /></a></div>';
 					} else {
 						$tag_new = '<div class="kmsgimage"><img src="' . $fileurl . ($imgtagsize ? '" width="' . $imgtagsize : '') .'" style="max-height:'.$kunena_config->imageheight.'px; " alt="" /></div>';
 					}
