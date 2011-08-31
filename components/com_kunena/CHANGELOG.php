@@ -31,6 +31,11 @@ Legend:
 
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
+Kunena 1.7.1-DEV
+
+30-August-2011 Xillibit
+# [#118] Installer says: Install Kunena 1.6 (update fr-FR)
+
 Kunena 1.7.0
 
 29-August-2011 Matias
