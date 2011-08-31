@@ -33,6 +33,9 @@ Legend:
 
 Kunena 1.7.0
 
+31-August-2011 Matias
+# [#121] Joomla 1.7: fix broken French admin language file
+
 29-August-2011 Matias
 ^ [#107] Update credits
 # [#108] English language: Category Manager locked description error
