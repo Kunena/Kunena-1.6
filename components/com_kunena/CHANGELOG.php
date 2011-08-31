@@ -35,6 +35,7 @@ Kunena 1.7.0
 
 31-August-2011 Matias
 # [#121] Joomla 1.7: fix broken French admin language file
+# [#121] Add missing nb-NO language
 
 29-August-2011 Matias
 ^ [#107] Update credits
