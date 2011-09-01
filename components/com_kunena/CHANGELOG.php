@@ -31,6 +31,17 @@ Legend:
 
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
+Kunena 1.7.1-DEV
+
+1-September-2011 Matias
+# [#126] Articles bbcode: \n is converted to <br>
+
+31-August-2011 Matias
+# [#121] Joomla 1.7: fix broken French admin language file
+# [#121] Add missing nb-NO language
+# [#122] Fatal Error: Undeclared static property in KunenaAccessJoomla16
+^ [#123] Prepare 1.7.1 Release: update version information
+
 Kunena 1.7.0
 
 29-August-2011 Matias

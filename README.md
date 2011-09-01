@@ -9,7 +9,7 @@
 
 ## REQUIREMENTS
 
-*Kunena* 1.7.0 requirements:
+*Kunena* 1.7.1 requirements:
 
     Joomla! 1.5: version 1.5.20 or greater (>= 1.5.23 recommended for IE9 / FireFox 4 / Chrome 6 support)
     Joomla! 1.6: version 1.6.4 or greater (>= 1.6.6 recommended)
