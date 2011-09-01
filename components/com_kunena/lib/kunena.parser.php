@@ -741,6 +741,7 @@ class KunenaBBCodeInterpreter extends BBCodeInterpreter {
 							$html = $article->text;
 						}
 					}
+					$html = str_replace(array("\r\n","\n","\r"),"__KRN__",$html);
 					$tag_new = '<div class="kmsgtext-article">'.$html.'</div>'.$link;
 					return TAGPARSER_RET_REPLACED;
 				}

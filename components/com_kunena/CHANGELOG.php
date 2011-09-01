@@ -33,6 +33,9 @@ Legend:
 
 Kunena 1.7.1-DEV
 
+1-September-2011 Matias
+# [#126] Articles bbcode: \n is converted to <br>
+
 31-August-2011 Matias
 # [#121] Joomla 1.7: fix broken French admin language file
 # [#121] Add missing nb-NO language
