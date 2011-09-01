@@ -36,6 +36,7 @@ Kunena 1.7.1-DEV
 1-September-2011 Matias
 # [#126] Articles bbcode: \n is converted to <br>
 ^ [#128] Use update collection in Joomla 1.7 (show updates also for modules)
+^ [#130] Improved JUpgrade support (usergroups, install Kunena)
 
 31-August-2011 Matias
 # [#121] Joomla 1.7: fix broken French admin language file

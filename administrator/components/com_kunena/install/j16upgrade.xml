@@ -1,9 +1,6 @@
 <?xml version="1.0" ?>
 <!DOCTYPE jupgrade>
 <jupgrade>
-	<name>Kunena 1.7 Update Site</name>
-	<collection>http://update.kunena.org/1.7</collection>
-
 	<installer>
 		<file>administrator/components/com_kunena/install/j16upgrade.php</file>
 		<class>jUpgradeComponentKunena</class>
@@ -11,8 +8,8 @@
 
 	<!-- The folders to copy to the new site. -->
 	<folders>
-		<folder>media/kunena</folder>
 		<folder>administrator/components/com_kunena</folder>
 		<folder>components/com_kunena</folder>
+		<folder>media/kunena</folder>
 	</folders>
 </jupgrade>
