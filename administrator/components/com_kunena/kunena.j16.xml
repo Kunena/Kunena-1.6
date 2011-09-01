@@ -38,6 +38,6 @@
 		</files>
 	</administration>
 	<updateservers>
-		<server type="extension" priority="1" name="Kunena 1.6 Update Site">http://update.kunena.org/kunena16.xml</server>
+		<server type="collection" priority="1" name="Kunena 1.7 Update Site">http://update.kunena.org/1.7</server>
 	</updateservers>
 </extension>

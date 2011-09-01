@@ -1,10 +1,8 @@
 <?xml version="1.0" ?>
 <!DOCTYPE jupgrade>
 <jupgrade>
-	<!-- List of update servers -->
-	<updateservers>
-		<server type="extension" priority="1" name="Kunena 1.6 Update Site">http://update.kunena.org/kunena16.xml</server>
-	</updateservers>
+	<name>Kunena 1.7 Update Site</name>
+	<collection>http://update.kunena.org/1.7</collection>
 
 	<installer>
 		<file>administrator/components/com_kunena/install/j16upgrade.php</file>
