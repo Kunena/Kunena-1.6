@@ -35,6 +35,7 @@ Kunena 1.7.1-DEV
 
 2-September-2011 Matias
 # [#129] Fix canonical URLs
+^ [#130] Improved JUpgrade support (package)
 
 1-September-2011 Matias
 # [#126] Articles bbcode: \n is converted to <br>

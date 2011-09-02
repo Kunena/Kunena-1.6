@@ -39,7 +39,8 @@ class jUpgradeComponentKunena extends jUpgrade {
 	 */
 	protected function detectExtension() {
 		$this->api = JPATH_ADMINISTRATOR . '/components/com_kunena/api.php';
-		return true;
+		// Support only JUpgrade 1.2.2+
+		return method_exists($this, 'mapUserGroup');
 	}
 
 	/**
@@ -49,9 +50,6 @@ class jUpgradeComponentKunena extends jUpgrade {
 	 * @since	1.6.4
 	 */
 	protected function getCopyTables() {
-		if (!is_file($this->api)) {
-			throw new Exception('Please install new version of JUpgrade!');
-		}
 		require_once $this->api;
 		require_once KPATH_ADMIN . '/install/schema.php';
 		$schema = new KunenaModelSchema();
@@ -74,9 +72,6 @@ class jUpgradeComponentKunena extends jUpgrade {
 	 * @throws	Exception
 	 */
 	protected function migrateExtensionCustom() {
-		if (!is_file($this->api)) {
-			throw new Exception('Please install new version of JUpgrade!');
-		}
 		require_once $this->api;
 
 		// Need to initialize application
@@ -200,14 +195,11 @@ class jUpgradeComponentKunena extends jUpgrade {
 		// Get data
 		$rows = parent::getSourceData('*');
 
-		// Set up the mapping table for the old groups to the new groups.
-		$map = $this->getUsergroupIdMap();
-
 		// Do some custom post processing on the list.
 		foreach ($rows as &$row) {
 			if (!isset($row['accesstype']) || $row['accesstype'] == 'none' ) {
-				if ($row['admin_access'] != 0 && isset($map[$row['admin_access']])) {
-					$row['admin_access'] = $map[$row['admin_access']];
+				if ($row['admin_access'] != 0) {
+					$row['admin_access'] = $this->mapUserGroup($row['admin_access']);
 				}
 				if ($row['pub_access'] == -1) {
 					// All registered
@@ -220,9 +212,9 @@ class jUpgradeComponentKunena extends jUpgrade {
 				} elseif ($row['pub_access'] == 1) {
 					// Nobody
 					$row['pub_access'] = 8;
-				} elseif (isset($map[$row['pub_access']])) {
+				} else {
 					// User groups
-					$row['pub_access'] = $map[$row['pub_access']];
+					$row['pub_access'] = $this->mapUserGroup($row['pub_access']);
 				}
 			} elseif ($row['accesstype'] == 'joomla.level') {
 				// Convert Joomla access levels
