@@ -35,6 +35,7 @@ Kunena 1.7.1-DEV
 
 3-September-2011 Xillibit
 # [#120] PHP Fatal error: Class 'JDocumentHTML' not found in template
+# [#104] Template Manager cannot list more then 20 templates
 
 2-September-2011 Matias
 # [#129] Fix canonical URLs
