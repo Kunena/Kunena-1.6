@@ -133,7 +133,6 @@ table.kadmin-stat caption {
 	function showTemplates(& $rows, & $page, $option)
 	{
 		$kunena_app = & JFactory::getApplication ();
-		$limitstart = JRequest :: getVar('limitstart', '0', '', 'int');
 		$user = & JFactory :: getUser();
         if (isset($row->authorUrl) && $row->authorUrl != '') {
             $row->authorUrl = str_replace('http://', '', $row->authorUrl);
@@ -203,9 +202,9 @@ table.kadmin-stat caption {
 				<?php $k = 1 - $k; } ?>
 			</tbody>
 			</table>
-	<input type="hidden" name="option" value="<?php echo $option;?>" />
-	<input type="hidden" name="client" value="" />
-	<input type="hidden" name="task" value="" />
+	<input type="hidden" name="option" value="<?php echo $option; ?>" />
+	<input type="hidden" name="task" value="showTemplates" />	
+	<input type="hidden" name="client" value="" />	
 	<input type="hidden" name="boxchecked" value="0" />
 	<?php echo JHTML::_( 'form.token' ); ?>
 	</form>
