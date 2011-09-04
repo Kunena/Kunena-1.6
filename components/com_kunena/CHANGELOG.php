@@ -33,6 +33,25 @@ Legend:
 
 Kunena 1.7.1-DEV
 
+3-September-2011 Xillibit
+# [#120] PHP Fatal error: Class 'JDocumentHTML' not found in template
+# [#104] Template Manager cannot list more then 20 templates
+
+2-September-2011 Matias
+# [#129] Fix canonical URLs
+^ [#130] Improved JUpgrade support (package)
+
+1-September-2011 Matias
+# [#126] Articles bbcode: \n is converted to <br>
+^ [#128] Use update collection in Joomla 1.7 (show updates also for modules)
+^ [#130] Improved JUpgrade support (usergroups, install Kunena)
+
+31-August-2011 Matias
+# [#121] Joomla 1.7: fix broken French admin language file
+# [#121] Add missing nb-NO language
+# [#122] Fatal Error: Undeclared static property in KunenaAccessJoomla16
+^ [#123] Prepare 1.7.1 Release: update version information
+
 30-August-2011 Xillibit
 # [#118] Installer says: Install Kunena 1.6 (update fr-FR)
 

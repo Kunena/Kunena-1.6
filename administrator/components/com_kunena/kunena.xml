@@ -2,8 +2,8 @@
 <!DOCTYPE install>
 <install type="component" version="1.5.0" method="upgrade">
 	<name>Kunena</name>
-	<version>1.7.0</version>
-	<versionname>Tale</versionname>
+	<version>1.7.1-DEV</version>
+	<versionname>Development</versionname>
 	<creationDate>@kunenaversiondate@</creationDate>
 	<build>@kunenaversionbuild@</build>
 	<author>Kunena Team</author>
@@ -31,6 +31,7 @@
 			<menu task="showtrashview" img="components/com_kunena/media/icons/trash-favicon.png">COM_KUNENA_TRASH_MANAGER</menu>
 		</submenu>
 		<files>
+			<filename>kunena.j16.xml</filename>
 			<filename>api.php</filename>
 			<filename>admin.kunena.php</filename>
 			<filename>install.script.php</filename>

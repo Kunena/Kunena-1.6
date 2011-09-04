@@ -12,6 +12,7 @@
 
 // Dont allow direct linking
 defined ( '_JEXEC' ) or die ();
+jimport( 'joomla.document.html.html' );
 ?>
 <!-- Kunena Menu -->
 <div id="ktop">

@@ -808,6 +808,7 @@ if ($kunena_config->board_offline && ! CKunenaTools::isAdmin ()) {
 </div>
 <!-- closes Kunena div -->
 <?php
+$document->addHeadLink( KunenaRoute::_(), 'canonical', 'rel', '' );
 $integration = KunenaFactory::getProfile();
 $integration->close();
 

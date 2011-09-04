@@ -16,7 +16,7 @@ defined( '_JEXEC' ) or die('');
 jimport ( 'joomla.access.access' );
 
 class KunenaAccessJoomla16 extends KunenaAccess {
-	protected $viewLevels = false;
+	protected static $viewLevels = false;
 
 	function __construct() {
 		// Detect all but Joomla 1.5
