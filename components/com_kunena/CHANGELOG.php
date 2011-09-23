@@ -33,6 +33,9 @@ Legend:
 
 Kunena 1.7.1-DEV
 
+23-September-2011 Xillibit
+# [#138] When Deleting a message with attachment, attachment still remains
+
 10-September-2011 Xillibit
 # [#133] Bug in page titles and meta descriptions
 
