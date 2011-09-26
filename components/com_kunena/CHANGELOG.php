@@ -33,6 +33,9 @@ Legend:
 
 Kunena 1.7.1-DEV
 
+26-September-2011 Xillibit
+# [#140] Undefined property: stdClass::$description
+
 23-September-2011 Xillibit
 # [#138] When Deleting a message with attachment, attachment still remains
 
