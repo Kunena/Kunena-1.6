@@ -33,6 +33,9 @@ Legend:
 
 Kunena 1.7.1-DEV
 
+07-October-2011 Xillibt
+# [#145] Users can't remove posts
+
 26-September-2011 Xillibit
 # [#140] Undefined property: stdClass::$description
 

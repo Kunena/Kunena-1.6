@@ -666,7 +666,7 @@ class CKunenaPosting {
 		if (! $this->canDelete ())
 			return false;
 
-		if (!CKunenaTools::isModerator ( $this->_my, $this->parent->catid )) {
+		if (!CKunenaTools::isModerator ( $this->_my, $this->parent->catid ) && $this->_config->userdeletetmessage != '2') {
 			//need to check that the message is the last of the thread
 			$this->_db->setQuery ( "SELECT id FROM #__kunena_messages WHERE `hold`='0' AND `thread`={$this->_db->quote($this->parent->thread)} ORDER BY id DESC LIMIT 0, 1" );
 			$lastMessage = $this->_db->loadResult ();
