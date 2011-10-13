@@ -158,7 +158,7 @@ class CKunenaShowcat {
 
 		//meta description and keywords
 		$metaKeys = kunena_htmlspecialchars ( JText::_('COM_KUNENA_CATEGORIES') . ", {$objCatParentInfo->name}, {$this->objCatInfo->name}, {$this->config->board_title}, " . $this->app->getCfg ( 'sitename' ) );
-		$metaDesc = kunena_htmlspecialchars ( "{$objCatParentInfo->description} ({$this->page}/{$this->totalpages})" );
+		$metaDesc = kunena_htmlspecialchars ( "{$this->objCatInfo->description} ({$this->page}/{$this->totalpages})" );
 
 		$document = & JFactory::getDocument ();
 		$cur = $document->get ( 'description' );

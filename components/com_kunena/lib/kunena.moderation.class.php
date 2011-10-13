@@ -325,6 +325,8 @@ class CKunenaModeration {
 					$this->_db->query ();
 					if (KunenaError::checkDatabaseError()) return false;
 				}
+
+				$this->deleteAttachments($MessageID);
 				break;
 			case KN_DEL_THREAD_PERMINANTLY : //Delete a complete thread from the databases
 				$query = "SELECT `id`,`userid` FROM #__kunena_messages WHERE `thread`={$this->_db->Quote($currentMessage->thread)};";

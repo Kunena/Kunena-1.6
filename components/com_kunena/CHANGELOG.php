@@ -38,6 +38,12 @@ Kunena 1.7.1-DEV
 # [#151] reCaptcha: Fix error message if server cannot be connected
 # [#152] Allow [url] to start with index.php
 
+26-September-2011 Xillibit
+# [#140] Undefined property: stdClass::$description
+
+23-September-2011 Xillibit
+# [#138] When Deleting a message with attachment, attachment still remains
+
 10-September-2011 Xillibit
 # [#133] Bug in page titles and meta descriptions
 
