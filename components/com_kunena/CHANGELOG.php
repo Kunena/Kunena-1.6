@@ -33,6 +33,11 @@ Legend:
 
 Kunena 1.7.1-DEV
 
+13-October-2011 Matias
+# [#150] Access control: Do not check Joomla groups if all users have access
+# [#151] reCaptcha: Fix error message if server cannot be connected
+# [#152] Allow [url] to start with index.php
+
 10-September-2011 Xillibit
 # [#133] Bug in page titles and meta descriptions
 

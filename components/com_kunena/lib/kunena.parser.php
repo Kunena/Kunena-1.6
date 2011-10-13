@@ -304,7 +304,7 @@ class KunenaBBCodeInterpreter extends BBCodeInterpreter {
 				$task->autolink_disable --;
 				if (isset ( $tag->options ['default'] )) {
 					$tempstr = $tag->options ['default'];
-					if (! preg_match ( "`^(/|https?://)`", $tempstr )) {
+					if (! preg_match ( "`^(/|index.php|https?://)`", $tempstr )) {
 						$tempstr = 'http://' . $tempstr;
 					}
 					$tns = '<a href="' . $tempstr . '" rel="nofollow" target="_blank">';
@@ -422,7 +422,7 @@ class KunenaBBCodeInterpreter extends BBCodeInterpreter {
 				break;
 			case 'url' :
 				$tempstr = $between;
-				if (! preg_match ( "`^(/|https?://)`", $tempstr )) {
+				if (! preg_match ( "`^(/|index.php|https?://)`", $tempstr )) {
 					$tempstr = 'http://' . $tempstr;
 				}
 				$tag_new = '<a href="' . $tempstr .'" rel="nofollow" target="_blank">' . $between . '</a>';
