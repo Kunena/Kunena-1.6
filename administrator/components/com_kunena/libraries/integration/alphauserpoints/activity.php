@@ -34,7 +34,7 @@ class KunenaActivityAlphaUserPoints extends KunenaActivity {
 
 	private function _checkPermissions($message) {
 		if (version_compare(JVERSION, '1.6','>')) {
-			if (! empty ( $message->parent ) && ($message->parent->pub_access == 1 || $message->parent->pub_access != 1)) {
+			if (! empty ( $message->parent ) && ($message->parent->admin_access == 1 || $message->parent->pub_access == 18)) {
 				return true;
 			}
 			return false;
@@ -47,15 +47,8 @@ class KunenaActivityAlphaUserPoints extends KunenaActivity {
 	}
 
 	private function _checkRuleEnabled($ruleName) {
-		if ( $this->_getAUPversion() < '1.6.0' ) {
-			$ruleEnabled = AlphaUserPointsHelper::checkRuleEnabled($ruleName);
-			if ( $ruleEnabled ) return true;
-			else return false;
-		} elseif ( $this->_getAUPversion() >= '1.6.0' ) {
-			$ruleEnabled = AlphaUserPointsHelper::checkRuleEnabled($ruleName);
-			if ($ruleEnabled[0]->published) return true;
-			else return false;
-		}
+		$ruleEnabled = AlphaUserPointsHelper::checkRuleEnabled($ruleName);
+		return (bool) $ruleEnabled[0]->published;
 	}
 
 	private function _getPointsOnThankyou($ruleName) {

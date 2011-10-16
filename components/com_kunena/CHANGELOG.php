@@ -33,6 +33,9 @@ Legend:
 
 Kunena 1.7.1-DEV
 
+16-October-2011 Xillibt
+# [#147] The points aren't gived with AUP under J!1.7+ (somes little improvements)
+
 08-October-2011 Xillibt
 # [#147] The points aren't gived with AUP under J!1.7+
 
