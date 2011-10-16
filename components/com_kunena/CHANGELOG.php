@@ -36,6 +36,11 @@ Kunena 1.7.1-DEV
 16-October-2011 Xillibt
 # [#147] The points aren't gived with AUP under J!1.7+ (somes little improvements)
 
+13-October-2011 Matias
+# [#150] Access control: Do not check Joomla groups if all users have access
+# [#151] reCaptcha: Fix error message if server cannot be connected
+# [#152] Allow [url] to start with index.php
+
 08-October-2011 Xillibt
 # [#147] The points aren't gived with AUP under J!1.7+
 

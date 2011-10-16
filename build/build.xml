@@ -116,6 +116,14 @@
 		<copy todir="${tmp_dir}/components">
 			<fileset dir="${project_dir}/components">
 				<exclude name="com_kunena/language/**"/>
+				<exclude name="com_kunena/template/**"/>
+			</fileset>
+		</copy>	
+		<copy todir="${tmp_dir}/components">
+			<fileset dir="${project_dir}/components">
+				<include name="com_kunena/template/index.php"/>
+				<include name="com_kunena/template/default/**"/>
+				<include name="com_kunena/template/example/**"/>
 				<exclude name="com_kunena/template/**/params.ini"/>
 			</fileset>
 		</copy>	
