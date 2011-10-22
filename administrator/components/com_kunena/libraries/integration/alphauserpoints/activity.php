@@ -34,12 +34,16 @@ class KunenaActivityAlphaUserPoints extends KunenaActivity {
 
 	private function _checkPermissions($message) {
 		if (version_compare(JVERSION, '1.6','>')) {
-			if (! empty ( $message->parent ) && ($message->parent->admin_access == 1 || $message->parent->pub_access == 18)) {
+			if (! empty ( $message->parent ) && ($message->parent->pub_access == 2 || $message->parent->pub_access == 1)) {
+				return true;
+			} elseif (! empty ( $message->parent ) && ($message->parent->admin_access == 2) ) {
 				return true;
 			}
 			return false;
 		} else {
-			if (! empty ( $message->parent ) && ($message->parent->pub_access == 0 || $message->parent->pub_access == - 1)) {
+			if (! empty ( $message->parent ) && ($message->parent->pub_access == 0 || $message->parent->pub_access == - 1 || $message->parent->pub_access == 18)) {
+				return true;
+			} elseif (! empty ( $message->parent ) && ($message->parent->admin_access == 18) ) {
 				return true;
 			}
 			return false;
@@ -61,7 +65,7 @@ class KunenaActivityAlphaUserPoints extends KunenaActivity {
 			}
 		}
 		return;
-		}
+	}
 
 	public function onAfterPost($message) {
 		// Check for permisions of the current category - activity only if public or registered

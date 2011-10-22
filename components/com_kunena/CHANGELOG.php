@@ -33,6 +33,9 @@ Legend:
 
 Kunena 1.7.1-DEV
 
+22-October-2011 Xillibt
+# [#147] The points aren't gived with AUP under J!1.7+ (improvements on access check)
+
 17-October-2011 Matias
 # [#118] Installer says: Install Kunena 1.6
 
