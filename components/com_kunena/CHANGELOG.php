@@ -33,6 +33,9 @@ Legend:
 
 Kunena 1.7.1-DEV
 
+26-October-2011 Matias
+# [#147] Add support for access levels and improve user groups support (also in J!1.5)
+
 22-October-2011 Xillibt
 # [#147] The points aren't gived with AUP under J!1.7+ (improvements on access check)
 
