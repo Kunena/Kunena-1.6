@@ -26,11 +26,20 @@ class KunenaActivityJomSocial extends KunenaActivity {
 
 	protected function getAccess($message) {
 		// Activity access level: 0 = public, 20 = registered, 30 = friend, 40 = private
+		$accesstype = $message->parent->accesstype;
+		if ($accesstype != 'none' || $accesstype != 'joomla.level') {
+			// Private
+			return 40;
+		}
 		if (KUNENA_JOOMLA_COMPAT == '1.5') {
-			if ($message->parent->pub_access == 0) {
+			// Joomla access levels: 0 = public,  1 = registered
+			// Joomla user groups:  29 = public, 18 = registered
+			if (($accesstype == 'joomla.level' && $message->parent->access == 0)
+					|| ($accesstype == 'none' && ($message->parent->pub_access == 0 || $message->parent->pub_access == 29 || $message->parent->admin_access == 29))) {
 				// Public
 				$access = 0;
-			} elseif ($message->parent->pub_access == -1 || $message->parent->pub_access == 18) {
+			} elseif (($accesstype == 'joomla.level' && $message->parent->access == 1)
+					|| ($accesstype == 'none' && ($message->parent->pub_access == -1 || $message->parent->pub_access == 18 || $message->parent->admin_access == 18))) {
 				// Registered
 				$access = 20;
 			} else {
@@ -38,10 +47,13 @@ class KunenaActivityJomSocial extends KunenaActivity {
 				$access = 40;
 			}
 		} else {
-			if ($message->parent->pub_access == 1) {
+			// FIXME: Joomla 1.6 can mix up groups and access levels
+			if (($accesstype == 'joomla.level' && $message->parent->access == 1)
+					|| ($accesstype == 'none' && ($message->parent->pub_access == 1 || $message->parent->admin_access == 1))) {
 				// Public
 				$access = 0;
-			} elseif ( $message->parent->pub_access == 2) {
+			} elseif (($accesstype == 'joomla.level' && $message->parent->access == 2)
+					|| ($accesstype == 'none' && ($message->parent->pub_access == 2 || $message->parent->admin_access == 2))) {
 				// Registered
 				$access = 20;
 			} else {
