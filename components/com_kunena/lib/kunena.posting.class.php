@@ -52,7 +52,7 @@ class CKunenaPosting {
 		if ($mesid) {
 			// Check that message and category exists and fetch some information for later use
 			$query = "SELECT m.*, mm.hold AS topichold, mm.locked AS topiclocked, c.locked AS catlocked, t.message,
-					c.name AS catname, c.parent AS catparent, c.pub_access,
+					c.name AS catname, c.parent AS catparent, c.pub_access, c.accesstype,
 					c.review, c.class_sfx, p.id AS poll_id, c.allow_anonymous,
 					c.post_anonymous, c.allow_polls
 				FROM #__kunena_messages AS m
@@ -78,7 +78,7 @@ class CKunenaPosting {
 		if ($catid) {
 			// Check that category exists and fill some information for later use
 			$query = "SELECT m.*, 0 AS topichold, 0 AS topiclocked, c.locked AS catlocked, '' AS message,
-					c.id AS catid, c.name AS catname, c.parent AS catparent, c.pub_access,
+					c.id AS catid, c.name AS catname, c.parent AS catparent, c.pub_access, c.accesstype,
 					c.review, c.class_sfx, 0 AS poll_id, c.allow_anonymous,
 					c.post_anonymous, c.allow_polls
 				FROM #__kunena_categories AS c
@@ -93,6 +93,7 @@ class CKunenaPosting {
 		}
 		return true;
 	}
+
 
 	public function canRead($action = '-read-') {
 		// Load must have been performed successfully!

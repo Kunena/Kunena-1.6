@@ -36,7 +36,7 @@ class KunenaActivityAlphaUserPoints extends KunenaActivity {
 		if (empty ( $message->parent )) return false;
 
 		$accesstype = $message->parent->accesstype;
-		if ($accesstype != 'none' || $accesstype != 'joomla.level') {
+		if ($accesstype != 'none' && $accesstype != 'joomla.level') {
 			return false;
 		}
 		if (version_compare(JVERSION, '1.6','>')) {
