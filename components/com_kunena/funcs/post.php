@@ -239,6 +239,11 @@ class CKunenaPost {
 	}
 
 	protected function reply($do) {
+		$saved = $this->_app->getUserState('com_kunena.postfields');
+		if ($saved) {
+			$this->catid = $saved['catid'];
+			$this->id = isset($saved['id']) ? $saved['id'] : 0;
+		}
 		if (!$this->load())
 			return false;
 		if ($this->lockProtection ())
@@ -252,10 +257,6 @@ class CKunenaPost {
 
 		$this->kunena_editmode = 0;
 
-		$saved = $this->_app->getUserState('com_kunena.postfields');
-		if ($saved) {
-			$this->catid = $this->msg_cat->catid = $saved['catid'];
-		}
 		$this->_app->setUserState('com_kunena.postfields', null);
 		$message = $this->msg_cat;
 		if ($this->catid && $this->msg_cat->id > 0) {

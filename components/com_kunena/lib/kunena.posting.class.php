@@ -959,7 +959,7 @@ class CKunenaPosting {
 			}
 			// clean up the message for review
 			$authorname = $this->get ( 'name' );
-			$message = KunenaParser::stripBBCode ( $this->get ( 'message' ) );
+			$message = KunenaParser::stripBBCode ( $this->get ( 'message' ), 0, false );
 			$subject = $this->get ( 'subject' );
 			$topicsubject = $this->parent->subject ? $this->parent->subject : $subject;
 
