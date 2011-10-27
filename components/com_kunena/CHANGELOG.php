@@ -33,11 +33,11 @@ Legend:
 
 Kunena 1.7.1-DEV
 
+27-October-2011 Matias
+# [#163] Fix some issues with Canonical URL
+
 26-October-2011 Xillibit
 # [#147] The points aren't gived with AUP under J!1.7+ (regression on access check)
-
-26-October-2011 Matias
-# [#163] Fix some issues with Canonical URL
 
 26-October-2011 Matias
 # [#147] Add support for access levels and improve user groups support (also in J!1.5)
