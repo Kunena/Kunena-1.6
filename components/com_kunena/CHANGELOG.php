@@ -34,6 +34,9 @@ Legend:
 Kunena 1.7.1-DEV
 
 26-October-2011 Matias
+# [#163] Fix some issues with Canonical URL
+
+26-October-2011 Matias
 # [#147] Add support for access levels and improve user groups support (also in J!1.5)
 # [#155] Apostrophes do not appear in the notification messages
 # [#159] Undefined proporties if duplicate identical message
