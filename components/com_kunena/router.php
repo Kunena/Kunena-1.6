@@ -98,7 +98,7 @@ class KunenaRouter {
 	}
 
 	function filterOutput($str) {
-		return JString::trim ( preg_replace ( array ('/\s+/', '/[\$\&\+\,\/\:\;\=\?\@\'\"\<\>\#\%\{\}\|\\\^\~\[\]\`\.]/' ), array ('-', '' ), $str ) );
+		return JString::trim ( preg_replace ( array ('/\s+/', '/[\$\&\რ\+\,\/\:\;\=\?\@\'\"\<\>\#\%\{\}\|\\\^\~\[\]\`\.]/' ), array ('-', '' ), $str ) );
 	}
 
 	function stringURLSafe($str) {
