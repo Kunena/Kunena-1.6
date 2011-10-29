@@ -35,6 +35,7 @@ Kunena 1.7.1-DEV
 
 29-October-2011 Matias
 # [#168] UTF title issue
+# [#169] Hide some extra information from configuration report
 
 27-October-2011 Matias
 # [#163] Fix some issues with Canonical URL
