@@ -33,6 +33,9 @@ Legend:
 
 Kunena 1.7.1-DEV
 
+5-November-2011 Xillibit
+# [#175] When an user vote for a poll the time isn't saved
+
 26-October-2011 Xillibit
 # [#147] The points aren't gived with AUP under J!1.7+ (regression on access check)
 
