@@ -27,7 +27,7 @@ class KunenaActivityJomSocial extends KunenaActivity {
 	protected function getAccess($message) {
 		// Activity access level: 0 = public, 20 = registered, 30 = friend, 40 = private
 		$accesstype = $message->parent->accesstype;
-		if ($accesstype != 'none' || $accesstype != 'joomla.level') {
+		if ($accesstype != 'none' && $accesstype != 'joomla.level') {
 			// Private
 			return 40;
 		}

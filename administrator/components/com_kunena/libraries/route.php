@@ -21,7 +21,18 @@ abstract class KunenaRoute {
 	static $menu = null;
 
 	public static function current($class = false) {
-		$link = JURI::getInstance('index.php?'.http_build_query(JRequest::get( 'get' )));
+		$get = array();
+		foreach (JRequest::get( 'get' ) as $key=>$value) {
+			if (preg_match('/[^a-z]/', $key)) continue;
+			if ($key == 'q' || $key == 'searchuser') {
+				// Allow all values
+			} elseif (preg_match('/[^a-zA-Z0-9_ ]/i', $value)) {
+				// Illegal value
+				continue;
+			}
+			$get[$key] = $value;
+		}
+		$link = JURI::getInstance('index.php?'.http_build_query($get));
 		if ($class) return $link;
 		return $link->getQuery ();
 	}

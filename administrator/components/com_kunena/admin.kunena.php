@@ -3319,7 +3319,9 @@ function generateSystemReport () {
     	$kconfigsettings = '[table]';
     	$kconfigsettings .= '[th]Kunena config settings:[/th]';
     	foreach ($kconfig as $key => $value ) {
-    		if ($key != 'id' && $key != 'email') {
+    		if ($key != 'id' && $key != 'board_title' && $key != 'email' && $key != 'offline_message'
+    			&& $key != 'recaptcha_publickey' && $key != 'recaptcha_privatekey' && $key != 'email_visible_addres'
+    			&& $key != 'recaptcha_theme') {
 				$kconfigsettings .= '[tr][td]'.$key.'[/td][td]'.$value.'[/td][/tr]';
     		}
     	}
