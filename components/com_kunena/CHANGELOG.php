@@ -33,6 +33,9 @@ Legend:
 
 Kunena 1.7.1-DEV
 
+12-November-2011 Matias
+# [#81] Joomla 1.7: 404 error after logout
+
 31-October-2011 Matias
 # [#169] Hide some extra information from configuration report (part 2)
 
