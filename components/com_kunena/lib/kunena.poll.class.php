@@ -293,6 +293,7 @@ class CKunenaPolls {
 		$pollid = intval ( $pollid );
 		$userid = intval ( $userid );
 		$vote   = intval ( $vote );
+		$now		= JFactory::getDate();
 
 		$pollusers = $this->get_data_poll_users($userid, $pollid);
 		$nonewvote = "0";
@@ -323,7 +324,7 @@ class CKunenaPolls {
 				if (KunenaError::checkDatabaseError()) return;
 
 				if (empty($votes)) {
-					$query = "INSERT INTO #__kunena_polls_users (pollid,userid,votes,lastvote) VALUES({$this->_db->Quote($pollid)},{$this->_db->Quote($userid)},'1',{$this->_db->Quote($vote)});";
+					$query = "INSERT INTO #__kunena_polls_users (pollid,userid,votes,lastvote,lasttime) VALUES({$this->_db->Quote($pollid)},{$this->_db->Quote($userid)},'1',{$this->_db->Quote($vote)},{$this->_db->Quote($now->toMySQL())});";
 					$this->_db->setQuery($query);
 					$this->_db->query();
 					if (KunenaError::checkDatabaseError()) return;
@@ -335,7 +336,7 @@ class CKunenaPolls {
 
 					$data['results'] = '1';
 				} else if ($votes < $this->config->pollnbvotesbyuser) {
-					$query = "UPDATE #__kunena_polls_users SET votes=votes+1,lastvote={$this->_db->Quote($vote)} WHERE pollid={$this->_db->Quote($pollid)} AND userid={$this->_db->Quote($userid)};";
+					$query = "UPDATE #__kunena_polls_users SET votes=votes+1,lastvote={$this->_db->Quote($vote)},lasttime={$this->_db->Quote($now->toMySQL())} WHERE pollid={$this->_db->Quote($pollid)} AND userid={$this->_db->Quote($userid)};";
 					$this->_db->setQuery($query);
 					$this->_db->query();
 					if (KunenaError::checkDatabaseError()) return;

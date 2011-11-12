@@ -27,7 +27,7 @@ class JFormFieldKunenaCategories extends JFormField {
 		$sections = $this->element['sections'];
 		$none = $this->element['none'];
 		$options = Array ();
-		$options [] = JHTML::_ ( 'select.option', '0', $none ? JText::_ ( $none ) : '0' );
+		$options [] = JHTML::_ ( 'select.option', '0', $none ? JText::_ ( $none ) : '&nbsp;' );
 		foreach ( $items as $cat ) {
 			$options [] = JHTML::_ ( 'select.option', $cat->id, $cat->treename, 'value', 'text', ! $sections && $cat->section );
 		}

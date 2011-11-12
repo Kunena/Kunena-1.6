@@ -37,6 +37,9 @@ Kunena 1.7.1-DEV
 # [#81] Joomla 1.7: 404 error after logout
 # [#177] C:\fakepath when attaching file (remove path)
 
+5-November-2011 Xillibit
+# [#175] When an user vote for a poll the time isn't saved
+
 31-October-2011 Matias
 # [#169] Hide some extra information from configuration report (part 2)
 
