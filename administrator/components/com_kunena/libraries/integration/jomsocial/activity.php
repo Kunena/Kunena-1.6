@@ -102,6 +102,8 @@ class KunenaActivityJomSocial extends KunenaActivity {
 			$act->cid = $message->get ( 'thread' );
 			$act->access = $this->getAccess($message);
 
+			// Do not add private activities
+			if ($act->access > 20) return;
 			CFactory::load ( 'libraries', 'activities' );
 			CActivityStream::add ( $act );
 		}
@@ -145,6 +147,8 @@ class KunenaActivityJomSocial extends KunenaActivity {
 			$act->cid = $message->get ( 'thread' );
 			$act->access = $this->getAccess($message);
 
+			// Do not add private activities
+			if ($act->access > 20) return;
 			CFactory::load ( 'libraries', 'activities' );
 			CActivityStream::add ( $act );
 		}
@@ -169,6 +173,8 @@ class KunenaActivityJomSocial extends KunenaActivity {
 			$act->cid = $thankyoutargetid;
 			$act->access = $this->getAccess($message);
 
+			// Do not add private activities
+			if ($act->access > 20) return;
 			CFactory::load ( 'libraries', 'activities' );
 			CActivityStream::add ( $act );
 		}

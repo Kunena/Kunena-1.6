@@ -1,9 +1,6 @@
-<<<<<<< HEAD
 #Build Number for ANT. Do not edit!
-#Sat Nov 12 20:04:55 EET 2011
-build.number=5161
-=======
-#Build Number for ANT. Do not edit!
-#Sat Nov 05 14:45:12 CET 2011
-build.number=5155
->>>>>>> refs/remotes/upstream/master
+#Sat Nov 12 21:12:50 EET 2011
+build.number=5156
+>>>>>>>=refs/remotes/upstream/master
+=\=\=\=\=\=\=
+<<<<<<<=HEAD
