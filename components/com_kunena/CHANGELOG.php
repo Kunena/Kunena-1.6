@@ -33,6 +33,9 @@ Legend:
 
 Kunena 1.7.1-DEV
 
+14-November-2011 Xillibit
+# [#182] Duplicated COM_KUNENA_MENU_SEARCH in language file
+
 5-November-2011 Xillibit
 # [#175] When an user vote for a poll the time isn't saved
 
