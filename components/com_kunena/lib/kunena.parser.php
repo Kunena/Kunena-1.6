@@ -82,7 +82,7 @@ class KunenaBBCodeInterpreter extends BBCodeInterpreter {
 
 		if ($kunena_config->autoembedyoutube) {
 			// convert youtube links to embedded player
-			$task->text = preg_replace ( '/<a href=[^>]+\/\/(\w+\.youtube\.[^\/]+)\/watch\?[^>]*v=([^>"&\']+)[^>]+>[^<]+<\/a>/u', '<object width="425" height="344"><param name="movie" value="http://$1/v/$2&hl=en&fs=1"></param><param name="allowFullScreen" value="true"></param><embed src="http://$1/v/$2&hl=en&fs=1" type="application/x-shockwave-flash" allowfullscreen="true" width="425" height="344"></embed></object>', $task->text );
+			$task->text = preg_replace ( '/<a href=[^>]+\/\/(\w+\.youtube\.[^\/]+)\/watch\?[^>]*v=([^>"&\']+)[^>]+>[^<]+<\/a>/u', '<object width="425" height="344"><param name="movie" value="http://$1/v/$2&hl=en&fs=1&cc_load_policy=1"></param><param name="allowFullScreen" value="true"></param><embed src="http://$1/v/$2&hl=en&fs=1" type="application/x-shockwave-flash" allowfullscreen="true" width="425" height="344"></embed></object>', $task->text );
 			// convert youtube playlists to embedded player
 			$task->text = preg_replace ( '/<a href=[^>]+\/\/(\w+\.youtube\.[^\/]+)\/view_play_list\?[^>]*p=([^>"&]+)[^>]+>[^<]+<\/a>/u', '<object width="480" height="385"><param name="movie" value="http://$1/p/$2"></param><embed src="http://$1/p/$2" type="application/x-shockwave-flash" width="480" height="385"></embed></object>', $task->text );
 		}
@@ -878,7 +878,7 @@ class KunenaBBCodeInterpreter extends BBCodeInterpreter {
 				'web.de' => array ('flash', 425, 367, 0, 0, 'http://video.web.de/movie/%vcode%', '\/watch\/(\d*)', '' ),
 				'wideo.fr' => array ('flash', 400, 368, 0, 0, 'http://www.wideo.fr/p/fr/%vcode%.html', '\/([\w-]*).html', array (array (6, 'wmode', 'transparent' ) ) ),
 				'youku' => array ('flash', 480, 400, 0, 0, 'http://player.youku.com/player.php/sid/%vcode%/v.swf', '\/v_show\/id_(.*)\.html', '' ),
-				'youtube' => array ('flash', 425, 355, 0, 0, 'http://www.youtube.com/v/%vcode%?fs=1&hd=0&rel=1', '\/watch\?v=([\w\-]*)' , array (array (6, 'wmode', 'transparent' ) ) ),
+				'youtube' => array ('flash', 425, 355, 0, 0, 'http://www.youtube.com/v/%vcode%?fs=1&hd=0&rel=1&cc_load_policy=1', '\/watch\?v=([\w\-]*)' , array (array (6, 'wmode', 'transparent' ) ) ),
 
 // Cannot allow public flash objects as it opens up a whole set of vulnerabilities through hacked flash files
 //				'_default' => array ($vid ["type"], 480, 360, 0, 25, $between, '', '' )

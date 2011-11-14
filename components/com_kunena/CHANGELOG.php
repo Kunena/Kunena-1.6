@@ -36,6 +36,14 @@ Kunena 1.7.1-DEV
 14-November-2011 Xillibit
 # [#182] Duplicated COM_KUNENA_MENU_SEARCH in language file
 
+14-November-2011 Matias
+# [#179] CB integration: registration not using CB setting
+
+12-November-2011 Matias
+# [#81] Joomla 1.7: 404 error after logout
+# [#177] C:\fakepath when attaching file (remove path)
+# [#137] JomSocial Activity Stream displaying private posts
+
 5-November-2011 Xillibit
 # [#175] When an user vote for a poll the time isn't saved
 
