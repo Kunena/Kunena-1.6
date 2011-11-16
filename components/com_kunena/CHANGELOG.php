@@ -33,8 +33,16 @@ Legend:
 
 Kunena 1.7.1-DEV
 
+16-November-2011 Matias
+^ [#123] Update languages
+^ [#123] Simplify language string for removing Kunena
+- [#123] Remove pl-PL and fi-FI (we need to be under 2M limit)
+
 14-November-2011 Matias
 # [#179] CB integration: registration not using CB setting
+
+13-November-2011 810
++ [#178] Add youtube parameter CC
 
 12-November-2011 Matias
 # [#81] Joomla 1.7: 404 error after logout
