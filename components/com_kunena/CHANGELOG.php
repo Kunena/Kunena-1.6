@@ -33,6 +33,11 @@ Legend:
 
 Kunena 1.7.1-DEV
 
+16-November-2011 Matias
+^ [#123] Update languages
+- [#123] Remove pl-PL (missing string)
++ [#123] Add kz-KZ
+
 14-November-2011 Matias
 # [#179] CB integration: registration not using CB setting
 
