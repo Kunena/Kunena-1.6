@@ -31,12 +31,13 @@ Legend:
 
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-Kunena 1.7.1-DEV
+Kunena 1.7.1
 
 16-November-2011 Matias
 ^ [#123] Update languages
 ^ [#123] Simplify language string for removing Kunena
 - [#123] Remove pl-PL and fi-FI (we need to be under 2M limit)
+^ [#123] Kunena 1.7.1 Release (UnderUret)
 
 14-November-2011 Matias
 # [#179] CB integration: registration not using CB setting
@@ -47,7 +48,7 @@ Kunena 1.7.1-DEV
 12-November-2011 Matias
 # [#81] Joomla 1.7: 404 error after logout
 # [#177] C:\fakepath when attaching file (remove path)
-# [#137] JomSocial Activity Stream displaying private posts
+* [#137] JomSocial Activity Stream displaying private posts
 
 5-November-2011 Xillibit
 # [#175] When an user vote for a poll the time isn't saved
@@ -57,10 +58,10 @@ Kunena 1.7.1-DEV
 
 29-October-2011 Matias
 # [#168] UTF title issue
-# [#169] Hide some extra information from configuration report
+* [#169] Hide some extra information from configuration report
 
 27-October-2011 Matias
-# [#163] Fix some issues with Canonical URL
+* [#163] Fix some issues with Canonical URL
 
 26-October-2011 Xillibit
 # [#147] The points aren't gived with AUP under J!1.7+ (regression on access check)
