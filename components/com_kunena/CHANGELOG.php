@@ -31,6 +31,11 @@ Legend:
 
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
+Kunena 1.7.2-DEV
+
+20-November-2011 Matias
+^ [#186] Update version to 1.7.2
+
 Kunena 1.7.1
 
 16-November-2011 Matias
