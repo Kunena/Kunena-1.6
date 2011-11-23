@@ -75,6 +75,10 @@ class Kunena {
 	public static function enabled() {
 		return false;
 	}
+
+	public static function installed() {
+		return false;
+	}
 }
 
 // Kunena has been initialized

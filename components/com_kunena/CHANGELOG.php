@@ -35,6 +35,7 @@ Kunena 1.7.2-DEV
 
 23-November-2011 Matias
 # [#188] Undefined property in CKunenaLogin::getReturnURL()
+# [#190] Fatal error in module/plugin administration if Kunena not fully installed
 
 20-November-2011 Matias
 ^ [#186] Update version to 1.7.2

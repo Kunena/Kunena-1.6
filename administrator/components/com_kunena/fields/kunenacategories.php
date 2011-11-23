@@ -17,10 +17,13 @@ class JFormFieldKunenaCategories extends JFormField {
 	protected $type = 'KunenaCategories';
 
 	protected function getInput() {
+		if (!class_exists('Kunena') || !Kunena::installed()) {
+			echo '<a href="index.php?option=com_kunena">PLEASE COMPLETE KUNENA INSTALLATION</a>';
+			return;
+		}
+
 		$kunena_db = JFactory::getDBO ();
 
-		$kunena_api = JPATH_ADMINISTRATOR . '/components/com_kunena/api.php';
-		require_once ($kunena_api);
 		require_once (KUNENA_PATH . '/class.kunena.php');
 		$items = JJ_categoryArray ();
 
