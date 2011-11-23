@@ -33,6 +33,9 @@ Legend:
 
 Kunena 1.7.2-DEV
 
+23-November-2011 Matias
+# [#188] Undefined property in CKunenaLogin::getReturnURL()
+
 20-November-2011 Matias
 ^ [#186] Update version to 1.7.2
 
