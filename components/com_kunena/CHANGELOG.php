@@ -31,7 +31,12 @@ Legend:
 
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-Kunena 1.7.1-DEV
+Kunena 1.7.2
+
+24-November-2011 Xillibit
+# [#193] All new users are hidden in Kunena
+
+Kunena 1.7.1
 
 14-November-2011 Xillibit
 # [#182] Duplicated COM_KUNENA_MENU_SEARCH in language file

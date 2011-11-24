@@ -372,6 +372,7 @@ if ($kunena_config->board_offline && ! CKunenaTools::isAdmin ()) {
 		}
 
 		$userprofile = KunenaFactory::getUser($kunena_my->id);
+		$userprofile->showOnline = 1;
 		if (!$userprofile->exists()) {
 			$userprofile->save();
 		}
