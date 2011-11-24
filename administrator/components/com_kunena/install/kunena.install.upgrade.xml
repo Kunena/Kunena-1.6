@@ -188,6 +188,10 @@
 			<query mode="silenterror">ALTER TABLE `#__kunena_categories` MODIFY `ordering` smallint(6) NOT NULL default '0' AFTER `admin_recurse`;</query>
 			<query mode="silenterror">ALTER TABLE `#__kunena_users` MODIFY `avatar` varchar(255) NULL;</query>
 		</version>
+		<version version="1.7.0" versiondate="2011-08-29" build="5135" versionname="Tale">
+		</version>
+		<version version="1.7.1" versiondate="2011-11-16" build="5162" versionname="UnderUret">
+		</version>
 		<version version="@kunenaversion@" versiondate="@kunenaversiondate@" build="@kunenaversionbuild@" versionname="@kunenaversionname@">
 		</version>
 	</upgrade>
