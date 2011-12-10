@@ -98,25 +98,16 @@ class KunenaRouter {
 	}
 
 	function filterOutput($str) {
-    //replace double byte whitespaces to single byte
-    $str = preg_replace('/\xE3\x80\x80/', '', $str);
-    //replace forbidden characters by whitespaces
-    $forbidden = array('/:/','/#/','/\*/','/"/','/&/','/\?/','/\(/','/\)/','/\$/','/%/','/\./','/\;/','/]/','/\@/','/\+/','/\=/','/\!/','/\//','/\'/','/\\\/','/\|/','/\[/');
-    $str = preg_replace($forbidden,' ', $str);
-    $str = preg_replace( '#[:\#\*"@?+=;&$()%\.,\]\/\'\\\\|\[]#',"\x20", $str );
-    $str = preg_replace('#\x20+#','-', $str);
- 
-     return $str;
-    }
+		return JString::trim ( preg_replace ( array ('/(\s|\xE3\x80\x80)+/', '/[\$\&\რ\+\,\/\:\;\=\?\@\'\"\<\>\#\%\{\}\|\\\^\~\[\]\`\.\(\)\*\!]/' ), array ('-', '' ), $str ) );
+	}
 
-    function stringURLSafe($str) {
-    $kconfig =  KunenaFactory::getConfig ();
-      if ($kconfig->sefutf8) {
-    $str = self::filterOutput ( $str );
-      return $str ;
-     }
-     return JFilterOutput::stringURLSafe ( $str );
-    }
+	function stringURLSafe($str) {
+		$kconfig =  KunenaFactory::getConfig ();
+		if ($kconfig->sefutf8) {
+			return self::filterOutput ( $str );
+		}
+		return JFilterOutput::stringURLSafe ( $str );
+	}
 	/**
 	 * Build SEF URL
 	 *
