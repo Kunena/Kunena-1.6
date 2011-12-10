@@ -39,6 +39,7 @@ Kunena 1.7.2-DEV
 + [#189] Add readme file for extra languages
 # [#192] Infinite redirect in installer (Chrome)
 # [#195] Password Reset, Remind and Registration URL not routed
+# [#191] Category index: URL to first post and last post in a topic differs
 
 24-November-2011 Xillibit
 # [#193] All new users are hidden in Kunena
