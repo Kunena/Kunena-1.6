@@ -33,12 +33,18 @@ Legend:
 
 Kunena 1.7.2-DEV
 
+24-November-2011 Xillibit
+# [#193] All new users are hidden in Kunena
+
 23-November-2011 Matias
 # [#188] Undefined property in CKunenaLogin::getReturnURL()
 # [#190] Fatal error in module/plugin administration if Kunena not fully installed
 
 20-November-2011 Matias
 ^ [#186] Update version to 1.7.2
+
+14-November-2011 Xillibit
+# [#182] Duplicated COM_KUNENA_MENU_SEARCH in language file
 
 Kunena 1.7.1
 
