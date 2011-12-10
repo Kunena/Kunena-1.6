@@ -236,7 +236,7 @@ class KunenaRouter {
 				unset ( $query [$var] );
 			}
 		}
-print_r($segments);
+
 		return $segments;
 	}
 
