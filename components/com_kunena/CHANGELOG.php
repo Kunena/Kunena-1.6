@@ -33,6 +33,9 @@ Legend:
 
 Kunena 1.7.2-DEV
 
+10-December-2011 Matias
+# [#119] Text looking like bbcode becomes empty message
+
 24-November-2011 Xillibit
 # [#193] All new users are hidden in Kunena
 
