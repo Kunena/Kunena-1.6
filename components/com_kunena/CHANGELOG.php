@@ -37,6 +37,7 @@ Kunena 1.7.2-DEV
 # [#119] Text looking like bbcode becomes empty message
 # [#194] Blank message because of a bug in BBCode URL shortening
 + [#189] Add readme file for extra languages
+# [#192] Infinite redirect in installer (Chrome)
 
 24-November-2011 Xillibit
 # [#193] All new users are hidden in Kunena
