@@ -98,7 +98,7 @@ class KunenaRouter {
 	}
 
 	function filterOutput($str) {
-		return JString::trim ( preg_replace ( array ('/(\s|\xE3\x80\x80)+/', '/[\$\&\რ\+\,\/\:\;\=\?\@\'\"\<\>\#\%\{\}\|\\\^\~\[\]\`\.\(\)\*\!]/' ), array ('-', '' ), $str ) );
+		return JString::trim ( preg_replace ( array ('/(\s|\xE3\x80\x80)+/u', '/[\$\&\რ\+\,\/\:\;\=\?\@\'\"\<\>\#\%\{\}\|\\\^\~\[\]\`\.\(\)\*\!]/u' ), array ('-', '' ), $str ) );
 	}
 
 	function stringURLSafe($str) {
@@ -236,7 +236,7 @@ class KunenaRouter {
 				unset ( $query [$var] );
 			}
 		}
-
+print_r($segments);
 		return $segments;
 	}
 
