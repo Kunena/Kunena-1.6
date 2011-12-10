@@ -117,7 +117,7 @@ class CKunenaListcat {
 
 		foreach ( $allsubcats as $i => $subcat ) {
 			if ($subcat->mesid)
-				$routerlist [$subcat->thread] = $subcat->subject;
+				$routerlist [$subcat->thread] = $subcat->topicsubject;
 
 			if($topic_ordering) $subcat->page = 1;
 			else $subcat->page = ceil ( $subcat->msgcount / $this->config->messages_per_page );

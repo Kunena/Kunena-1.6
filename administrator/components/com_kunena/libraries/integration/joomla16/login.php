@@ -16,9 +16,10 @@ defined( '_JEXEC' ) or die('');
 class KunenaLoginJoomla16 extends KunenaLogin
 {
 	public function __construct() {
-		if (!is_dir(JPATH_LIBRARIES.'/joomla/access'))
+		if (version_compare(JVERSION, '1.6', '<'))
 			return;
 		$this->priority = 25;
+		require_once JPATH_SITE.'/components/com_users/helpers/route.php';
 	}
 
 	public function getLoginFormFields() {
@@ -44,28 +45,34 @@ class KunenaLoginJoomla16 extends KunenaLogin
 
 	public function getLoginURL()
 	{
-		return JRoute::_('index.php?option=com_users&view=login');
+		$Itemid = UsersHelperRoute::getLoginRoute();
+		return JRoute::_('index.php?option=com_users&view=login'.($Itemid ? "&Itemid={$Itemid}" : ''));
 	}
 
 	public function getLogoutURL()
 	{
-		return JRoute::_('index.php?option=com_users&view=login');
+		$Itemid = UsersHelperRoute::getLoginRoute();
+		return JRoute::_('index.php?option=com_users&view=login'.($Itemid ? "&Itemid={$Itemid}" : ''));
 	}
 
 	public function getRegistrationURL()
 	{
 		$usersConfig = JComponentHelper::getParams ( 'com_users' );
-		if ($usersConfig->get ( 'allowUserRegistration' ))
-			return JRoute::_('index.php?option=com_users&view=registration');
+		if ($usersConfig->get ( 'allowUserRegistration' )) {
+			$Itemid = UsersHelperRoute::getRegistrationRoute();
+			return JRoute::_('index.php?option=com_users&view=registration'.($Itemid ? "&Itemid={$Itemid}" : ''));
+		}
 	}
 
 	public function getResetURL()
 	{
-		return JRoute::_('index.php?option=com_users&view=reset');
+		$Itemid = UsersHelperRoute::getResendRoute();
+		return JRoute::_('index.php?option=com_users&view=reset'.($Itemid ? "&Itemid={$Itemid}" : ''));
 	}
 
 	public function getRemindURL()
 	{
-		return JRoute::_('index.php?option=com_users&view=remind');
+		$Itemid = UsersHelperRoute::getRemindRoute();
+		return JRoute::_('index.php?option=com_users&view=remind'.($Itemid ? "&Itemid={$Itemid}" : ''));
 	}
 }

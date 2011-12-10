@@ -335,7 +335,7 @@ class CKunenaView {
 		if ($this->limitstart < 0)
 			$this->limitstart = 0;
 		$this->limit = $limit;
-		if ($this->limit < 1)
+		if ($this->limit < 1 || $this->limit > $this->config->messages_per_page*2)
 			$this->limit = $this->config->messages_per_page;
 
 		$template = KunenaFactory::getTemplate();

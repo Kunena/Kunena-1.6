@@ -75,7 +75,7 @@ class CKunenaUserlist {
 		}
 
 		// this is need to show something when the user choose all, but we need to limit even the 'all' with a number
- 		if ( $this->limit == 0 ) $querylimit = '150';
+		if ( $this->limit == 0 || $this->limit > 150) $querylimit = '150';
 
 		$useridAdmin = KUNENA_JOOMLA_COMPAT == '1.5' ? '62' : '42';
 

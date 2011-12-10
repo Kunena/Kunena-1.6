@@ -33,6 +33,15 @@ Legend:
 
 Kunena 1.7.2-DEV
 
+10-December-2011 Matias
+# [#119] Text looking like bbcode becomes empty message
+# [#194] Blank message because of a bug in BBCode URL shortening
++ [#189] Add readme file for extra languages
+# [#192] Infinite redirect in installer (Chrome)
+# [#195] Password Reset, Remind and Registration URL not routed
+# [#191] Category index: URL to last post is wrong
+# [#174] Set upper limit to number of posts displayed
+
 24-November-2011 Xillibit
 # [#193] All new users are hidden in Kunena
 
