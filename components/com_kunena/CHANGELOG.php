@@ -38,6 +38,7 @@ Kunena 1.7.2-DEV
 # [#194] Blank message because of a bug in BBCode URL shortening
 + [#189] Add readme file for extra languages
 # [#192] Infinite redirect in installer (Chrome)
+# [#195] Password Reset, Remind and Registration URL not routed
 
 24-November-2011 Xillibit
 # [#193] All new users are hidden in Kunena
