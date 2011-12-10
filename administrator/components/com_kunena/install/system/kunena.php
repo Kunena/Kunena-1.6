@@ -47,10 +47,9 @@ class plgSystemKunena extends JPlugin {
 		if (! $isnew) {
 			return true;
 		}
-		// Set the db function
-		$db = JFactory::getDBO ();
-		$db->setQuery ( "INSERT INTO #__kunena_users (userid) VALUES ('" . intval($user ['id']) . "')" );
-		$db->query ();
+
+		$user = KunenaFactory::getUser();
+		if (!$user->exists()) $user->save();
 	}
 	public function onAfterStoreUser($user, $isnew, $success, $msg) {
 		$this->onUserAfterSave($user, $isnew, $success, $msg);
