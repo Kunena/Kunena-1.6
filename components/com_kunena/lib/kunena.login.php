@@ -21,7 +21,7 @@ class CKunenaLogin {
 
 		// Get guest user and check the authorization
 		$user = JFactory::getUser(0);
-		if (in_array((int) $active->access, version_compare(JVERSION, '1.6', '>') ? $user->getAuthorisedViewLevels() : array(0))) {
+		if (!$active || in_array((int) $active->access, version_compare(JVERSION, '1.6', '>') ? $user->getAuthorisedViewLevels() : array(0))) {
 			$url = JFactory::getURI ()->toString ( array ('path', 'query', 'fragment' ) );
 		} else {
 			$url = 'index.php';
