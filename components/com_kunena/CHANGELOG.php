@@ -41,6 +41,8 @@ Kunena 1.7.2-DEV
 # [#195] Password Reset, Remind and Registration URL not routed
 # [#191] Category index: URL to last post is wrong
 # [#174] Set upper limit to number of posts displayed
+# [#171] Fix UTF-8 URL encoding problem in IE
+! Note: Urls having illegal or reserved characters: ()*! will change!
 
 24-November-2011 Xillibit
 # [#193] All new users are hidden in Kunena
