@@ -223,7 +223,7 @@ class BBCodeInterpreter extends TagInterpreter {
                     continue;
                 }
                 // build tagname
-                $tagname .= JString::strtolower($char);
+                $tagname .= strtolower($char);
                 //echo 'TAG:'.$tagname."\n";
                 continue;
             }
@@ -234,7 +234,7 @@ class BBCodeInterpreter extends TagInterpreter {
                 if($char==$this->tag_end) {
                     break;
                 }
-                $nowkey .= JString::strtolower($char);
+                $nowkey .= strtolower($char);
                 $mode=BBCODE_PARSE_KEY_OR_END;
                 continue;
             }
@@ -253,7 +253,7 @@ class BBCodeInterpreter extends TagInterpreter {
                     $mode = BBCODE_PARSE_SPACE;
                     continue;
                 }
-                $nowkey .= JString::strtolower($char);
+                $nowkey .= strtolower($char);
             }
             if($mode==BBCODE_PARSE_EQUAL) {
                 $quot='';

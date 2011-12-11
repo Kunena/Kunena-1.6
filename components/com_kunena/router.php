@@ -98,14 +98,13 @@ class KunenaRouter {
 	}
 
 	function filterOutput($str) {
-		return JString::trim ( preg_replace ( array ('/\s+/', '/[\$\&\რ\+\,\/\:\;\=\?\@\'\"\<\>\#\%\{\}\|\\\^\~\[\]\`\.]/' ), array ('-', '' ), $str ) );
+		return JString::trim ( preg_replace ( array ('/(\s|\xE3\x80\x80)+/u', '/[\$\&\+\,\/\:\;\=\?\@\'\"\<\>\#\%\{\}\|\\\^\~\[\]\`\.\(\)\*\!]/u' ), array ('-', '' ), $str ) );
 	}
 
 	function stringURLSafe($str) {
 		$kconfig =  KunenaFactory::getConfig ();
 		if ($kconfig->sefutf8) {
-			$str = self::filterOutput ( $str );
-			return urlencode ( $str );
+			return self::filterOutput ( $str );
 		}
 		return JFilterOutput::stringURLSafe ( $str );
 	}

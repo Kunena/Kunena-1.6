@@ -371,8 +371,7 @@ if ($kunena_config->board_offline && ! CKunenaTools::isAdmin ()) {
 			$kunena_app->redirect ( CKunenaLink::GetCategoryURL('listcat', $catid, false), JText::_('COM_KUNENA_GEN_ALL_MARKED') );
 		}
 
-		$userprofile = KunenaFactory::getUser($kunena_my->id);
-		$userprofile->showOnline = 1;
+		$userprofile = KunenaFactory::getUser();
 		if (!$userprofile->exists()) {
 			$userprofile->save();
 		}

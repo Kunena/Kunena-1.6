@@ -77,7 +77,7 @@ class KunenaBBCodeInterpreter extends BBCodeInterpreter {
 		$kunena_config = KunenaFactory::getConfig ();
 		if ($kunena_config->trimlongurls) {
 			// shorten URL text if they are too long (>65chars)
-			$task->text = preg_replace ( '/<a href=(\"|\')((http(s?):\/\/)?(([^\'\"]{' . $kunena_config->trimlongurlsfront . '})([^\'\"]{4,})([^\'\"]{' . $kunena_config->trimlongurlsback . '})))\1([^>]*)>\3?\5<\/a>/u', '<a href="\2" \9>\6...\8</a>', $task->text );
+			$task->text = preg_replace ( '/<a href=(\"|\')((http(s?):\/\/)?(([^\'\"]{' . $kunena_config->trimlongurlsfront . '})([^\'\"]{4,})([^\'\"]{' . $kunena_config->trimlongurlsback . '})))\1([^>]*)>(http(s?):\/\/)?\5<\/a>/u', '<a href="\2" \9>\6...\8</a>', $task->text );
 		}
 
 		if ($kunena_config->autoembedyoutube) {

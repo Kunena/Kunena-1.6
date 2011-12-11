@@ -36,8 +36,24 @@ Kunena 1.7.2-DEV
 11-December-2011 Xillibit
 # [#206] Fatal error in preview if topic has attachments
 
+10-December-2011 Matias
+# [#119] Text looking like bbcode becomes empty message
+# [#194] Blank message because of a bug in BBCode URL shortening
++ [#189] Add readme file for extra languages
+# [#192] Infinite redirect in installer (Chrome)
+# [#195] Password Reset, Remind and Registration URL not routed
+# [#191] Category index: URL to last post is wrong
+# [#174] Set upper limit to number of posts displayed
+# [#171] Fix UTF-8 URL encoding problem in IE
+! Note: Urls having illegal or reserved characters: ()*! will change!
+# [#200] Automatically sync all new users into Kunena
+
 24-November-2011 Xillibit
 # [#193] All new users are hidden in Kunena
+
+23-November-2011 Matias
+# [#188] Undefined property in CKunenaLogin::getReturnURL()
+# [#190] Fatal error in module/plugin administration if Kunena not fully installed
 
 20-November-2011 Matias
 ^ [#186] Update version to 1.7.2

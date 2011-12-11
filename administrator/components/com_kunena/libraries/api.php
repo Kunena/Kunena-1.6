@@ -87,6 +87,10 @@ class Kunena implements iKunena {
 		return !$config->board_offline;
 	}
 
+	public static function installed() {
+		return true;
+	}
+
 	public static function getConfig() {
 		require_once (KPATH_SITE . '/lib/kunena.config.class.php');
 		return KunenaFactory::getConfig ();

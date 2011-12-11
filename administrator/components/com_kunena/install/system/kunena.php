@@ -38,22 +38,20 @@ class plgSystemKunena extends JPlugin {
 		parent::__construct ( $subject, $config );
 	}
 
-	/*
+	// Joomla 1.5 support
+	public function onAfterStoreUser($user, $isnew, $success, $msg) {
+		if (version_compare(JVERSION, '1.6', '>')) return;
+		return $this->onUserAfterSave($user, $isnew, $success, $msg);
+	}
+	// Joomla 1.6+ support
 	public function onUserAfterSave($user, $isnew, $success, $msg) {
 		//Don't continue if the user wasn't stored succesfully
 		if (! $success) {
-			return false;
+			return;
 		}
-		if (! $isnew) {
-			return true;
+		if ($isnew && intval($user ['id'])) {
+			$user = KunenaFactory::getUser(intval($user ['id']));
+			$user->save();
 		}
-		// Set the db function
-		$db = JFactory::getDBO ();
-		$db->setQuery ( "INSERT INTO #__kunena_users (userid) VALUES ('" . intval($user ['id']) . "')" );
-		$db->query ();
 	}
-	public function onAfterStoreUser($user, $isnew, $success, $msg) {
-		$this->onUserAfterSave($user, $isnew, $success, $msg);
-	}
-	*/
 }
