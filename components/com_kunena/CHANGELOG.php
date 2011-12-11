@@ -34,6 +34,7 @@ Legend:
 Kunena 1.7.2-DEV
 
 11-December-2011 Xillibit
+# [#205] Chrome: white page blinks after saving profile
 # [#204] Administration: Report configuration, Fatal error in detecting AUP
 # [#206] Fatal error in preview if topic has attachments
 
