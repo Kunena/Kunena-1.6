@@ -33,6 +33,9 @@ Legend:
 
 Kunena 1.7.2-DEV
 
+11-December-2011 Xillibit
+# [#206] Fatal error in preview if topic has attachments
+
 24-November-2011 Xillibit
 # [#193] All new users are hidden in Kunena
 
