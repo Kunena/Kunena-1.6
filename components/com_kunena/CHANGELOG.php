@@ -33,6 +33,9 @@ Legend:
 
 Kunena 1.7.2-DEV
 
+12-December-2011 Xillibit
+# [#203] Personal text overflows into other elements of Kunena user profile
+
 11-December-2011 Xillibit
 # [#205] Chrome: white page blinks after saving profile
 # [#204] Administration: Report configuration, Fatal error in detecting AUP
