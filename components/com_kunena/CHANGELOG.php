@@ -34,6 +34,7 @@ Legend:
 Kunena 1.7.2-DEV
 
 14-December-2011 Xillibit
+# [#206] Fatal error in preview if topic has attachments (regression)
 # [#204] Administration: Report configuration, Fatal error in detecting AUP (Little fix)
 
 12-December-2011 Xillibit
