@@ -3381,10 +3381,14 @@ function generateSystemReport () {
 	else $modtext = '[quote][b]Modules:[/b] None [/quote]';
 
 	$thirdparty = array();
-	if ( JFile::exists(JPATH_SITE . '/components/com_alphauserpoints/helper.php') && method_exists('AlphaUserPointsHelper', 'getAupVersion') ) {
+	if ( JFile::exists(JPATH_SITE . '/components/com_alphauserpoints/helper.php') ) {
 		require_once(JPATH_SITE . '/components/com_alphauserpoints/helper.php');
-		$aup = new AlphaUserPointsHelper ();
-		$thirdparty['aup'] = '[u]AlphaUserPoints[/u] '.$aup->getAupVersion();
+		if ( method_exists('AlphaUserPointsHelper', 'getAupVersion') ) {
+			$aup = new AlphaUserPointsHelper ();
+			$thirdparty['aup'] = '[u]AlphaUserPoints[/u] '.$aup->getAupVersion();
+		} else {
+			$thirdparty['aup'] = checkThirdPartyVersion('alphauserpoints', array('manifest','alphauserpoints'), 'AlphaUserPoints', 'components/com_alphauserpoints', null, 1, 0, 0);
+		}
 	} else {
 		$thirdparty['aup'] = checkThirdPartyVersion('alphauserpoints', array('manifest','alphauserpoints'), 'AlphaUserPoints', 'components/com_alphauserpoints', null, 1, 0, 0);
 	}

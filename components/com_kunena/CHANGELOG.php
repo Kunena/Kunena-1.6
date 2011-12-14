@@ -33,6 +33,9 @@ Legend:
 
 Kunena 1.7.2-DEV
 
+14-December-2011 Xillibit
+# [#204] Administration: Report configuration, Fatal error in detecting AUP (Little fix)
+
 12-December-2011 Xillibit
 # [#203] Personal text overflows into other elements of Kunena user profile
 
