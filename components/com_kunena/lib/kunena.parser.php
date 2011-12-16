@@ -555,6 +555,7 @@ class KunenaBBCodeInterpreter extends BBCodeInterpreter {
 				$attachments = &$this->parent->attachments;
 				$attachment = null;
 				if (!empty($tag->options ['default'])) {
+					require_once(KUNENA_PATH_LIB.'/kunena.attachments.class.php');
 					$attobj = CKunenaAttachments::getInstance();
 					$attachment = $attobj->getAttachment($tag->options ["default"]);
 					if (is_object($attachment)) {

@@ -651,6 +651,7 @@ class CKunenaProfile {
 		$this->saveSettings();
 
 		$msg = JText::_( 'COM_KUNENA_PROFILE_SAVED' );
+		while (@ob_end_clean());
 		$this->_app->redirect ( $return, $msg );
 	}
 
