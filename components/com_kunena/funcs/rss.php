@@ -151,8 +151,8 @@ class CKunenaRSSView {
 			$tmp['cat_name']	= $data->catname;
 
 			// Link and source is always the same
-			$tmp['link']		= $this->uri->toString(array('scheme', 'host', 'port')) . $url;
-			$tmp['source']		= $this->uri->toString(array('scheme', 'host', 'port')) . $url;
+			$tmp['link']		= $url;
+			$tmp['source']		= $url;
 
 			// Determine title format
 			if ($this->old_titles) {
