@@ -33,6 +33,9 @@ Legend:
 
 Kunena 1.7.2-DEV
 
+27-December-2011 Xillibit
+# [#212] URLs are broken in RSS Atom feed
+
 14-December-2011 Xillibit
 # [#206] Fatal error in preview if topic has attachments (regression)
 # [#204] Administration: Report configuration, Fatal error in detecting AUP (Little fix)
