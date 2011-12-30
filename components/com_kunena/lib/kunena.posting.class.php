@@ -462,6 +462,10 @@ class CKunenaPosting {
 		//update the user posts count
 		$userid = ( int ) $this->get ( 'userid' );
 		if ($userid) {
+			$userprofile = KunenaFactory::getUser($userid);
+			if (!$userprofile->exists()) {
+				$userprofile->save();
+			}
 			$query = "UPDATE #__kunena_users SET posts=posts+1 WHERE userid={$this->_db->quote($userid)}";
 			$this->_db->setQuery ( $query );
 			$this->_db->query ();
