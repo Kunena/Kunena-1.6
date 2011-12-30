@@ -22,6 +22,8 @@
 // MOS Intruder Alerts
 defined( '_JEXEC' ) or die();
 
+// Fixes a bug in Joomla 2.5.0 Beta1:
+if (!JFactory::getApplication()->isAdmin()) return;
 
 // ################################################################
 class CKunenaToolbar

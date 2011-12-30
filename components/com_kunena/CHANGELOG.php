@@ -33,6 +33,8 @@ Legend:
 
 Kunena 1.7.2-DEV
 
+# [#214] Fatal Error: Class 'JToolBarHelper' not found in toolbar.kunena.html.php
+
 10-December-2011 Matias
 # [#119] Text looking like bbcode becomes empty message
 # [#194] Blank message because of a bug in BBCode URL shortening
