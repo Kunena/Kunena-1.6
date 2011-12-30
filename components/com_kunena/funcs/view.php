@@ -416,7 +416,7 @@ class CKunenaView {
 		return $list;
 	}
 
-	function getView() {
+	function getView($meta = true) {
 		// Is user allowed to read category from the URL?
 		if ($this->catid && ! $this->session->canRead ( $this->catid )) {
 			return;
@@ -613,8 +613,10 @@ class CKunenaView {
 		$metaDesc = htmlspecialchars($metaDesc);
 
 		$document = & JFactory::getDocument ();
-		$document->setMetadata ( 'keywords', $metaKeys );
-		$document->setDescription ( $metaDesc );
+		if ($meta) {
+			$document->setMetadata ( 'keywords', $metaKeys );
+			$document->setDescription ( $metaDesc );
+		}
 
 		$this->layout_buttons = array();
 		if ($this->config->enable_threaded_layouts) {
@@ -822,8 +824,8 @@ class CKunenaView {
 			$this->app->redirect($this->redirect);
 		}
 	}
-	function display($redirect = false) {
-		$this->getView();
+	function display($redirect = false, $meta = false) {
+		$this->getView($meta);
 		if ($redirect) $this->redirect();
 
 		if (! $this->allow) {

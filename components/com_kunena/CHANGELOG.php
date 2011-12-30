@@ -38,6 +38,7 @@ Kunena 1.7.2-DEV
 # [#211] reCAPTCHA causes topic split
 # [#207] Latest posts show only first post as being new
 # [#210] No posts on the profile if new user has used discuss plugin
+# [#217] Discuss Plugin should not set meta keywords and description
 
 10-December-2011 Matias
 # [#119] Text looking like bbcode becomes empty message
