@@ -33,6 +33,7 @@ Legend:
 
 Kunena 1.7.2-DEV
 
+30-December-2011 Matias
 # [#214] Fatal Error: Class 'JToolBarHelper' not found in toolbar.kunena.html.php
 
 10-December-2011 Matias
