@@ -40,6 +40,21 @@ Kunena 1.7.2-DEV
 # [#210] No posts on the profile if new user has used discuss plugin
 # [#217] Discuss Plugin should not set meta keywords and description
 
+27-December-2011 Xillibit
+# [#212] URLs are broken in RSS Atom feed
+
+14-December-2011 Xillibit
+# [#206] Fatal error in preview if topic has attachments (regression)
+# [#204] Administration: Report configuration, Fatal error in detecting AUP (Little fix)
+
+12-December-2011 Xillibit
+# [#203] Personal text overflows into other elements of Kunena user profile
+
+11-December-2011 Xillibit
+# [#205] Chrome: white page blinks after saving profile
+# [#204] Administration: Report configuration, Fatal error in detecting AUP
+# [#206] Fatal error in preview if topic has attachments
+
 10-December-2011 Matias
 # [#119] Text looking like bbcode becomes empty message
 # [#194] Blank message because of a bug in BBCode URL shortening

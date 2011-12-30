@@ -2959,7 +2959,7 @@ HELP, RULES, UPLOAD AVATAR, ANNOUNCEMENT
 #Kunena div.kavatar-lg img {	 }
 #Kunena div#kprofile-stats { margin-top: 15px;}
 #Kunena div#kprofile-stats ul { margin: 0 0 0 3px; padding: 0;}
-#Kunena div#kprofile-stats ul li { list-style-type: none; padding-top: 5px; clear:both; font-size:.917em ;}
+#Kunena div#kprofile-stats ul li { list-style-type: none; padding-top: 5px; clear:both; font-size:.917em; white-space: normal; }
 #Kunena div#kprofile-stats ul li span.konline-status-yes {
 	display:block; 
 	background: url("../images/icons/online.gif") no-repeat; 
