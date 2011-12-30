@@ -153,13 +153,18 @@ class CKunenaLatestX {
 
 			if ($this->config->shownew && $this->my->id) {
 				$readlist = $this->session->readtopics;
-				$this->db->setQuery ( "SELECT thread, MIN(id) AS lastread, SUM(1) AS unread FROM #__kunena_messages " . "WHERE hold IN ({$this->hold}) AND moved='0' AND thread NOT IN ({$readlist}) AND thread IN ({$idstr}) AND time>{$this->db->Quote($this->prevCheck)} GROUP BY thread" ); // TODO: check input
-				$msgidlist = $this->db->loadObjectList ();
+				$this->db->setQuery ( "SELECT t.thread, MIN(t.id) AS lastread, SUM(1) AS unread
+						FROM #__kunena_messages AS m
+						INNER JOIN #__kunena_messages AS t ON m.thread = t.thread
+						WHERE t.hold IN ({$this->hold}) AND t.moved='0' AND m.thread NOT IN ({$readlist}) AND m.id IN ({$idstr}) AND t.time>{$this->db->Quote($this->prevCheck)} GROUP BY t.thread" ); // TODO: check input
+				$msgidlist = $this->db->loadObjectList ('thread');
 				KunenaError::checkDatabaseError();
 
-				foreach ( $msgidlist as $msgid ) {
-					$this->messages[$msgid->thread]->lastread = $msgid->lastread;
-					$this->messages[$msgid->thread]->unread = $msgid->unread;
+				foreach ( $this->messages as $message ) {
+					if (!empty($msgidlist[$message->thread])) {
+						$message->lastread = $msgidlist[$message->thread]->lastread;
+						$message->unread = $msgidlist[$message->thread]->unread;
+					}
 				}
 			}
 		}
@@ -279,6 +284,13 @@ class CKunenaLatestX {
 
 		$this->order = 'field(a.id,'.implode ( ",", $this->loadids ).')';
 		$this->_common();
+		if ($this->config->shownew && $this->my->id) {
+			foreach ( $this->messages as $message ) {
+				if ($message->time <= $this->prevCheck) {
+					$message->unread = 0;
+				}
+			}
+		}
 	}
 
 	function _getThankYouPosts($saidgot){
