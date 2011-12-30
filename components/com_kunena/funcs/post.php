@@ -239,11 +239,6 @@ class CKunenaPost {
 	}
 
 	protected function reply($do) {
-		$saved = $this->_app->getUserState('com_kunena.postfields');
-		if ($saved) {
-			$this->catid = $saved['catid'];
-			$this->id = isset($saved['id']) ? $saved['id'] : 0;
-		}
 		if (!$this->load())
 			return false;
 		if ($this->lockProtection ())
@@ -257,7 +252,9 @@ class CKunenaPost {
 
 		$this->kunena_editmode = 0;
 
+		$saved = $this->_app->getUserState('com_kunena.postfields');
 		$this->_app->setUserState('com_kunena.postfields', null);
+
 		$message = $this->msg_cat;
 		if ($this->catid && $this->msg_cat->id > 0) {
 			if ($do == 'quote') {
@@ -301,14 +298,14 @@ class CKunenaPost {
 			$this->document->addScriptDeclaration('var pollcategoriesid = {'.$arraypollcatid.'};');
 
 			$options = array ();
-			$this->selectcatlist = CKunenaTools::KSelectList ( 'catid', $options, '', false, 'postcatid', $this->catid );
+			$this->selectcatlist = CKunenaTools::KSelectList ( 'catid', $options, '', false, 'postcatid', isset($saved['catid']) ? $saved['catid'] : $this->catid );
 		}
 		$this->authorName = $this->getAuthorName ();
 		$this->emoid = 0;
 		$this->action = 'post';
 
 		$this->allow_anonymous = $this->cat_default_allow && $this->my->id;
-		$this->anonymous = isset($saved['options']['anonymous']) ? $saved['options']['anonymous'] : ($this->allow_anonymous) && ! empty ( $this->msg_cat->post_anonymous );
+		$this->anonymous = ($this->allow_anonymous) && ! empty ( $this->msg_cat->post_anonymous );
 		$this->allow_name_change = 0;
 		if (! $this->my->id || $this->config->changename || ! empty ( $this->msg_cat->allow_anonymous ) || CKunenaTools::isModerator ( $this->my->id, $this->catid )) {
 			$this->allow_name_change = 1;
@@ -318,7 +315,7 @@ class CKunenaPost {
 		$this->cansubscribe = 0;
 		if ($this->my->id && $this->config->allowsubscriptions && $this->config->topic_subscriptions != 'disabled') {
 			$this->cansubscribe = 1;
-			$this->subscriptionschecked = isset($saved['options']['subscribe']) ? $saved['options']['subscribe'] : $this->config->subscriptionschecked == 1;
+			$this->subscriptionschecked = $this->config->subscriptionschecked == 1;
 			if ($this->msg_cat && $this->msg_cat->thread) {
 				$this->_db->setQuery ( "SELECT thread FROM #__kunena_subscriptions WHERE userid={$this->_db->Quote($this->my->id)} AND thread={$this->_db->Quote($this->msg_cat->thread)}" );
 				$subscribed = $this->_db->loadResult ();
@@ -328,18 +325,21 @@ class CKunenaPost {
 			}
 		}
 
+		if ($saved) {
+			$this->catid = $saved['catid'];
+			$this->message_text = $saved['fields']['message'];
+			$this->resubject = $saved['fields']['subject'];
+			$this->authorName = $saved['fields']['name'];
+			$this->emoid = $saved['fields']['topic_emoticon'];
+			$this->email = $saved['fields']['email'];
+			if (isset($saved['options']['anonymous'])) $this->anonymous = $saved['options']['anonymous'];
+			if (isset($saved['options']['subscribe'])) $this->subscriptionschecked = $saved['options']['subscribe'];
+		}
+
 		if ($this->id)
 			$this->title = JText::_ ( 'COM_KUNENA_POST_REPLY_TOPIC' ) . ' ' . $this->subject;
 		else
 			$this->title = JText::_ ( 'COM_KUNENA_POST_NEW_TOPIC' );
-
-		if ($saved) {
-			$this->authorName = $saved['fields']['name'];
-			$this->email = $saved['fields']['email'];
-			$this->resubject = $saved['fields']['subject'];
-			$this->message_text = $saved['fields']['message'];
-			$this->emoid = $saved['fields']['topic_emoticon'];
-		}
 
 		CKunenaTools::loadTemplate ( '/editor/form.php' );
 	}
@@ -395,7 +395,7 @@ class CKunenaPost {
 			}
 
 			$this->allow_anonymous = ! empty ( $this->msg_cat->allow_anonymous ) && $message->userid;
-			$this->anonymous = isset($saved['options']['anonymous']) ? $saved['options']['anonymous'] : 0;
+			$this->anonymous = 0;
 			$this->allow_name_change = 0;
 			if (! $this->my->id || $this->config->changename || ! empty ( $this->msg_cat->allow_anonymous ) || CKunenaTools::isModerator ( $this->my->id, $this->catid )) {
 				$this->allow_name_change = 1;
@@ -410,6 +410,7 @@ class CKunenaPost {
 				$this->resubject = $saved['fields']['subject'];
 				$this->message_text = $saved['fields']['message'];
 				$this->emoid = $saved['fields']['topic_emoticon'];
+				if (isset($saved['options']['anonymous'])) $this->anonymous = $saved['options']['anonymous'];
 			}
 			$this->modified_reason = isset($saved['fields']['modified_reason']) ? $saved['fields']['modified_reason'] : '';
 

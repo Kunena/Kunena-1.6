@@ -20,6 +20,9 @@
 **/
 defined( '_JEXEC' ) or die();
 
+// Fixes a bug in Joomla 2.5.0 Beta1:
+if (!JFactory::getApplication()->isAdmin()) return;
+
 require_once( JApplicationHelper::getPath( 'toolbar_html' ) );
 
 $task = JRequest::getCmd( 'task' );
