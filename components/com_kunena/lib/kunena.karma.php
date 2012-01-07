@@ -62,7 +62,7 @@ $kunena_my = JFactory::getUser();
                     if ($kunena_my->id != $userid)
                     {
 						if (JRequest::checkToken ( 'get' ) == false) {
-							$this->_app->enqueueMessage ( JText::_ ( 'COM_KUNENA_ERROR_TOKEN' ), 'error' );
+							$kunena_app->enqueueMessage ( JText::_ ( 'COM_KUNENA_ERROR_TOKEN' ), 'error' );
 							if ($pid) {
 								while (@ob_end_clean());
 								$kunena_app->redirect ( CKunenaLink::GetLatestPageAutoRedirectURL ( $pid, $kunena_config->messages_per_page, $catid) );
