@@ -38,6 +38,7 @@ Kunena 1.7.2-DEV
 # [#224] Bulk Actions post URL issues
 # [#223] Broken RSS link and other &amp; issues in English language
 # [#202] Automatically rename attachment if filename has no allowed characters
+# [#225] Add support for JUpgrade 2.5.0
 
 07-January-2012 Xillibit
 # [#219] Fatal Error: Call to a member function enqueueMessage() in karma
