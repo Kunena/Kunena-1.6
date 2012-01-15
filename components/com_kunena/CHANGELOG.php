@@ -33,6 +33,9 @@ Legend:
 
 Kunena 1.7.2-DEV
 
+07-January-2012 Xillibit
+# [#219] Fatal Error: Call to a member function enqueueMessage() in karma
+
 30-December-2011 Matias
 # [#214] Fatal Error: Class 'JToolBarHelper' not found in toolbar.kunena.html.php
 # [#211] reCAPTCHA causes topic split
