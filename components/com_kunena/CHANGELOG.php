@@ -37,6 +37,7 @@ Kunena 1.7.2-DEV
 # [#222] CB integration login breaks user ACL (workaround Joomla 1.7.3 bug)
 # [#224] Bulk Actions post URL issues
 # [#223] Broken RSS link and other &amp; issues in English language
+# [#202] Automatically rename attachment if filename has no allowed characters
 
 07-January-2012 Xillibit
 # [#219] Fatal Error: Call to a member function enqueueMessage() in karma
