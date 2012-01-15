@@ -40,7 +40,7 @@ $this->app->setUserState( "com_kunena.ActionBulk", JRoute::_( $Breturn ) );
 	</div>
 	<div class="kcontainer">
 		<div class="kbody">
-<form action="index.php" method="post" name="kBulkActionForm">
+<form action="<?php echo JURI::root( true ) ?>/index.php" method="post" name="kBulkActionForm">
 <table class="<?php echo isset ( $this->objCatInfo->class_sfx ) ? ' kblocktable' . $this->escape($this->objCatInfo->class_sfx) : ''; ?>" id="kflattable">
 	<?php
 	$k = 0;
@@ -215,7 +215,7 @@ $this->app->setUserState( "com_kunena.ActionBulk", JRoute::_( $Breturn ) );
 			</td>
 			<?php endif; ?>
 		</tr>
-		
+
 		<?php if (JDocumentHTML::countModules ( 'kunena_topic_' . $counter )) : ?>
 		<tr>
 			<td class="ktopicmodule" colspan="<?php echo intval($this->columns) ?>">
@@ -223,7 +223,7 @@ $this->app->setUserState( "com_kunena.ActionBulk", JRoute::_( $Breturn ) );
 			</td>
 		</tr>
 		<?php endif; ?>
-		
+
 		<?php } ?>
 		<?php  if ( count($this->actionDropdown) > 1 || $this->embedded ) : ?>
 		<!-- Bulk Actions -->
