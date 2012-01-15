@@ -19,12 +19,7 @@ class CKunenaProfile {
 	public $allow = false;
 
 	function __construct($userid, $do='') {
-		kimport('html.parser');
-		require_once(KPATH_SITE.'/lib/kunena.timeformat.class.php');
-		$this->_db = JFactory::getDBO ();
 		$this->_app = JFactory::getApplication ();
-		$this->config = KunenaFactory::getConfig ();
-		$this->my = JFactory::getUser ();
 		$this->do = $do;
 
 		if ($this->do == 'login' ) {
@@ -32,6 +27,12 @@ class CKunenaProfile {
 		} elseif ( $this->do == 'logout' ) {
 			return $this->logout();
 		}
+
+		kimport('html.parser');
+		require_once(KPATH_SITE.'/lib/kunena.timeformat.class.php');
+		$this->_db = JFactory::getDBO ();
+		$this->my = JFactory::getUser ();
+		$this->config = KunenaFactory::getConfig ();
 
 		if (!$userid) {
 			$this->user = $this->my;

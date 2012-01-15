@@ -33,6 +33,9 @@ Legend:
 
 Kunena 1.7.2-DEV
 
+15-January-2012 Matias
+# [#222] CB integration login breaks user ACL (workaround Joomla 1.7.3 bug)
+
 07-January-2012 Xillibit
 # [#219] Fatal Error: Call to a member function enqueueMessage() in karma
 

@@ -51,8 +51,16 @@ if(JDEBUG){
 }
 
 $func = JString::strtolower ( JRequest::getCmd ( 'func', JRequest::getCmd ( 'view', '' )) );
-JRequest::setVar ( 'func', $func );
+$do = JRequest::getCmd ( 'do', '' );
+$task = JRequest::getCmd ( 'task', '' );
 $format = JRequest::getCmd ( 'format', 'html' );
+JRequest::setVar ( 'func', $func );
+
+// Workaround for Joomla 1.7.3 login bug, see: https://github.com/joomla/joomla-platform/pull/740
+if ($func == 'profile' && ($task == 'login' || $task == 'logout')) {
+	require_once ( KUNENA_PATH_FUNCS . '/profile.php');
+	$page = new CKunenaProfile(JFactory::getUser()->id, $task);
+}
 
 require_once(KUNENA_PATH . '/router.php');
 if ($func && !isset(KunenaRouter::$functions[$func])) {
@@ -163,8 +171,6 @@ global $kunena_this_cat;
 $action = JRequest::getCmd ( 'action', '' );
 $catid = JRequest::getInt ( 'catid', 0 );
 $contentURL = JRequest::getVar ( 'contentURL', '' );
-$do = JRequest::getCmd ( 'do', '' );
-$task = JRequest::getCmd ( 'task', '' );
 $email = JRequest::getVar ( 'email', '' );
 $favoriteMe = JRequest::getVar ( 'favoriteMe', '' );
 $fb_authorname = JRequest::getVar ( 'fb_authorname', '' );
