@@ -27,7 +27,7 @@ $kuri = JURI::getInstance ();
 $Breturn = $kuri->toString ( array ('path', 'query', 'fragment' ) );
 $this->app->setUserState( "com_kunena.ActionBulk", JRoute::_( $Breturn ) );
 ?>
-<form action="index.php" method="post" name="kBulkActionForm">
+<form action="<?php echo JURI::root( true ) ?>/index.php" method="post" name="kBulkActionForm">
 <div class="kblock">
 	<div class="kheader">
 		<h2><span><?php if (!empty($this->header)) echo $this->escape($this->header); ?></span></h2>
