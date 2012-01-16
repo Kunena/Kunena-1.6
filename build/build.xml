@@ -243,7 +243,7 @@
 		<language tag="ar-AA" />
 		<!-- language tag="az-AZ" /-->
 		<!-- language tag="bg-BG" /-->
-		<!-- language tag="bs_BA" /-->
+		<!-- language tag="bs-BA" /-->
 		<language tag="ca-ES" />
 		<!-- language tag="cs-CZ" /-->
 		<!-- language tag="da-DK" /-->
@@ -260,6 +260,7 @@
 		<!-- language tag="hu-HU" /-->
 		<!-- language tag="id-ID" /-->
 		<language tag="it-IT" />
+		<!-- language tag="lv-LV" /-->
 		<!-- language tag="ja-JP" /-->
 		<language tag="km-KH" />
 		<!-- language tag="kz-KZ" /-->
