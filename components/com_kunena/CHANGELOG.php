@@ -34,6 +34,7 @@ Legend:
 Kunena 1.7.2-DEV
 
 20-January-2012 Xillibit
+# [#233] Kunena report generator does not display the installed path of Kunena
 # [#232] Kunena report generator not to conceal menu items
 
 15-January-2012 Matias

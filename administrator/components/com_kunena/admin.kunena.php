@@ -3427,7 +3427,7 @@ function generateSystemReport () {
 
 	$report = '[confidential][b]Joomla! version:[/b] '.$jversion.' [b]Platform:[/b] '.$_SERVER['SERVER_SOFTWARE'].' ('
 	    .$_SERVER['SERVER_NAME'].') [b]PHP version:[/b] '.phpversion().' | '.$safe_mode.' | '.$register_globals.' | '.$mbstring
-	    .' | '.$gd_support.' | [b]MySQL version:[/b] '.$kunena_db->getVersion().'[/confidential][quote][b]Database collation check:[/b] '.$collation.'
+	    .' | '.$gd_support.' | [b]MySQL version:[/b] '.$kunena_db->getVersion().' | [b]Base URL:[/b]' .JURI::root(). '[/confidential][quote][b]Database collation check:[/b] '.$collation.'
 		[/quote][quote][b]Legacy mode:[/b] '.$jconfig_legacy.' | [b]Joomla! SEF:[/b] '.$jconfig_sef.' | [b]Joomla! SEF rewrite:[/b] '
 	    .$jconfig_sef_rewrite.' | [b]FTP layer:[/b] '.$jconfig_ftp.' |[confidential][b]Mailer:[/b] '.$kunena_app->getCfg('mailer' ).' | [b]From name:[/b] '.$kunena_app->getCfg('fromname' ).' | [b]SMTP Secure:[/b] '.$kunena_app->getCfg('smtpsecure' ).' | [b]SMTP Port:[/b] '.$kunena_app->getCfg('smtpport' ).' | [b]SMTP User:[/b] '.$jconfig_smtpuser.' | [b]SMTP Host:[/b] '.$kunena_app->getCfg('smtphost' ).' [/confidential] [b]htaccess:[/b] '.$htaccess
 	    .' | [b]PHP environment:[/b] [u]Max execution time:[/u] '.$maxExecTime.' seconds | [u]Max execution memory:[/u] '
