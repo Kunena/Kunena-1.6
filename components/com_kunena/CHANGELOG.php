@@ -33,6 +33,9 @@ Legend:
 
 Kunena 1.7.2-DEV
 
+20-January-2012 Xillibit
+# [#232] Kunena report generator not to conceal menu items
+
 15-January-2012 Matias
 # [#222] CB integration login breaks user ACL (workaround Joomla 1.7.3 bug)
 # [#224] Bulk Actions post URL issues
