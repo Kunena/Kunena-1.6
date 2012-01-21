@@ -266,7 +266,7 @@ $kunena_config = KunenaFactory::getConfig ();
 		style="cursor: pointer"><?php echo JText::_('COM_KUNENA_EDITOR_SHRINK'); ?></span></td>
 
 	<td class="kcol-last kcol-editor-field">
-		<textarea class="ktxtarea required" name="message" id="kbbcode-message" rows="10" cols="50"><?php echo $this->escape($this->message_text); ?></textarea>
+		<textarea class="ktxtarea required" name="message" id="kbbcode-message" rows="10" cols="50" tabindex="2"><?php echo $this->escape($this->message_text); ?></textarea>
 		<?php
 		// Add an empty div for the preview.The class name will be set by js depending on horizontal or vertical split
 		?>
