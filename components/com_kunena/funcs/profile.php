@@ -20,6 +20,7 @@ class CKunenaProfile {
 
 	function __construct($userid, $do='') {
 		$this->_app = JFactory::getApplication ();
+		$this->my = JFactory::getUser ();
 		$this->do = $do;
 
 		if ($this->do == 'login' ) {
@@ -31,7 +32,6 @@ class CKunenaProfile {
 		kimport('html.parser');
 		require_once(KPATH_SITE.'/lib/kunena.timeformat.class.php');
 		$this->_db = JFactory::getDBO ();
-		$this->my = JFactory::getUser ();
 		$this->config = KunenaFactory::getConfig ();
 
 		if (!$userid) {
@@ -772,9 +772,11 @@ class CKunenaProfile {
 			$this->_app->redirect ( JRequest::getVar ( 'HTTP_REFERER', JURI::base ( true ), 'server' ), COM_KUNENA_ERROR_TOKEN, 'error' );
 		}
 
-		$login = KunenaFactory::getLogin();
-		$result = $login->loginUser($username, $password, $remember, $return);
-		if ($result) $this->_app->enqueueMessage ( $result, 'notice' );
+		if ($this->my->guest) {
+			$login = KunenaFactory::getLogin();
+			$result = $login->loginUser($username, $password, $remember, $return);
+			if ($result) $this->_app->enqueueMessage ( $result, 'notice' );
+		}
 		while (@ob_end_clean());
 		$this->_app->redirect ( JRequest::getVar ( 'HTTP_REFERER', JURI::base ( true ), 'server' ) );
 	}
@@ -786,9 +788,11 @@ class CKunenaProfile {
 			$this->_app->redirect ( JRequest::getVar ( 'HTTP_REFERER', JURI::base ( true ), 'server' ), COM_KUNENA_ERROR_TOKEN, 'error' );
 		}
 
-		$login = KunenaFactory::getLogin();
-		$result = $login->logoutUser($return);
-		if ($result) $this->_app->enqueueMessage ( $result, 'notice' );
+		if (!$this->my->guest) {
+			$login = KunenaFactory::getLogin();
+			$result = $login->logoutUser($return);
+			if ($result) $this->_app->enqueueMessage ( $result, 'notice' );
+		}
 		while (@ob_end_clean());
 		$this->_app->redirect ( JRequest::getVar ( 'HTTP_REFERER', JURI::base ( true ), 'server' ) );
 	}
