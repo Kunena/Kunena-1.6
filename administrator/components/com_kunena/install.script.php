@@ -52,7 +52,16 @@ class Com_KunenaInstallerScript {
 	}
 
 	function postflight($type, $parent) {
+		// Run only in Joomla 1.6+
 		$installer = $parent->getParent();
+
+		// Rename kunena.j16.xml to kunena.xml
+		$adminpath = $installer->extension_administrator;
+		if (JFile::exists("{$adminpath}/kunena.j16.xml")) {
+			if ( JFile::exists("{$adminpath}/kunena.xml")) JFile::delete("{$adminpath}/kunena.xml");
+			JFile::move("{$adminpath}/kunena.j16.xml", "{$adminpath}/kunena.xml");
+		}
+
 		$installer->set('redirect_url', JURI::base () . 'index.php?option=com_kunena&view=install');
 	}
 }
