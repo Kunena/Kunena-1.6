@@ -33,6 +33,17 @@ Legend:
 
 Kunena 1.7.2-DEV
 
+25-January-2012 Matias
+# [#225] Add support for JUpgrade 2.5.0 - fixing some bugs
+
+24-January-2012 Matias
+# [#222] Do not allow login in CB integration if user has logged in
+# [#238] Fix pl-PL language installation
+
+20-January-2012 810
+# [#231] J2.5 Select box not working in category manager
+# [#237] Add html5: Tabindex
+
 20-January-2012 Xillibit
 # [#233] Kunena report generator does not display the installed path of Kunena
 # [#232] Kunena report generator not to conceal menu items
