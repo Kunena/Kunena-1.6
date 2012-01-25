@@ -231,7 +231,7 @@ if ($func == 'profile' && !$do && empty($_POST)) {
 	$redirect = 1;
 	if (!empty($active)) {
 		$params = new JParameter($active->params);
-		$redirect = $params->get('integration');
+		$redirect = $params->get('integration', 1);
 	}
 	if ($redirect) {
 		$profileIntegration = KunenaFactory::getProfile();
