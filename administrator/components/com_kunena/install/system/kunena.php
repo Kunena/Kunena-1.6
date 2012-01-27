@@ -31,7 +31,7 @@ class plgSystemKunena extends JPlugin {
 			// Joomla 1.5: Fix bug
 			$lang = JFactory::getLanguage();
 			if (JFactory::getApplication()->isAdmin()) {
-				$lang->load('com_kunena.menu', JPATH_ADMINISTRATOR);
+				$lang->load('com_kunena.menu', JPATH_ADMINISTRATOR) || $lang->load('com_kunena.menu', KPATH_ADMIN);
 			}
 		}
 
