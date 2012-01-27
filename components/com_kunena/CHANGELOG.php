@@ -33,6 +33,9 @@ Legend:
 
 Kunena 1.7.2-DEV
 
+27-January-2012 Matias
+# [#242] Fix language installation in Joomla 2.5
+
 25-January-2012 Matias
 # [#225] Add support for JUpgrade 2.5.0 - fixing some bugs
 # [#235] Joomla 2.5: profile integration in menuitem always links to Kunena
