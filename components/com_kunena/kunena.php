@@ -29,6 +29,9 @@ jimport( 'joomla.html.parameter' );
 require_once (JPATH_COMPONENT . '/lib/kunena.defines.php');
 require_once(KUNENA_PATH_LIB . '/kunena.version.php');
 
+// Load language from component if it doesn't exist in Joomla language folder
+KunenaFactory::loadLanguage();
+
 class KunenaApp {
 
 	function __construct() {

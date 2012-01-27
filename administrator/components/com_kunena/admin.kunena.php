@@ -63,7 +63,8 @@ if (!$kn_version->checkVersion() && $task!='schema' && $task!='schemadiff') {
 
 require_once(KPATH_SITE.'/lib/kunena.defines.php');
 $lang = JFactory::getLanguage();
-$lang->load('com_kunena',JPATH_SITE);
+$lang->load('com_kunena', JPATH_ADMINISTRATOR) || $lang->load('com_kunena', KPATH_ADMIN);
+$lang->load('com_kunena', JPATH_SITE) || $lang->load('com_kunena', KPATH_SITE);
 
 jimport( 'joomla.utilities.arrayhelper' );
 
@@ -536,8 +537,10 @@ switch ($task) {
 	case "createmenu" :
 		$lang = JFactory::getLanguage();
 		// Start by loading English strings and override them by current locale
-		$lang->load('com_kunena.install',JPATH_ADMINISTRATOR, 'en-GB');
-		$lang->load('com_kunena.install',JPATH_ADMINISTRATOR);
+		$lang->load('com_kunena.install',JPATH_ADMINISTRATOR, 'en-GB')
+			|| $lang->load('com_kunena.install',KPATH_ADMIN, 'en-GB');
+		$lang->load('com_kunena.install',JPATH_ADMINISTRATOR)
+			|| $lang->load('com_kunena.install',KPATH_ADMIN);
 
 		require_once(KPATH_ADMIN . '/install/model.php');
 		$installer = new KunenaModelInstall();
@@ -794,13 +797,14 @@ function parseXMLTemplateFile($templateBaseDir, $templateDir)
 		}
 		$lang = JFactory::getLanguage();
 		// Start by loading strings for default template and override with current template
-		if (!$lang->load('com_kunena.tpl_default', JPATH_SITE)) {
-			$lang->load('com_kunena.tpl_default', KUNENA_PATH_TEMPLATE.'/default');
-		}
+		$lang->load('com_kunena.tpl_default', JPATH_SITE)
+			|| $lang->load('com_kunena.tpl_default', KPATH_SITE)
+			|| $lang->load('com_kunena.tpl_default', KUNENA_PATH_TEMPLATE.'/default');
+
 		if ($template != 'default') {
-			if (!$lang->load('com_kunena.tpl_'.$template, JPATH_SITE)) {
-				$lang->load('com_kunena.tpl_'.$template, KUNENA_PATH_TEMPLATE.'/'.$template);
-			}
+			$lang->load('com_kunena.tpl_'.$template, JPATH_SITE)
+				|| $lang->load('com_kunena.tpl_'.$template, KPATH_SITE)
+				|| $lang->load('com_kunena.tpl_'.$template, KUNENA_PATH_TEMPLATE.'/'.$template);
 		}
 		$ini	= KUNENA_PATH_TEMPLATE.'/'.$template.'/params.ini';
 		$xml	= KUNENA_PATH_TEMPLATE.'/'.$template.'/template.xml';
