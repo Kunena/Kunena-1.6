@@ -224,15 +224,18 @@ class KunenaModelInstall extends JModel {
 
 		$text = '';
 
+		$success = true;
 		if (file_exists ( $file )) {
-			$success = JArchive::extract ( $file, $dest );
+			if (!JFolder::exists($dest)) {
+				$success = JFolder::create($dest);
+			}
+			if ($success) $success = JArchive::extract ( $file, $dest );
 			if (! $success) {
 				$text .= JText::sprintf('COM_KUNENA_INSTALL_EXTRACT_FAILED', $file);
 
 				$text .= $this->_getJoomlaArchiveError($file);
 			}
 		} else {
-			$success = true;
 			$text .= JText::sprintf('COM_KUNENA_INSTALL_EXTRACT_MISSING', $file);
 		}
 		if ($success && !$silent)
@@ -249,7 +252,6 @@ class KunenaModelInstall extends JModel {
 			'admin'=>JPATH_ADMINISTRATOR . '/components/com_kunena'
 		);
 
-		if (!$name) return $success;
 		foreach ($destinations as $key=>$dest) {
 			if ($success != true) continue;
 			$installdir = "{$dest}/language/{$tag}";
@@ -288,7 +290,7 @@ class KunenaModelInstall extends JModel {
 				}
 			}
 		}
-		if ($exists) $this->addStatus ( JText::sprintf('COM_KUNENA_INSTALL_LANGUAGE', $name), $success);
+		if ($exists && $name) $this->addStatus ( JText::sprintf('COM_KUNENA_INSTALL_LANGUAGE', $name), $success);
 		return $success;
 	}
 
