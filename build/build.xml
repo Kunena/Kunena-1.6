@@ -253,7 +253,7 @@
 		<language tag="es-ES" />
 		<!-- language tag="et-EE" /-->
 		<!-- language tag="fa-IR" /-->
-		<!-- language tag="fi-FI" /-->
+			<!-- language tag="fi-FI" /-->
 		<language tag="fr-FR" />
 		<!-- language tag="he-IL" /-->
 		<!-- language tag="hr-HR" /-->
@@ -262,7 +262,7 @@
 		<language tag="it-IT" />
 		<!-- language tag="ja-JP" /-->
 		<language tag="km-KH" />
-		<!-- language tag="kz-KZ" /-->
+			<!-- language tag="kz-KZ" /-->
 		<language tag="lt-LT" />
 		<!-- language tag="lv-LV" /-->
 		<!-- language tag="mk-MK" /-->
@@ -270,7 +270,7 @@
 		<language tag="nl-NL" />
 		<!-- language tag="pl-PL" /-->
 		<language tag="pt-BR" />
-		<!-- language tag="pt-PT" /-->
+		<language tag="pt-PT" />
 		<!-- language tag="ro-RO" /-->
 		<language tag="ru-RU" />
 		<!-- language tag="sk-SK" /-->
