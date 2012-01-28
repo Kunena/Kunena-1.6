@@ -260,11 +260,11 @@
 		<!-- language tag="hu-HU" /-->
 		<!-- language tag="id-ID" /-->
 		<language tag="it-IT" />
-		<!-- language tag="lv-LV" /-->
 		<!-- language tag="ja-JP" /-->
 		<language tag="km-KH" />
 		<!-- language tag="kz-KZ" /-->
 		<language tag="lt-LT" />
+		<!-- language tag="lv-LV" /-->
 		<!-- language tag="mk-MK" /-->
 		<language tag="nb-NO" />
 		<language tag="nl-NL" />
@@ -273,12 +273,14 @@
 		<!-- language tag="pt-PT" /-->
 		<!-- language tag="ro-RO" /-->
 		<language tag="ru-RU" />
+		<!-- language tag="sk-SK" /-->
 		<!-- language tag="sq-AL" /-->
 		<!-- language tag="sr-RS" /-->
 		<!-- language tag="sr-YU" /-->
 		<!-- language tag="sv-SE" /-->
 		<language tag="th-TH" />
 		<!-- language tag="tr-TR" /-->
+		<!-- language tag="ur-PK" /-->
 		<!-- language tag="vi-VN" /-->
 		<language tag="zh-CN" />
 		<language tag="zh-TW" />
