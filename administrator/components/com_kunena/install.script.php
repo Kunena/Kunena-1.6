@@ -12,6 +12,8 @@
 // Dont allow direct linking
 defined( '_JEXEC' ) or die();
 
+jimport( 'joomla.filesystem.file' );
+
 class Com_KunenaInstallerScript {
 
 	function install($parent) {
@@ -21,10 +23,14 @@ class Com_KunenaInstallerScript {
 		// Install English and default language
 		require_once(JPATH_ADMINISTRATOR . '/components/com_kunena/install/model.php');
 		$installer = new KunenaModelInstall();
-		$installer->installLanguage('en-GB');
+		$success = $installer->installLanguage('en-GB');
+		if (!$success) $app->enqueueMessage('Installing Kunena language (en-GB) failed!', 'notice');
 		$lang = JFactory::getLanguage();
 		$tag = $lang->getTag();
-		if ($tag != 'en-GB') $installer->installLanguage($tag);
+		if ($tag != 'en-GB') {
+			$success = $installer->installLanguage($tag);
+			if (!$success) $app->enqueueMessage("Installing Kunena language ({$tag}) failed!", 'notice');
+		}
 	}
 
 	function update($parent) {
@@ -45,8 +51,7 @@ class Com_KunenaInstallerScript {
 	function preflight($type, $parent) {
 		// Remove deprecated manifest.xml (K1.5)
 		$manifest = JPATH_ADMINISTRATOR . '/components/com_kunena/manifest.xml';
-		if (is_file($manifest)) {
-			jimport( 'joomla.filesystem.file' );
+		if (JFile::exists($manifest)) {
 			JFile::delete($manifest);
 		}
 	}
@@ -56,7 +61,7 @@ class Com_KunenaInstallerScript {
 		$installer = $parent->getParent();
 
 		// Rename kunena.j16.xml to kunena.xml
-		$adminpath = $installer->extension_administrator;
+		$adminpath = KPATH_ADMIN;
 		if (JFile::exists("{$adminpath}/kunena.j16.xml")) {
 			if ( JFile::exists("{$adminpath}/kunena.xml")) JFile::delete("{$adminpath}/kunena.xml");
 			JFile::move("{$adminpath}/kunena.j16.xml", "{$adminpath}/kunena.xml");
