@@ -110,7 +110,7 @@ table.kadmin-stat caption {
 	function installKTemplate()
 	{ ?>
 		<div class="kadmin-functitle icon-template"><?php echo JText::_('COM_KUNENA_A_TEMPLATE_MANAGER'); ?> - <?php echo JText::_('COM_KUNENA_A_TEMPLATE_MANAGER_INSTALL_NEW'); ?></div><br />
-		<form enctype="multipart/form-data" action="<?php echo JURI::base(); ?>index.php?option=com_kunena&amp;task=installTemplate" method="post" name="adminForm">
+		<form enctype="multipart/form-data" action="<?php echo JURI::base(); ?>index.php?option=com_kunena&amp;task=installTemplate" method="post" id="adminForm" name="adminForm">
 			<table class="adminform">
 				<tr>
 					<th colspan="2"><?php echo JText::_( 'COM_KUNENA_A_TEMPLATE_MANAGER_UPLOAD' ); ?></th>
@@ -139,7 +139,7 @@ table.kadmin-stat caption {
         }
 		JHTML::_('behavior.tooltip');?>
 	<div class="kadmin-functitle icon-template"><?php echo JText::_('COM_KUNENA_A_TEMPLATE_MANAGER'); ?></div><br />
-		<form action="index.php" method="post" name="adminForm">
+		<form action="index.php" method="post" id="adminForm" name="adminForm">
 			<table class="adminlist">
 			<thead>
 				<tr>
@@ -203,8 +203,8 @@ table.kadmin-stat caption {
 			</tbody>
 			</table>
 	<input type="hidden" name="option" value="<?php echo $option; ?>" />
-	<input type="hidden" name="task" value="showTemplates" />	
-	<input type="hidden" name="client" value="" />	
+	<input type="hidden" name="task" value="showTemplates" />
+	<input type="hidden" name="client" value="" />
 	<input type="hidden" name="boxchecked" value="0" />
 	<?php echo JHTML::_( 'form.token' ); ?>
 	</form>
@@ -216,7 +216,7 @@ table.kadmin-stat caption {
 		?>
 		<div class="kadmin-functitle icon-template"><?php echo JText::_('COM_KUNENA_A_TEMPLATE_MANAGER_EDIT_TEMPLATE'); ?> - <?php echo JText::_($row->name); ?></div><br />
 		<div style="border: 1px solid #ccc; padding: 10px 0 0;">
-		<form action="index.php" method="post" name="adminForm">
+		<form action="index.php" method="post" id="adminForm" name="adminForm">
 		<div class="col width-50">
 			<fieldset class="adminform">
 				<legend><?php echo JText::_( 'COM_KUNENA_A_TEMPLATE_MANAGER_DETAILS' ); ?></legend>
@@ -280,7 +280,7 @@ table.kadmin-stat caption {
 	{
  ?>
 	<div class="kadmin-functitle icon-editcss"><?php echo JText::_('COM_KUNENA_A_TEMPLATE_MANAGER_CHOOSE_CSS_TEMPLATE'); ?></div><br />
-	<form action="index.php" method="post" name="adminForm">
+	<form action="index.php" method="post" id="adminForm" name="adminForm">
 		<table cellpadding="1" cellspacing="1" border="0" width="100%">
 		<tr>
 			<td width="220"><span class="componentheading">&nbsp;</span></td>
@@ -319,7 +319,7 @@ table.kadmin-stat caption {
 	{
 		$css_path = KUNENA_PATH_TEMPLATE."/{$template}/css/{$filename}"; ?>
 	<div class="kadmin-functitle icon-editcss"><?php echo JText::_('COM_KUNENA_A_TEMPLATE_MANAGER_EDIT_CSS_TEMPLATE'); ?></div><br />
-		<form action="index.php" method="post" name="adminForm">
+		<form action="index.php" method="post" id="adminForm" name="adminForm">
 		<?php if($ftp): ?>
 		<fieldset title="<?php echo JText::_('DESCFTPTITLE'); ?>">
 			<legend><?php echo JText::_('DESCFTPTITLE'); ?></legend>
@@ -369,7 +369,7 @@ table.kadmin-stat caption {
 function showAdministration($rows, $children, $pageNav, $option, $lists) {
 ?>
 	<div class="kadmin-functitle icon-adminforum"><?php echo JText::_('COM_KUNENA_ADMIN'); ?></div>
-	<form action="index.php" method="post" name="adminForm">
+	<form action="index.php" method="post" id="adminForm" name="adminForm">
 		<table class="kadmin-sort">
 			<tr>
 				<td class="left" width="90%">
@@ -422,7 +422,7 @@ function showAdministration($rows, $children, $pageNav, $option, $lists) {
 	?>
 		<tr <?php echo 'class = "row' . $k . '"';?>>
 			<td class="right"><?php echo $i + $pageNav->limitstart + 1; ?></td>
-			<td><input type="checkbox" id="<?php	echo $i; ?>" name="cid[]" value="<?php echo kescape($row->id);?>" onclick="isChecked(this.checked);" /></td>
+			<td><?php echo JHTML::_('grid.id', $i, $row->id) ?></td>
 			<td class="left"><a href="#edit" onclick="return listItemTask('cb<?php echo $i ?>','edit')"><?php echo $row->treename; ?></a></td>
 			<td class="center"><?php echo kescape($row->id); ?></td>
 
@@ -518,7 +518,7 @@ function editForum(&$row, $categoryList, $moderatorList, $lists, $accessLists, $
             }
 		</script>
 		<div class="kadmin-functitle icon-adminforum"><?php echo JText::_('COM_KUNENA_ADMIN') ?></div>
-		<form action="index.php?option=<?php echo $option; ?>" method="post" name="adminForm">
+		<form action="index.php?option=<?php echo $option; ?>" method="post" id="adminForm" name="adminForm">
 
 		<?php
 		jimport('joomla.html.pane');
@@ -715,7 +715,7 @@ function editForum(&$row, $categoryList, $moderatorList, $lists, $accessLists, $
 
 	<div id="kadmin-configtabs">
 		<div class="kadmin-functitle icon-config"><?php echo JText::_('COM_KUNENA_A_CONFIG') ?></div>
-		<form action="index.php" method="post" name="adminForm">
+		<form action="index.php" method="post" id="adminForm" name="adminForm">
 
 		<dl class="tabs" id="pane">
 
@@ -2197,7 +2197,7 @@ function editForum(&$row, $categoryList, $moderatorList, $lists, $accessLists, $
 function showProfiles($option, &$users, $pageNav, $order, $lists) {
 ?>
 <div class="kadmin-functitle icon-profiles"><?php echo JText::_('COM_KUNENA_FUM'); ?></div>
-	<form action="index.php" method="post" name="adminForm">
+	<form action="index.php" method="post" id="adminForm" name="adminForm">
 		<table class="kadmin-sort">
 			<tr>
 				<td class="left" width="90%">
@@ -2313,7 +2313,7 @@ function showProfiles($option, &$users, $pageNav, $order, $lists) {
 function newModerator($option, $id, $moderators, &$modIDs, $forumName, &$userList, $countUL, $pageNav) {
 	?>
 
-	<form action="index.php" method="post" name="adminForm">
+	<form action="index.php" method="post" id="adminForm" name="adminForm">
 		<table cellpadding="4" class="adminheading" cellspacing="0" border="0" width="100%">
 			<tr>
 				<th width="100%" class="user"><?php echo JText::_('COM_KUNENA_ADDMOD'). kescape($forumName); ?>
@@ -2417,7 +2417,7 @@ function editUserProfile($option, $user, $subslist, $subscatslist, $selectRank, 
 				$csubslist = count ( $subslist );
 				//        include_once ('components/com_kunena/bb_adm.js'); ?>
 		<div class="kadmin-functitle icon-profiles"> <?php echo JText::_('COM_KUNENA_PROFFOR'); ?>: <?php echo kescape($user->name) .' ('. kescape($user->username) .')'; ?></div>
-		<form action="index.php?option=<?php echo $option; ?>" method="post" name="adminForm">
+		<form action="index.php?option=<?php echo $option; ?>" method="post" id="adminForm" name="adminForm">
 		<?php jimport('joomla.html.pane');
 			$myTabs = &JPane::getInstance('tabs', array('startOffset'=>0));
 			?>
@@ -2659,7 +2659,7 @@ function textCounter(field, target) {
 					<tr>
 						<td>
 						<strong><?php echo JText::_('COM_KUNENA_CATEGORY_TARGET'); ?></strong>
-						<form action="index.php" method="post" name="adminForm">
+						<form action="index.php" method="post" id="adminForm" name="adminForm">
 						<?php
 							echo $lists;
 						?>
@@ -2692,7 +2692,7 @@ function textCounter(field, target) {
 		function pruneforum($option, $forumList) {
 	?>
 	<div class="kadmin-functitle icon-prune"><?php echo JText::_('COM_KUNENA_A_PRUNE'); ?></div>
-	<form action="index.php" method="post" name="adminForm">
+	<form action="index.php" method="post" id="adminForm" name="adminForm">
 		<table class="adminform" cellpadding="4" cellspacing="0" border="0" width="100%">
 			<tr>
 				<td colspan="2"><?php echo JText::_('COM_KUNENA_A_PRUNE_DESC') ?></td>
@@ -2720,7 +2720,7 @@ function textCounter(field, target) {
 		?>
 		<div id="kadmin-congifcover">
 			<div class="kadmin-functitle icon-syncusers"><?php echo JText::_('COM_KUNENA_SYNC_USERS'); ?></div>
-			<form action="index.php" method="post" name="adminForm" class="adminform">
+			<form action="index.php" method="post" id="adminForm" name="adminForm" class="adminform">
 				<fieldset>
 					<legend><?php echo JText::_('COM_KUNENA_SYNC_USERS_OPTIONS'); ?></legend>
 					<table cellpadding="4" class="kadmin-adminform" cellspacing="0" border="0" width="100%">
@@ -2857,7 +2857,7 @@ function textCounter(field, target) {
 		<dl class="tabs" id="pane">
 		<dt title="<?php echo JText::_('COM_KUNENA_A_EMOTICONS'); ?>"><?php echo JText::_('COM_KUNENA_A_EMOTICONS'); ?></dt>
 		<dd>
-		<form action="index.php" method="post" name="adminForm">
+		<form action="index.php" method="post" id="adminForm" name="adminForm">
 			<table class="adminlist" border="0" cellspacing="0" cellpadding="3" width="100%">
 			<thead>
 				<tr>
@@ -2957,7 +2957,7 @@ function textCounter(field, target) {
 			//-->
 		</script>
 		<div class="kadmin-functitle icon-smilies"><?php echo JText::_('COM_KUNENA_EMOTICONS_EDIT_SMILEY'); ?></div>
-		<form action="index.php" method="post" name="adminForm">
+		<form action="index.php" method="post" id="adminForm" name="adminForm">
 			<table cellpadding="4" cellspacing="0" border="0" width="100%" class="adminform">
 				<tr align="center">
 					<td width="100"><?php
@@ -3023,7 +3023,7 @@ function textCounter(field, target) {
 		//-->
 		</script>
 		<div class="kadmin-functitle icon-smilies"><?php echo JText::_('COM_KUNENA_EMOTICONS_NEW_SMILEY'); ?></div>
-		<form action="index.php" method="post" name="adminForm">
+		<form action="index.php" method="post" id="adminForm" name="adminForm">
 			<table cellpadding="4" cellspacing="0" border="0" width="100%" class="adminform">
 				<tr align="center">
 					<td width="100"><?php
@@ -3076,7 +3076,7 @@ function textCounter(field, target) {
 		<dl class="tabs" id="pane">
 		<dt><?php echo JText::_('COM_KUNENA_A_RANKS'); ?></dt>
 		<dd>
-		<form action="index.php" method="post" name="adminForm">
+		<form action="index.php" method="post" id="adminForm" name="adminForm">
 			<table class="adminlist" border="0" cellspacing="0" cellpadding="3" width="100%">
 			<thead>
 				<tr>
@@ -3189,7 +3189,7 @@ function textCounter(field, target) {
 			//-->
 		</script>
 		<div class="kadmin-functitle icon-ranks"><?php echo JText::_('COM_KUNENA_NEW_RANK'); ?></div>
-		<form action="index.php" method="post" name="adminForm">
+		<form action="index.php" method="post" id="adminForm" name="adminForm">
 			<table cellpadding="4" cellspacing="0" border="0" width="100%" class="adminform">
 
 				<tr align="center">
@@ -3247,7 +3247,7 @@ function textCounter(field, target) {
 			//-->
 		</script>
 		<div class="kadmin-functitle icon-ranks"><?php echo JText::_('COM_KUNENA_RANKS_EDIT'); ?></div>
-		<form action="index.php" method="post" name="adminForm">
+		<form action="index.php" method="post" id="adminForm" name="adminForm">
 			<table cellpadding="4" cellspacing="0" border="0" width="100%" class="adminform">
 				<tr align="center">
 					<td width="100"><?php
@@ -3312,7 +3312,7 @@ function textCounter(field, target) {
 function showtrashview($option, $trashitems, $pageNav, $lists) {
 			?>
 		<div class="kadmin-functitle icon-trash"><?php echo JText::_('COM_KUNENA_TRASH_VIEW'); ?></div>
-		<form action="index.php" method="post" name="adminForm" class="adminform">
+		<form action="index.php" method="post" id="adminForm" name="adminForm" class="adminform">
 			<table class="kadmin-sort">
 				<tr>
 					<td class="left" width="90%">
@@ -3430,7 +3430,7 @@ function showtrashview($option, $trashitems, $pageNav, $lists) {
 			function trashpurge($option, $return, $cid, $items) {
 		?>
 		<div class="kadmin-functitle"><?php echo JText::_('COM_KUNENA_TRASH_PURGE'); ?></div>
-		<form action="index.php" method="post" name="adminForm">
+		<form action="index.php" method="post" id="adminForm" name="adminForm">
 			<table class="adminheading" cellpadding="4" cellspacing="0" border="0" width="100%"></table>
 			<table class="adminlist" border="0" cellspacing="0" cellpadding="3" width="100%">
 				<tr>
@@ -3477,7 +3477,7 @@ function showtrashview($option, $trashitems, $pageNav, $lists) {
 				});");
 		?>
 		<div class="kadmin-functitle icon-systemreport"><?php echo JText::_('COM_KUNENA_REPORT_SYSTEM'); ?></div>
-		<form action="index.php" method="post" name="adminForm" class="adminform">
+		<form action="index.php" method="post" id="adminForm" name="adminForm" class="adminform">
 		<fieldset><?php echo JText::_('COM_KUNENA_REPORT_SYSTEM_DESC'); ?><br /></fieldset>
 		<fieldset>
 			<div><a href="#" id="link_sel_all" ><?php echo JText::_('COM_KUNENA_REPORT_SELECT_ALL'); ?></a></div>

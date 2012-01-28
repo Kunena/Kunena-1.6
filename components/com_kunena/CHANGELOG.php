@@ -33,6 +33,10 @@ Legend:
 
 Kunena 1.7.2-DEV
 
+28-January-2012 Matias
+# [#231] J2.5 Select box not working in category manager (better fix)
+# [#247] Clean up all languages, add pt-PT to distribution
+
 27-January-2012 Matias
 # [#242] Fix language installation in Joomla 2.5
 
