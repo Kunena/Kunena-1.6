@@ -26,7 +26,7 @@ class KunenaActivityAlphaUserPoints extends KunenaActivity {
 	}
 
 	private function _getAUPversion() {
-		if (method_exists('AlphaUserPointsHelper', 'getAupVersion')) {
+		if (class_exists('AlphaUserPointsHelper') && method_exists('AlphaUserPointsHelper', 'getAupVersion')) {
 			return AlphaUserPointsHelper::getAupVersion();
 		}
 		return '1.5';
