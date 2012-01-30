@@ -3387,7 +3387,7 @@ function generateSystemReport () {
 	$thirdparty = array();
 	if ( JFile::exists(JPATH_SITE . '/components/com_alphauserpoints/helper.php') ) {
 		require_once(JPATH_SITE . '/components/com_alphauserpoints/helper.php');
-		if ( method_exists('AlphaUserPointsHelper', 'getAupVersion') ) {
+		if ( class_exists('AlphaUserPointsHelper') && method_exists('AlphaUserPointsHelper', 'getAupVersion') ) {
 			$aup = new AlphaUserPointsHelper ();
 			$thirdparty['aup'] = '[u]AlphaUserPoints[/u] '.$aup->getAupVersion();
 		} else {

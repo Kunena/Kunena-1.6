@@ -24,7 +24,7 @@ class KunenaProfileAlphaUserPoints extends KunenaProfile {
 		$kunena_config = KunenaFactory::getConfig ();
 		$my = JFactory::getUser();
 		if ( $kunena_config->userlist_allowed == 1 && $my->id == 0  ) return false;
-		if (method_exists ( 'AlphaUserPointsHelper', 'getAupUsersURL' ))
+		if (class_exists('AlphaUserPointsHelper') && method_exists ( 'AlphaUserPointsHelper', 'getAupUsersURL' ))
 			return AlphaUserPointsHelper::getAupUsersURL ();
 		else {
 			// For AUP 1.5.3 etc..
@@ -47,7 +47,7 @@ class KunenaProfileAlphaUserPoints extends KunenaProfile {
 		if ($user === false)
 			return false;
 		$userid = $my->id != $user->userid ? '&userid=' . AlphaUserPointsHelper::getAnyUserReferreID ( $user->userid ) : '';
-		if (method_exists ( 'AlphaUserPointsHelper', 'getItemidAupProfil' )) {
+		if (class_exists('AlphaUserPointsHelper') && method_exists ( 'AlphaUserPointsHelper', 'getItemidAupProfil' )) {
 			$AUP_itemid = AlphaUserPointsHelper::getItemidAupProfil ();
 		} else {
 			$db = JFactory::getDBO ();

@@ -25,7 +25,7 @@ class KunenaAvatarCommunityBuilder extends KunenaAvatar
 	}
 
 	public function load($userlist) {
-		if (method_exists('CBuser','advanceNoticeOfUsersNeeded')) {
+		if (class_exists('CBuser') && method_exists('CBuser','advanceNoticeOfUsersNeeded')) {
 			CBuser::advanceNoticeOfUsersNeeded($userlist);
 		}
 	}

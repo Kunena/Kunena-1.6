@@ -33,6 +33,12 @@ Legend:
 
 Kunena 1.7.2-DEV
 
+30-January-2012 Matias
++ [#250] Create installable language pack when building Kunena
+
+29-January-2012 Matias
+# [#249] Workaround crash in PHP 5.3 method_exists() if class doesn't exist
+
 28-January-2012 Matias
 # [#231] J2.5 Select box not working in category manager (better fix)
 # [#247] Clean up all languages, add pt-PT to distribution
