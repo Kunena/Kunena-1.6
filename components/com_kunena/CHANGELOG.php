@@ -34,6 +34,9 @@ Legend:
 Kunena 1.7.2-DEV
 
 30-January-2012 Matias
+# [#251] Wrong link in eg-GB.com_kunena.install.ini (line 142)
+
+30-January-2012 Matias
 + [#250] Create installable language pack when building Kunena
 
 29-January-2012 Matias
