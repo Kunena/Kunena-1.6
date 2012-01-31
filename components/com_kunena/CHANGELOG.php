@@ -1,10 +1,9 @@
 <?php
 /**
-* @version $Id: CHANGELOG.php 5100 2011-06-23 07:00:59Z mahagr $
 * Kunena Component
 * @package Kunena
 *
-* @Copyright (C) 2008 - 2011 www.kunena.org All rights reserved.
+* @Copyright (C) 2008 - 2012 Kunena Team. All rights reserved.
 * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL
 * @link http://www.kunena.org
 **/
@@ -31,10 +30,11 @@ Legend:
 
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-Kunena 1.7.2-DEV
+Kunena 1.7.2
 
-30-January-2012 Matias
+31-January-2012 Matias
 # [#251] Wrong link in eg-GB.com_kunena.install.ini (line 142)
+# [#186] Prepare 1.7.2 Release
 
 30-January-2012 Matias
 + [#250] Create installable language pack when building Kunena
