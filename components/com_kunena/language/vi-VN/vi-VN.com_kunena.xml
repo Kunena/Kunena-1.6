@@ -14,8 +14,8 @@
 	<description>Vietnamese language file for Kunena Forum Component</description>
 
 	<files>
-		<!-- filename>vi-VN.com_kunena.ini</filename -->
-		<!-- filename>vi-VN.com_kunena.tpl_default.ini</filename -->
-		<!-- filename>vi-VN.com_kunena.tpl_example.ini</filename -->
+		<filename>vi-VN.com_kunena.ini</filename>
+		<filename>vi-VN.com_kunena.tpl_default.ini</filename>
+		<filename>vi-VN.com_kunena.tpl_example.ini</filename>
 	</files>
 </install>
